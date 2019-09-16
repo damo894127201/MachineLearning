@@ -58,10 +58,10 @@ class GBDT:
             # 第i轮，对负梯度拟合一个回归树
             self.trees[i].fit(X,rmi)
             # 第i棵树的预测值
-            y_pred = self.trees[i].predict(X)
+            i_pred = self.trees[i].predict(X)
             # 这里我们给y_pred设置一个学习率，再减去右边项后，它会使得下一步要学习的残差变小
             # 同理，为保持一致性，再预测时，我们还要将其再加回来
-            y_pred -= np.multiply(self.learning_rate,y_pred)
+            y_pred -= np.multiply(self.learning_rate,i_pred)
 
     def predict(self,X):
         '''模型预测'''

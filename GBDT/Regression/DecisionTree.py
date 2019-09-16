@@ -111,8 +111,8 @@ class DecisionTree:
                         # 获取impurity
                         impurity = self.impurity_calculation(Y,label1,label2)
 
-                        # 如果当前阈值threshold能够获得更小的impurity,那么记录该impurity到
-                        # min_impurity和相应的特征
+                        # 如果当前阈值threshold能够获得更大的impurity,那么记录该impurity到
+                        # max_impurity和相应的特征
                         if impurity > max_impurity:
                             max_impurity = impurity
                             # 存储最佳的分割结点的特征以及以特征相应的分割阈值
@@ -125,7 +125,7 @@ class DecisionTree:
                                 "rightY":data2[:,n_features:] # 位于右子节点的样本标签
                             }
         # 经过当前最佳特征的特征值最佳分割点分割后的数据，继续递归构建左右子树
-        # 如果当前数据集D，在当前特征的条件下，Gini指数仍大于指定的阈值，则继续拆分节点
+        # 如果当前数据集D，在当前特征的条件下，平方误差损失仍大于指定的阈值，则继续拆分节点
         if max_impurity > self.min_impurity and best_criteria != None:
             # 由此可看出，虽然特征会重复作为拆分节点的条件，但是每次拆分的threshold是不一样的
             #print(current_depth,best_criteria["feature_index"],best_criteria['threshold'])

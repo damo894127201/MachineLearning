@@ -13,7 +13,7 @@ import numpy as np
 class GBDTClassifier(GBDT):
     '''GBDT分类器'''
     def __init__(self, n_estimators=200, learning_rate=.5, min_samples_split=3,
-                 min_info_gain=1e-7, max_depth=3):
+                 min_info_gain=1e-7, max_depth=float('inf')):
         super(GBDTClassifier, self).__init__(n_estimators=n_estimators,
                                              learning_rate=learning_rate,
                                              min_samples_split=min_samples_split,

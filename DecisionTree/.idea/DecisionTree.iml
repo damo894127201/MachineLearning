@@ -2,10 +2,7 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/ID3&amp;&amp;C4.5/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/CART/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/CART/ClassDecisionTree" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CART/RegressionDecisionTree" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

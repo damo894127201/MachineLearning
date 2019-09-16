@@ -43,7 +43,6 @@ class RegressionDecisionTree(DecisionTree):
 
     def mean_of_y(self,y):
         '''当前节点输出的预测值为当前节点内所有样本y值的均值'''
-        y = np.squeeze(y)
         return y.mean()
 
     def fit(self,X,Y):
