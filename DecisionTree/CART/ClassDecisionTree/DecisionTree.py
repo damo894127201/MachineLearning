@@ -186,7 +186,7 @@ class DecisionTree:
         '''对样本集X 进行预测'''
         y_pred = [] # 预测的标签
         for x in X:
-            y_pred.append(self.predict_value(x))
+            y_pred.append(int(self.predict_value(x)))
         return y_pred
 
     def print_tree(self,tree=None,indent=" "):

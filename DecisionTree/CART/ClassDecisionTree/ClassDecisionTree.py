@@ -80,6 +80,7 @@ if __name__ == "__main__":
     clf.fit(X_train,Y_train)
     clf.print_tree()
     y_pred = clf.predict(X_test)
+    y_pred = np.array(y_pred)
     accuracy = accuracy_score(Y_test,y_pred)
     print("CART  Accuracy:",accuracy)
 

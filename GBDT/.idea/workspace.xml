@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2f5c2cc0-bfdf-4c37-a86e-bf4af51de679" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../DecisionTree/CART/RegressionDecisionTree/TreeNode.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Regression/DecisionTree.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Regression/GBDT.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Regression/GBDTRegressor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Regression/LossFunction.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Regression/RegressionDecisionTree.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Regression/TreeNode.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Regression/test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classification/DecisionTree.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classification/GBDT.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classification/GBDTClassifier.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classification/LossFunction.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classification/RegressionDecisionTree.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classification/TreeNode.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classification/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DecisionTree/.idea/DecisionTree.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../DecisionTree/.idea/DecisionTree.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DecisionTree/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DecisionTree/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DecisionTree/CART/RegressionDecisionTree/RegressionDecisionTree.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DecisionTree/CART/RegressionDecisionTree/RegressionDecisionTree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LR/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LR/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="2f5c2cc0-bfdf-4c37-a86e-bf4af51de679" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +79,8 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="H:/Machine-Learning-From-Scratch-master/gradient_boosting_decision_tree" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Xgboost" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
