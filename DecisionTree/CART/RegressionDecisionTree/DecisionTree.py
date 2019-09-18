@@ -55,11 +55,11 @@ class DecisionTree:
     def _divideOnFeature(self,X,feature_index,threshold):
         '''基于某个特征来切分数据集X，特征值大于threshold，为一类；小于threshold，为另一类'''
         split_func = None # 切分函数
-        # 离散型特征
+        # 连续型特征
         if isinstance(threshold,int) or isinstance(threshold,float):
             split_func = lambda sample:sample[feature_index] >= threshold
         else:
-            # 连续型特征
+            # 离散型特征
             split_func = lambda sample:sample[feature_index] == threshold
 
         X_1 = np.array([sample for sample in X if split_func(sample)])

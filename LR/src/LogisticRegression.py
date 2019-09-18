@@ -55,7 +55,7 @@ class LogisticRegression:
             # X.dot(self.w) = (n_samples,1)
             x_w = X.dot(self.w) # X.shape=(n_samples,n_features)
             y_pred = self._sigmoid(x_w)
-            w_grad = X.T.dot(Y - y_pred) # w的梯度,w_grad.shape=(n_features,1)
+            w_grad = X.T.dot(Y - y_pred) # w的梯度,w_grad.shape=(n_features,1),这是对对数似然函数对参数W求偏导而得
             self.w = self.w + self.lr * w_grad # 更新梯度,由于是求对数极大似然的极大值，
             # 因此，我们在更新梯度时应该加上梯度，而不是减去；在求极小值时，是减去梯度，代表着往负梯度方向走误差下降最快
 
