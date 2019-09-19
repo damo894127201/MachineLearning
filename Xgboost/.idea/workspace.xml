@@ -1,30 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="24dabac0-bd12-46f3-ad79-5037267cd7a6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/classification/DecisionTree.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classification/LossFunction.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classification/TreeNode.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classification/XGBoost.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classification/XGBoostClassifier.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classification/XGBoostRegressionDecisionTree.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regression/DecisionTree.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regression/LossFunction.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regression/TreeNode.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regression/XGBoost.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regression/XGBoostRegressionDecisionTree.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regression/XGBoostRegressor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DecisionTree/CART/ClassDecisionTree/DecisionTree.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DecisionTree/CART/ClassDecisionTree/DecisionTree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DecisionTree/CART/RegressionDecisionTree/DecisionTree.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DecisionTree/CART/RegressionDecisionTree/DecisionTree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DecisionTree/ID3&amp;&amp;C4.5/src/DecisionTree.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DecisionTree/ID3&amp;&amp;C4.5/src/DecisionTree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GBDT/Regression/DecisionTree.py" beforeDir="false" afterPath="$PROJECT_DIR$/../GBDT/Regression/DecisionTree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GBDT/Regression/GBDT.py" beforeDir="false" afterPath="$PROJECT_DIR$/../GBDT/Regression/GBDT.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GBDT/classification/DecisionTree.py" beforeDir="false" afterPath="$PROJECT_DIR$/../GBDT/classification/DecisionTree.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GBDT/classification/GBDT.py" beforeDir="false" afterPath="$PROJECT_DIR$/../GBDT/classification/GBDT.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LR/src/LogisticRegression.py" beforeDir="false" afterPath="$PROJECT_DIR$/../LR/src/LogisticRegression.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RandomForest/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../RandomForest/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RandomForest/src/DecisionTree.py" beforeDir="false" afterPath="$PROJECT_DIR$/../RandomForest/src/DecisionTree.py" afterDir="false" />
-    </list>
+    <list default="true" id="24dabac0-bd12-46f3-ad79-5037267cd7a6" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +50,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="278" />
+    <option name="x" value="277" />
     <option name="y" value="55" />
     <option name="width" value="1440" />
     <option name="height" value="915" />
@@ -99,7 +76,8 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../降维算法/主成分分析PCA" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -266,20 +244,8 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/t2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="19" column="17" selection-start-line="5" selection-end-line="19" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/t2.py" />
+    <entry file="file://$PROJECT_DIR$/test.py" />
     <entry file="file://$PROJECT_DIR$/regression/LossFunction.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="506">
@@ -287,16 +253,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/regression/XGBoostClassifier.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-364">
-          <caret line="33" column="48" selection-start-line="33" selection-start-column="48" selection-end-line="33" selection-end-column="48" />
-          <folding>
-            <element signature="e#197#224#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/regression/XGBoostClassifier.py" />
     <entry file="file://$PROJECT_DIR$/regression/XGBoost.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-154">
