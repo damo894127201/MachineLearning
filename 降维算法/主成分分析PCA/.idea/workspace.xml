@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="72c5e934-4a60-4d2d-af0a-bb038933b8ce" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/PCA.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/t.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Xgboost/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Xgboost/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="72c5e934-4a60-4d2d-af0a-bb038933b8ce" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,7 +13,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/PCA.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
+            <state relative-caret-position="3176">
               <caret line="160" column="14" selection-start-line="160" selection-start-column="14" selection-end-line="160" selection-end-column="14" />
             </state>
           </provider>
@@ -72,11 +68,6 @@
               <item name="主成分分析PCA" type="b2602c69:ProjectViewProjectNode" />
               <item name="主成分分析PCA" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="主成分分析PCA" type="b2602c69:ProjectViewProjectNode" />
-              <item name="主成分分析PCA" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -85,7 +76,8 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../KNN" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -175,7 +167,7 @@
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.398017" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.398017" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -195,7 +187,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/PCA.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
+        <state relative-caret-position="3176">
           <caret line="160" column="14" selection-start-line="160" selection-start-column="14" selection-end-line="160" selection-end-column="14" />
         </state>
       </provider>
