@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3f6fa58b-f6da-497a-92bf-256814a1acb4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/KDNode.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/KDTree.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/KNN_kdTree.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/KNN_linearScan.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/compare.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../降维算法/主成分分析PCA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../降维算法/主成分分析PCA/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="3f6fa58b-f6da-497a-92bf-256814a1acb4" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +13,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/KNN_kdTree.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="118" column="23" lean-forward="true" selection-start-line="118" selection-start-column="23" selection-end-line="118" selection-end-column="23" />
+            <state relative-caret-position="3510">
+              <caret line="118" column="23" selection-start-line="118" selection-start-column="23" selection-end-line="118" selection-end-column="23" />
               <folding>
                 <element signature="e#2619#2644#0" expanded="true" />
               </folding>
@@ -32,8 +25,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/compare.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="16" column="7" lean-forward="true" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+            <state relative-caret-position="330">
+              <caret line="16" column="7" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
               <folding>
                 <element signature="e#239#280#0" expanded="true" />
               </folding>
@@ -45,10 +38,7 @@
         <entry file="file://$PROJECT_DIR$/src/KDTree.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="326">
-              <caret line="110" column="26" lean-forward="true" selection-start-line="110" selection-start-column="26" selection-end-line="110" selection-end-column="26" />
-              <folding>
-                <element signature="e#233#258#0" expanded="true" />
-              </folding>
+              <caret line="110" column="26" selection-start-line="110" selection-start-column="26" selection-end-line="110" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -56,8 +46,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/KNN_linearScan.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="56">
-              <caret line="75" column="11" lean-forward="true" selection-start-line="75" selection-start-column="11" selection-end-line="75" selection-end-column="11" />
+            <state relative-caret-position="2220">
+              <caret line="75" column="11" selection-start-line="75" selection-start-column="11" selection-end-line="75" selection-end-column="11" />
               <folding>
                 <element signature="e#401#419#0" expanded="true" />
               </folding>
@@ -101,38 +91,21 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="227" />
-    <option name="y" value="88" />
+    <option name="x" value="226" />
+    <option name="y" value="87" />
     <option name="width" value="1440" />
-    <option name="height" value="994" />
+    <option name="height" value="995" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="KNN" type="b2602c69:ProjectViewProjectNode" />
-              <item name="KNN" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="KNN" type="b2602c69:ProjectViewProjectNode" />
-              <item name="KNN" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="H:/Machine-Learning-From-Scratch-master/k_nearest_neighbors" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../SVM" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -299,35 +272,9 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/utils/misc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/knnExample.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="11" column="28" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/knnModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="29" column="83" selection-start-line="29" selection-start-column="83" selection-end-line="29" selection-end-column="83" />
-          <folding>
-            <element signature="e#15#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/misc.py" />
+    <entry file="file://$PROJECT_DIR$/src/knnExample.py" />
+    <entry file="file://$PROJECT_DIR$/src/knnModel.py" />
     <entry file="file://$PROJECT_DIR$/src/KDNode.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="426">
@@ -337,30 +284,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/KNN_kdTree.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="118" column="23" lean-forward="true" selection-start-line="118" selection-start-column="23" selection-end-line="118" selection-end-column="23" />
+        <state relative-caret-position="3510">
+          <caret line="118" column="23" selection-start-line="118" selection-start-column="23" selection-end-line="118" selection-end-column="23" />
           <folding>
             <element signature="e#2619#2644#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/KNN_linearScan.py">
+    <entry file="file://$PROJECT_DIR$/src/compare.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="56">
-          <caret line="75" column="11" lean-forward="true" selection-start-line="75" selection-start-column="11" selection-end-line="75" selection-end-column="11" />
+        <state relative-caret-position="330">
+          <caret line="16" column="7" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
           <folding>
-            <element signature="e#401#419#0" expanded="true" />
+            <element signature="e#239#280#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/compare.py">
+    <entry file="file://$PROJECT_DIR$/src/KNN_linearScan.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="16" column="7" lean-forward="true" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+        <state relative-caret-position="2220">
+          <caret line="75" column="11" selection-start-line="75" selection-start-column="11" selection-end-line="75" selection-end-column="11" />
           <folding>
-            <element signature="e#239#280#0" expanded="true" />
+            <element signature="e#401#419#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -368,10 +315,7 @@
     <entry file="file://$PROJECT_DIR$/src/KDTree.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="326">
-          <caret line="110" column="26" lean-forward="true" selection-start-line="110" selection-start-column="26" selection-end-line="110" selection-end-column="26" />
-          <folding>
-            <element signature="e#233#258#0" expanded="true" />
-          </folding>
+          <caret line="110" column="26" selection-start-line="110" selection-start-column="26" selection-end-line="110" selection-end-column="26" />
         </state>
       </provider>
     </entry>
