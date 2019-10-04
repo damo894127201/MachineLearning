@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)https://www.cnblogs.com/wanghui-garcia/p/10763418.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="origin">
+    <meta property="og:description" content="参考：https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.stats.multivariate_normal.html ">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园</title>
+    
+    <link rel="stylesheet" href="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/blog-common.min.css">
+    <link id="MainCss" rel="stylesheet" href="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/bundle-simplememory.min.css">
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/bundle-SimpleMemory-mobile.min.css">
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/wanghui-garcia/rss">
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/wanghui-garcia/rsd.xml">
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/wanghui-garcia/wlwmanifest.xml">
+    <script async="" src="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/analytics.js"></script><script type="text/javascript" src="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/encoder.js"></script><script src="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/jquery-2.2.0.min.js"></script>
+    <script src="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/blog-common.min.js"></script>
+    <script>
+        var currentBlogId = 445638;
+        var currentBlogApp = 'wanghui-garcia';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+    </script>
+    
+    
+    
+<link rel="preload" href="https://adservice.google.com/adsid/integrator.js?domain=www.cnblogs.com" as="script"><script type="text/javascript" src="https://adservice.google.com/adsid/integrator.js?domain=www.cnblogs.com"></script><script src="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/pubads_impl_2019092602.js" async=""></script></head>
+<body>
+    <a name="top"></a>
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/wanghui-garcia/"><img id="blogLogo" src="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/logo.gif" alt="返回主页"></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/wanghui-garcia/">慢行厚积</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/wanghui-garcia/">
+首页</a>
+</li>
+<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E6%85%A2%E8%A1%8C%E5%8E%9A%E7%A7%AF">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/wanghui-garcia/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			
+			<span id="stats_post_count">随笔 - 
+484&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+23</span>
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class="postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/wanghui-garcia/p/10763418.html">scipy.stats.multivariate_normal的使用</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body ">
+    <p>参考：https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.stats.multivariate_normal.html</p>
+<p>一个多元正态随机变量。<br>mean关键字指定平均值，cov关键字指定协方差矩阵。<br>新版本0.14.0。</p>
+<p>&nbsp;</p>
+<p>补充：高斯分布</p>
+<p>Gaussian Distribution(Normal Distribution)其图形特点为中间高，两头低，是钟形曲线(bell-shaped curve)。在高斯分布中，以数学期望μ(即mean)表示钟型的中心位置（也即曲线的位置），而标准差（standard deviation）σ表征曲线的离散程度。</p>
+<p><img src="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/1446032-20190424150734331-1649000230.png" alt="" width="200" height="83"></p>
+<p>&nbsp;</p>
+<p>协方差矩阵，参考百度百科：</p>
+<p>协方差矩阵的每个元素是各个向量元素之间的协方差</p>
+<p><img src="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/1446032-20190424173804565-1559637079.png" alt="" width="300" height="124"></p>
+<p>协方差矩阵可用来表示多维随机变量的<a href="https://baike.baidu.com/item/%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6" target="_blank">概率密度</a>，从而可通过协方差矩阵达到对多维随机变量的研究</p>
+<p><img src="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/1446032-20190424174219285-816189953.png" alt="" width="500" height="430"></p>
+<p>&nbsp;</p>
+<p>1）参数：</p>
+<ul>
+<li><strong>x</strong> ： 数组，分位数，最后一个x轴标记组件。</li>
+<li><strong>mean</strong>：数组，可选的。分布的均值（默认为0）</li>
+<li><strong>cov</strong><span class="Apple-converted-space"> ：数组，可选的。分布的协方差矩阵(默认为1)</span></li>
+
+
+
+
+
+
+
+</ul>
+<p><span class="Apple-converted-space">可以该multivariate_normal对象可以被调用(作为函数)来固定均值和协方差参数，返回一个“frozen”的多元正态随机变量rv:</span></p>
+<div class="cnblogs_code">
+<pre>rv = multivariate_normal(mean=None, scale=<span style="color: #800080;">1)</span></pre>
+</div>
+<p>冻结对象采用相同的方法，但保持给定的均值和协方差不变。</p>
+<p>&nbsp;</p>
+<p>2）注意：</p>
+<p>将参数均值mean设为None等价于将均值mean设为零向量。参数cov可以是一个标量，在这种情况下，协方差矩阵是该值的单位乘、协方差矩阵的对角项向量，或者二维数组。<br><br>协方差矩阵cov必须是一个(对称的)正半定矩阵。将cov的行列式和逆分别计算为伪行列式和伪逆，使cov不需要满秩。</p>
+<p>multivariate_normal的概率密度函数是：</p>
+<p><img src="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/1446032-20190424151056754-1100173994.png" alt="" width="300" height="53"></p>
+<p>μ是平均值mean，默认为0；∑即cov是协方差矩阵，默认为1；k是x获取值的空间的维度</p>
+<p>&nbsp;</p>
+<p>3）举例：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">from</span><span style="color: #000000;"> scipy.stats import multivariate_normal
+x </span>= np.linspace(<span style="color: #800080;">0</span>, <span style="color: #800080;">5</span>, <span style="color: #800080;">10</span>, endpoint=<span style="color: #000000;">False)
+y </span>= multivariate_normal.pdf(x, mean=<span style="color: #800080;">2.5</span>, cov=<span style="color: #800080;">0.5</span><span style="color: #000000;">);
+x,y</span></pre>
+</div>
+<p>返回，y得到的值x的值在mean=2.5取值点附近的可能性：</p>
+<div class="cnblogs_code">
+<pre>(array([<span style="color: #800080;">0</span>. , <span style="color: #800080;">0.5</span>, <span style="color: #800080;">1</span>. , <span style="color: #800080;">1.5</span>, <span style="color: #800080;">2</span>. , <span style="color: #800080;">2.5</span>, <span style="color: #800080;">3</span>. , <span style="color: #800080;">3.5</span>, <span style="color: #800080;">4</span>. , <span style="color: #800080;">4.5</span><span style="color: #000000;">]),
+ array([</span><span style="color: #800080;">0.00108914</span>, <span style="color: #800080;">0.01033349</span>, <span style="color: #800080;">0.05946514</span>, <span style="color: #800080;">0.20755375</span>, <span style="color: #800080;">0.43939129</span><span style="color: #000000;">,
+        </span><span style="color: #800080;">0.56418958</span>, <span style="color: #800080;">0.43939129</span>, <span style="color: #800080;">0.20755375</span>, <span style="color: #800080;">0.05946514</span>, <span style="color: #800080;">0.01033349</span>]))</pre>
+</div>
+<p>画图：</p>
+<div class="cnblogs_code">
+<pre>plt.plot(x, y)</pre>
+</div>
+<p><img src="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/1446032-20190424152720914-766483019.png" alt="" width="300" height="187"></p>
+<p>&nbsp;</p>
+<p>输入分位数x可以是任何形状的数组，只要最后一个轴标记组件。这使得我们可以在二维中显示非各向同性随机变量的冻结pdf,如下:</p>
+<p>补充<a id="link_post_title" class="link-post-title" href="https://www.cnblogs.com/wanghui-garcia/p/10763103.html">np.mgrid的用法</a></p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>x, y = np.mgrid[-<span style="color: #800080;">1</span>:<span style="color: #800080;">1</span>:.<span style="color: #800080;">01</span>, -<span style="color: #800080;">1</span>:<span style="color: #800080;">1</span>:.<span style="color: #800080;">01</span><span style="color: #000000;">]
+pos </span>= np.empty(x.shape + (<span style="color: #800080;">2</span>,)) #从x.shape=(<span style="color: #800080;">200</span>,<span style="color: #800080;">200</span>)变为(<span style="color: #800080;">200</span>,<span style="color: #800080;">200</span>,<span style="color: #800080;">2</span><span style="color: #000000;">)
+pos[:, :, </span><span style="color: #800080;">0</span>] =<span style="color: #000000;"> x
+pos[:, :, </span><span style="color: #800080;">1</span>] =<span style="color: #000000;"> y
+#mean</span>=[<span style="color: #800080;">0.5</span>, -<span style="color: #800080;">0.2</span>],cov=[[<span style="color: #800080;">2.0</span>, <span style="color: #800080;">0.3</span>], [<span style="color: #800080;">0.3</span>, <span style="color: #800080;">0.5</span><span style="color: #000000;">]]，声明一个带着指定mean和cov的rv对象
+rv </span>= multivariate_normal([<span style="color: #800080;">0.5</span>, -<span style="color: #800080;">0.2</span>], [[<span style="color: #800080;">2.0</span>, <span style="color: #800080;">0.3</span>], [<span style="color: #800080;">0.3</span>, <span style="color: #800080;">0.5</span><span style="color: #000000;">]])
+#将f(X,Y)</span>=<span style="color: #000000;">rv.pdf(pos)的值对应到color map的暖色组中寻找(X,Y)对应的点对应的颜色
+plt.contourf(x, y, rv.pdf(pos))</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>返回：</p>
+<p><img src="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/1446032-20190424164654861-195055022.png" alt="" width="300" height="159"></p>
+<p>可见使用概率密度函数pdf对数据pos，即(x,y)值进行处理后得到满足设置的mean和cov的值,使其分布满足高斯分布。rv.pdf(pos).shape为(200,200)</p>
+<p>&nbsp;</p>
+<p>4)可使用方法：</p>
+<ul>
+<li>pdf(x, mean=None, cov=1) ：概率密度函数</li>
+<li>logpdf(x, mean=None, cov=1) ：概率密度函数日志</li>
+<li>rvs(mean=None, cov=1) ：从多元正态分布中随机抽取样本</li>
+<li>entropy() ：计算多元法线的微分熵</li>
+</ul>
+<p>&nbsp;</p>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block"><div id="BlogPostCategory">
+    分类: 
+            <a href="https://www.cnblogs.com/wanghui-garcia/category/1437049.html" target="_blank">python</a></div>
+
+
+    <div id="blog_post_info">
+<div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(10763418,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+        <a id="green_channel_follow" onclick="follow(&#39;5fbdcafd-bb4d-4806-3ba9-08d5ec73d6a4&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/wanghui-garcia/">慢行厚积</a><br>
+            <a href="https://home.cnblogs.com/u/wanghui-garcia/followees/">关注 - 1</a><br>
+            <a href="https://home.cnblogs.com/u/wanghui-garcia/followers/">粉丝 - 24</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;5fbdcafd-bb4d-4806-3ba9-08d5ec73d6a4&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(10763418,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(10763418,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+    <div class="clear"></div>
+    <div id="post_next_prev">
+
+    <a href="https://www.cnblogs.com/wanghui-garcia/p/10763103.html" class="p_n_p_prefix">« </a> 上一篇：    <a href="https://www.cnblogs.com/wanghui-garcia/p/10763103.html" title="发布于 2019-04-24 16:24">np.mgrid的用法</a>
+    <br>
+    <a href="https://www.cnblogs.com/wanghui-garcia/p/10764428.html" class="p_n_p_prefix">» </a> 下一篇：    <a href="https://www.cnblogs.com/wanghui-garcia/p/10764428.html" title="发布于 2019-04-24 19:18">Example of DenseCRF with non-RGB data</a>
+
+</div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2019-04-24 17:03</span>&nbsp;<a href="https://www.cnblogs.com/wanghui-garcia/">慢行厚积</a> 阅读(<span id="post_view_count">624</span>) 评论(<span id="post_comment_count">0</span>) <a href="https://i.cnblogs.com/EditPosts.aspx?postid=10763418" rel="nofollow"> 编辑</a> <a href="javascript:void(0)" onclick="AddToWz(10763418); return false;">收藏</a>
+</div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 445638, cb_blogApp = 'wanghui-garcia', cb_blogUserGuid = '5fbdcafd-bb4d-4806-3ba9-08d5ec73d6a4';
+    var cb_entryId = 10763418, cb_entryCreatedDate = '2019-04-24 17:03', cb_postType = 1; 
+    loadViewCount(cb_entryId);
+</script><a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<script>
+    var commentManager = new blogCommentManager();
+    commentManager.renderComments(0);
+</script>
+
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/wanghui-garcia/p/10763418.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/wanghui-garcia/p/10763418.html#top">返回顶部</a></div>
+    <div id="comment_form_container"><div class="login_tips">
+    注册用户登录后才能发表评论，请 
+    <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a>
+     或 
+    <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，
+    <a href="https://www.cnblogs.com/">访问</a> 网站首页。
+</div></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-工控&#39;)">【推荐】超50万行VC++源码: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://www.jdcloud.com/cn/activity/year-end?utm_source=DMT_cnblogs&amp;utm_medium=CH&amp;utm_campaign=q4vm&amp;utm_term=Virtual-Machines" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-京东云&#39;)">【活动】京东云服务器_云主机低于1折，低价高性能产品备战双11</a><br><a href="https://www.cnblogs.com/cmt/p/11505603.html" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-华为云代金券&#39;)">【福利】git pull &amp;&amp; cherry-pick 博客园&amp;华为云百万代金券</a><br></div>
+    <div id="opt_under_post"></div>
+    <script async="async" src="./scipy.stats.multivariate_normal的使用 - 慢行厚积 - 博客园_files/gpt.js"></script>
+    <script>
+        var googletag = googletag || {};
+        googletag.cmd = googletag.cmd || [];
+    </script>
+    <script>
+        googletag.cmd.push(function () {
+            googletag.defineSlot("/1090369/C1", [300, 250], "div-gpt-ad-1546353474406-0").addService(googletag.pubads());
+            googletag.defineSlot("/1090369/C2", [468, 60], "div-gpt-ad-1539008685004-0").addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;"></div>
+    </div>
+    <div id="under_post_news"><div class="recomm-block"><b>相关博文：</b><br>·  <a title="scipy模块stats文档" href="https://www.cnblogs.com/ttrrpp/p/6822214.html" target="_blank" onclick="clickRecomItmem(6822214)">scipy模块stats文档</a><br>·  <a title="scipy.stats" href="https://www.cnblogs.com/timxgb/p/10557972.html" target="_blank" onclick="clickRecomItmem(10557972)">scipy.stats</a><br>·  <a title="python_numpy的基础" href="https://www.cnblogs.com/lwx666/p/10541764.html" target="_blank" onclick="clickRecomItmem(10541764)">python_numpy的基础</a><br>·  <a title="Scipy教程 - 统计函数库scipy.stats" href="https://www.cnblogs.com/aiyuxi/p/6310116.html" target="_blank" onclick="clickRecomItmem(6310116)">Scipy教程 - 统计函数库scipy.stats</a><br>·  <a title="#np.random.normal,产生制定分布的数集(默认是标准正态分布)" href="https://www.cnblogs.com/qqhfeng/p/5336293.html" target="_blank" onclick="clickRecomItmem(5336293)">#np.random.normal,产生制定分布的数集(默认是标准正态分布)</a><br></div></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;">
+            <script>
+                if (new Date() >= new Date(2018, 9, 13)) {
+                    googletag.cmd.push(function () { googletag.display("div-gpt-ad-1539008685004-0"); });
+                }
+            </script>
+        </div>
+    </div>
+    <div id="under_post_kb">
+<div class="itnews c_ad_block">
+    <b>最新 IT 新闻</b>:
+    <br>
+ ·              <a href="https://news.cnblogs.com/n/641761/" target="_blank">把猩猩当人养它能不能学会说话？这样的实验科学家做了几十年</a>
+            <br>
+ ·              <a href="https://news.cnblogs.com/n/641760/" target="_blank">太阳系的第九行星，竟可能是一个黑洞？</a>
+            <br>
+ ·              <a href="https://news.cnblogs.com/n/641759/" target="_blank">用高中的知识点，解决一个大挑战</a>
+            <br>
+ ·              <a href="https://news.cnblogs.com/n/641758/" target="_blank">云之变1：云与智能的大变局</a>
+            <br>
+ ·              <a href="https://news.cnblogs.com/n/641757/" target="_blank">真香！法国拟推出人脸识别身份证项目</a>
+            <br>
+    » <a href="https://news.cnblogs.com/" title="IT 新闻" target="_blank">更多新闻...</a>
+</div></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();
+        loadNewsAndKb();
+        loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    </script>
+</div>
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<div id="sidebar_news" class="newsItem"><!--done-->
+<h3 class="catListTitle">公告</h3>
+
+<div id="blog-news">
+    
+    <div id="profile_block">
+        昵称：
+        <a href="https://home.cnblogs.com/u/wanghui-garcia/">
+            慢行厚积
+        </a>
+        <br>
+        园龄：
+        <a href="https://home.cnblogs.com/u/wanghui-garcia/" title="入园时间：2018-07-19">
+            1年2个月
+        </a>
+        <br>
+        粉丝：
+        <a href="https://home.cnblogs.com/u/wanghui-garcia/followers/">
+            24
+        </a>
+        <br>
+        关注：
+        <a href="https://home.cnblogs.com/u/wanghui-garcia/followees/">
+            1
+        </a>
+        <div id="p_b_follow">
+<a href="javascript:void(0)" onclick="follow(&#39;5fbdcafd-bb4d-4806-3ba9-08d5ec73d6a4&#39;)">+加关注</a></div>
+        <script>getFollowStatus('5fbdcafd-bb4d-4806-3ba9-08d5ec73d6a4');</script>
+    </div>
+</div>
+
+</div>
+
+			<div id="blog-calendar" style="">
+
+<table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar" border="0">
+    <tbody>
+        <tr>
+            <td colspan="7">
+                <table class="CalTitle" cellspacing="0" border="0">
+                    <tbody>
+                        <tr>
+                            <td class="CalNextPrev">
+                                <a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2019/09/03&#39;); return false;">&lt;</a>
+                            </td>
+                            <td align="center">2019年10月</td>
+                            <td align="right" class="CalNextPrev">
+                                <a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2019/11/03&#39;); return false;">&gt;</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+                    <th class="CalDayHeader" align="center" abbr="日" scope="col">日</th>
+                    <th class="CalDayHeader" align="center" abbr="一" scope="col">一</th>
+                    <th class="CalDayHeader" align="center" abbr="二" scope="col">二</th>
+                    <th class="CalDayHeader" align="center" abbr="三" scope="col">三</th>
+                    <th class="CalDayHeader" align="center" abbr="四" scope="col">四</th>
+                    <th class="CalDayHeader" align="center" abbr="五" scope="col">五</th>
+                    <th class="CalDayHeader" align="center" abbr="六" scope="col">六</th>
+        </tr>
+            <tr>
+                            <td class="CalOtherMonthDay" align="center">29</td>
+                            <td class="CalOtherMonthDay" align="center">30</td>
+                        <td class="" align="center">
+                            1
+                        </td>
+                        <td class="" align="center">
+                            2
+                        </td>
+                        <td class="CalTodayDay" align="center">
+                            3
+                        </td>
+                        <td class="" align="center">
+                            4
+                        </td>
+                    <td class="CalWeekendDay" align="center">
+                        5
+                    </td>
+            </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            6
+                        </td>
+                            <td class="" align="center">
+                                7
+                            </td>
+                            <td class="" align="center">
+                                8
+                            </td>
+                            <td class="" align="center">
+                                9
+                            </td>
+                            <td class="" align="center">
+                                10
+                            </td>
+                            <td class="" align="center">
+                                11
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            12
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            13
+                        </td>
+                            <td class="" align="center">
+                                14
+                            </td>
+                            <td class="" align="center">
+                                15
+                            </td>
+                            <td class="" align="center">
+                                16
+                            </td>
+                            <td class="" align="center">
+                                17
+                            </td>
+                            <td class="" align="center">
+                                18
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            19
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            20
+                        </td>
+                            <td class="" align="center">
+                                21
+                            </td>
+                            <td class="" align="center">
+                                22
+                            </td>
+                            <td class="" align="center">
+                                23
+                            </td>
+                            <td class="" align="center">
+                                24
+                            </td>
+                            <td class="" align="center">
+                                25
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            26
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            27
+                        </td>
+                            <td class="" align="center">
+                                28
+                            </td>
+                            <td class="" align="center">
+                                29
+                            </td>
+                            <td class="" align="center">
+                                30
+                            </td>
+                            <td class="" align="center">
+                                31
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                1
+                            </td>
+                        <td class="CalOtherMonthDay" align="center">
+                            2
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalOtherMonthDay" align="center">
+                            3
+                        </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                4
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                5
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                6
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                7
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                8
+                            </td>
+                        <td class="CalOtherMonthDay" align="center">
+                            9
+                        </td>
+                </tr>
+    </tbody>
+</table></div><script>loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn">
+
+<!-- 搜索 -->
+<div id="sidebar_search" class="sidebar-block">
+    <div id="sidebar_search" class="mySearch">
+        <h3 class="catListTitle">搜索</h3>
+        <div id="sidebar_search_box">
+            <div id="widget_my_zzk" class="div_my_zzk">
+                <input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk">
+            </div>
+            <div id="widget_my_google" class="div_my_zzk">
+                <input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 常用链接 -->
+<div id="sidebar_shortcut" class="sidebar-block">
+    <div class="catListLink">
+<h3 class="catListTitle">
+常用链接
+</h3>
+<ul>
+		<li>
+
+<a href="https://www.cnblogs.com/wanghui-garcia/p/" title="我的博客的随笔列表">我的随笔</a>
+</li>
+		<li>
+
+<a href="https://www.cnblogs.com/wanghui-garcia/MyComments.html" title="我的发表过的评论列表">我的评论</a>
+</li>
+		<li>
+
+<a href="https://www.cnblogs.com/wanghui-garcia/OtherPosts.html" title="我评论过的随笔列表">我的参与</a>
+</li>
+		<li>
+
+<a href="https://www.cnblogs.com/wanghui-garcia/RecentComments.html" title="我的博客的评论列表">最新评论</a>
+</li>
+		<li>
+
+<a href="https://www.cnblogs.com/wanghui-garcia/tag/" title="我的博客的标签列表">我的标签</a>
+</li>
+
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div>
+
+
+</div>
+
+<!-- 最新随笔 -->
+
+
+
+<!-- 我的标签 -->
+<div id="sidebar_toptags" class="sidebar-block">
+    <div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+
+        <li>
+            <a href="https://www.cnblogs.com/wanghui-garcia/tag/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a>(17)
+        </li>
+
+</ul>
+</div>
+
+
+</div>
+
+<!-- 积分与排名 -->
+
+
+<!-- 随笔分类、随笔档案、文章分类、新闻分类、相册、链接 -->
+<div id="sidebar_categories">
+    
+        <div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+            <h3 class="catListTitle">
+                
+
+随笔分类
+
+
+
+            </h3>
+
+
+            <ul>
+
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1316338.html" rel="" target="">
+    browserify(2)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1339881.html" rel="" target="">
+    composer
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1340758.html" rel="" target="">
+    docker(38)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1337865.html" rel="" target="">
+    Drupal-ethereum(1)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1294832.html" rel="" target="">
+    ethereum-EIP(21)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1345214.html" rel="" target="">
+    ethereumjs(28)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1338301.html" rel="" target="">
+    ethereum-php(1)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1356515.html" rel="" target="">
+    Etherlime(4)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1349689.html" rel="" target="">
+    ethers.js(7)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1341632.html" rel="" target="">
+    ethjs(1)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1380481.html" rel="" target="">
+    geth(3)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1337091.html" rel="" target="">
+    go(44)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1319482.html" rel="" target="">
+    gulp(1)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1341864.html" rel="" target="">
+    hadoop
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1344406.html" rel="" target="">
+    HD wallet(10)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1412795.html" rel="" target="">
+    hyperledge fabric(8)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1325931.html" rel="" target="">
+    JavaScript
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1380270.html" rel="" target="">
+    Linux(3)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1336591.html" rel="" target="">
+    metamascara(8)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1309162.html" rel="" target="">
+    metamask(38)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1352654.html" rel="" target="">
+    mongodb(7)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1337864.html" rel="" target="">
+    myetherwallet(1)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1370017.html" rel="" target="">
+    ngrok(1)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1352594.html" rel="" target="">
+    nodejs(15)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1282479.html" rel="" target="">
+    node文档学习(2)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1294306.html" rel="" target="">
+    openzeppelin(2)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1437049.html" rel="" target="">
+    python(21)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1518430.html" rel="" target="">
+    python机器视觉编程
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1418462.html" rel="" target="">
+    PyTorch(65)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1371963.html" rel="" target="">
+    secureCRT(1)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1354102.html" rel="" target="">
+    sequelize(13)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1297442.html" rel="" target="">
+    solidity(3)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1376277.html" rel="" target="">
+    svn使用-Mac(5)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1337092.html" rel="" target="">
+    truffle(1)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1369287.html" rel="" target="">
+    virtualbox+vagrant(53)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1545092.html" rel="" target="">
+    visdom(5)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1284094.html" rel="" target="">
+    web3js(3)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1337427.html" rel="" target="">
+    yarn(2)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1351307.html" rel="" target="">
+    zoc(2)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1341870.html" rel="" target="">
+    大数据学习
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1282478.html" rel="" target="">
+    区块链(34)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1454446.html" rel="" target="">
+    深度学习(41)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1294292.html" rel="" target="">
+    椭圆曲线(4)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1340009.html" rel="" target="">
+    问题(5)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/category/1361981.html" rel="" target="">
+    一些小记录(2)
+</a>
+ 
+
+                        </li>
+
+            </ul>
+
+
+        </div>
+        <div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+            <h3 class="catListTitle">
+                
+
+随笔档案
+
+
+
+            </h3>
+
+
+            <ul>
+
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/archive/2019/09.html" rel="" target="">
+    2019年9月(17)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/archive/2019/08.html" rel="" target="">
+    2019年8月(15)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/archive/2019/07.html" rel="" target="">
+    2019年7月(31)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/archive/2019/06.html" rel="" target="">
+    2019年6月(3)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/archive/2019/05.html" rel="" target="">
+    2019年5月(9)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/archive/2019/04.html" rel="" target="">
+    2019年4月(44)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/archive/2019/03.html" rel="" target="">
+    2019年3月(43)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/archive/2019/02.html" rel="" target="">
+    2019年2月(36)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/archive/2019/01.html" rel="" target="">
+    2019年1月(42)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/archive/2018/12.html" rel="" target="">
+    2018年12月(104)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/archive/2018/11.html" rel="" target="">
+    2018年11月(67)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/archive/2018/10.html" rel="" target="">
+    2018年10月(4)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/archive/2018/09.html" rel="" target="">
+    2018年9月(44)
+</a>
+ 
+
+                        </li>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/wanghui-garcia/archive/2018/08.html" rel="" target="">
+    2018年8月(25)
+</a>
+ 
+
+                        </li>
+
+            </ul>
+
+
+        </div>
+
+</div>
+
+<!-- 最新评论 -->
+<div id="sidebar_recentcomments" class="sidebar-block">
+    <div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div class="RecentCommentBlock">
+        <ul>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/wanghui-garcia/p/10791778.html#4374062">1. Re:nn.ConvTranspose2d的参数output_padding的作用</a></li>
+                    <li class="recent_comment_body">一开始举的例子错了。</li>
+                    <li class="recent_comment_author">--_Cade</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/wanghui-garcia/p/10249198.html#4370059">2. Re:geth工作运行程序转后台</a></li>
+                    <li class="recent_comment_body">@ 慢行厚积好的谢谢，问题已经解决，就是console控制台问题，只要删除这个就好了，进入方法用：geth attach...</li>
+                    <li class="recent_comment_author">--roes</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/wanghui-garcia/p/10249198.html#4369916">3. Re:geth工作运行程序转后台</a></li>
+                    <li class="recent_comment_body">@ roes我这边自己跑了一下，dev模式下也是能跑起来的，我把命令写在startTest.sh中，命令是 geth --config geth.toml --dev --dev.period 1 2...</li>
+                    <li class="recent_comment_author">--慢行厚积</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/wanghui-garcia/p/10249198.html#4369673">4. Re:geth工作运行程序转后台</a></li>
+                    <li class="recent_comment_body">@ 慢行厚积博主你这样启动默认账户的密码是什么呢？不是只有Keystore文件这里面也没有交易密码的吧。...</li>
+                    <li class="recent_comment_author">--roes</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/wanghui-garcia/p/10249198.html#4369671">5. Re:geth工作运行程序转后台</a></li>
+                    <li class="recent_comment_body">@ 慢行厚积不后台启动是没问题的，dev模式默认账户是不需要解锁就可以转账和自动挖矿的，但是这样启动直接进入eth命令界面，退出节点就断了。通过nohup ./start.sh &amp; 启动就报错。INF...</li>
+                    <li class="recent_comment_author">--roes</li>
+        </ul>
+    </div>
+</div>
+
+
+</div>
+
+
+
+<!-- 阅读排行榜 -->
+<div id="sidebar_topviewedposts" class="sidebar-block">
+    <div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock">
+        <ul style="word-break:break-all">
+                    <li>
+                        <a href="https://www.cnblogs.com/wanghui-garcia/p/10525015.html">
+                            1. conda install 出错(7191)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/wanghui-garcia/p/10675588.html">
+                            2. torch.nn.functional中softmax的作用及其参数说明(5290)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/wanghui-garcia/p/9947347.html">
+                            3. Cannot find module '../lib/utils/unsupported.js'(5181)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/wanghui-garcia/p/9507638.html">
+                            4. npm和node的版本过低时的解决办法(4048)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/wanghui-garcia/p/9507613.html">
+                            5. promise-不使用catch出现warning的原因(3271)
+                        </a>
+                    </li>
+        </ul>
+    </div>
+</div>
+
+
+</div>
+
+<!-- 评论排行榜 -->
+<div id="sidebar_topcommentedposts" class="sidebar-block">
+    <div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock">
+        <ul style="word-break:break-all">
+                    <li>
+                        <a href="https://www.cnblogs.com/wanghui-garcia/p/10249198.html">
+                            1. geth工作运行程序转后台(6)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/wanghui-garcia/p/10719121.html">
+                            2. Pytorch实现UNet例子学习(2)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/wanghui-garcia/p/10558805.html">
+                            3. pytorch例子学习——TRAINING A CLASSIFIER(2)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/wanghui-garcia/p/9767989.html">
+                            4. browerify初步了解(2)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/wanghui-garcia/p/10107631.html">
+                            5. browserify文件后函数调用报is not defined的原因(2)
+                        </a>
+                    </li>
+        </ul>
+    </div>
+</div>
+
+
+</div>
+
+<!-- 推荐排行榜 -->
+<div id="sidebar_topdiggedposts" class="sidebar-block">
+    
+<div id="topdigg_posts_wrap">
+    <div class="catListView">
+        <h3 class="catListTitle">推荐排行榜</h3>
+        <div id="TopDiggPostsBlock">
+            <ul style="word-break: break-all">
+                        <li>
+                            <a href="https://www.cnblogs.com/wanghui-garcia/p/10675588.html">
+                                1. torch.nn.functional中softmax的作用及其参数说明(2)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/wanghui-garcia/p/10677071.html">
+                                2. pytorch .detach() .detach_() 和 .data用于切断反向传播(2)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/wanghui-garcia/p/10644940.html">
+                                3. 深度学习框架PyTorch一书的学习-第六章-实战指南(1)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/wanghui-garcia/p/10659966.html">
+                                4. pytorch visdom可视化工具学习—2—详细使用-1—基本使用函数(1)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/wanghui-garcia/p/10658565.html">
+                                5. pytorch visdom可视化工具学习—2—详细使用-2-plotting绘图(1)
+                            </a>
+                        </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright © 2019 慢行厚积
+<br><span id="poweredby">Powered by .NET Core 3.0.0 on Linux</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+
+
+</body></html>

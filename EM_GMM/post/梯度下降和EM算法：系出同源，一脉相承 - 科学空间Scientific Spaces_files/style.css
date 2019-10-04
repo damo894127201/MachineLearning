@@ -1,0 +1,1143 @@
+#my-works {
+	padding: 10px 10px 0px 1px; color: rgb(3, 156, 239); font-family: "Times New Roman", Times, serif;
+}
+#my-works p {
+	margin: 0px 0px 10px; padding: 0px 0px 5px; line-height: 1.4em; border-bottom-color: rgb(221, 221, 221); border-bottom-width: 1px; border-bottom-style: dashed;
+}
+#my-works strong {
+	color: rgb(51, 51, 51);
+}
+#archives {
+	overflow: hidden;
+}
+#archives ul {
+	margin: 0px 10px 0px 0px;
+}
+#archives_body input {
+	margin: 0px 0px 30px 100%; padding: 30px 40px 0px 0px; border: currentColor; border-image: none; color: rgb(8, 181, 241); font-size: 14px; float: right; cursor: pointer; background-color: transparent;
+}
+#archives_body input:hover {
+	color: rgb(242, 135, 28);
+}
+#how_to_cite {
+	padding: 12px; border: 1px solid rgb(240, 240, 240); border-image: none; margin-top: 30px;
+}
+#how_to_cite p {
+	margin: 5px;
+}
+.title_button {
+	padding: 0px; border: currentColor; border-image: none; color: rgb(5, 140, 5); cursor: pointer; background-color: transparent;
+}
+.title_button:hover {
+	color: rgb(255, 102, 0);
+}
+.cite_comment {
+	font: 12px/12px "Arial"; padding: 2px 0px; border: currentColor; border-image: none; right: 15px; color: rgb(161, 168, 176); position: absolute; cursor: pointer; font-size-adjust: none; font-stretch: normal; background-color: transparent;
+}
+.cite_comment:hover {
+	color: rgb(247, 128, 10);
+}
+a {
+	
+}
+a:active {
+	
+}
+#aboutme p {
+	width: 49.5%; float: left; min-width: 250px;
+}
+input {
+	color: rgb(40, 43, 49);
+}
+select {
+	color: rgb(40, 43, 49);
+}
+.comment_infos {
+	width: 50%; height: 22px; color: rgb(40, 43, 49); max-width: 200px;
+}
+#comment_texts {
+	padding: 3px; border: 1px solid rgb(204, 204, 204); border-image: none; width: 100%; color: rgb(40, 43, 49); min-height: 125px; max-width: 100%; box-sizing: border-box;
+}
+#comment_form p {
+	margin: 6px 0px;
+}
+.tableofcontents {
+	padding-top: 8px;
+}
+.tableofcontents li {
+	list-style-type: none;
+}
+.tableofcontents li.toc-2 {
+	margin-left: 1.5em;
+}
+.tableofcontents li.toc-3 {
+	margin-left: 3em;
+}
+.tableofcontents li.toc-4 {
+	margin-left: 4.5em;
+}
+.d5 input {
+	background: none; border: currentColor; border-image: none; width: 240px; height: 32px; padding-left: 12px; margin-left: 12px;
+}
+.d5 input:focus {
+	background: rgb(255, 255, 187);
+}
+.MathJax {
+	color: blue;
+}
+.MathJax_PHTML {
+	color: blue;
+}
+.MathJax_CHTML {
+	color: blue;
+}
+.MathJax_SVG {
+	color: blue;
+}
+.MathJax_MathML {
+	color: blue;
+}
+#QR {
+	padding-top: 20px;
+}
+#QR a {
+	border: 0px currentColor; border-image: none;
+}
+#QR img {
+	margin: 0.8em 2em 0px; border: 1px solid rgb(221, 221, 221); border-image: none; width: 180px; display: inline-block; max-width: 100%;
+}
+#payButton {
+	margin: 0px auto; padding: 0px 25px; border-radius: 4px; border: 1px solid rgb(204, 204, 204); border-image: none; height: 36px; text-align: center; color: rgb(153, 153, 153); line-height: 36px; display: block; transition-duration: 0.4s; background-color: rgb(255, 255, 255); -webkit-transition-duration: .4s;
+}
+#payButton:hover {
+	border-color: rgb(247, 123, 131); color: rgb(247, 123, 131); cursor: pointer; outline-style: none;
+}
+blockquote {
+	overflow: hidden; table-layout: fixed;
+}
+html {
+	margin: 0px; padding: 0px;
+}
+body {
+	background: rgb(81, 84, 89); font: 12px/normal Georgia, "Times New Roman", Times, sans-serif; margin: 10px 0px; padding: 0px 10px; color: rgb(0, 0, 0); min-width: 300px; font-size-adjust: none; font-stretch: normal;
+}
+a:link {
+	border: 0px currentColor; border-image: none; color: rgb(5, 105, 5); text-decoration: none;
+}
+a:active {
+	border: 0px currentColor; border-image: none; color: rgb(55, 87, 25); text-decoration: underline;
+}
+a:visited {
+	border: 0px currentColor; border-image: none; color: rgb(102, 153, 0); text-decoration: none;
+}
+a:hover {
+	border: 0px currentColor; border-image: none; color: rgb(204, 48, 0);
+}
+a:focus {
+	
+}
+h1 {
+	margin: 0px; padding: 0px;
+}
+h2 {
+	margin: 0px; padding: 0px;
+}
+h3 {
+	margin: 0px; padding: 0px;
+}
+h4 {
+	margin: 0px; padding: 0px;
+}
+h1 {
+	font-size: 160%;
+}
+h2 {
+	font-size: 160%;
+}
+h3 {
+	font-size: 120%;
+}
+h4 {
+	font-size: 100%;
+}
+h5 {
+	font-size: 100%;
+}
+h6 {
+	font-size: 100%;
+}
+hr {
+	height: 1px; border-top-color: rgb(171, 176, 181); border-top-width: 1px; border-top-style: dotted;
+}
+form {
+	margin: 0px; padding: 0px;
+}
+p {
+	margin: 7px 0px; padding: 0px;
+}
+ul {
+	margin: 0px; list-style-type: none;
+}
+.clear {
+	height: 0px; overflow: hidden; clear: both;
+}
+#Container {
+	margin: 0px auto; padding: 40px 10px 10px; border-radius: 5px; position: relative; max-width: 960px; background-color: rgb(119, 124, 127);
+}
+#ContainerTop {
+	left: 0px; top: 0px; width: 960px; height: 5px; position: absolute;
+}
+#Header {
+	margin: 0px 0px 10px; padding: 10px 10px 10px 20px; border-radius: 5px; height: 78px; clear: left; position: relative; background-color: rgb(27, 33, 43);
+}
+#HeaderTop {
+	left: 0px; top: 0px; height: 5px; position: absolute; max-width: 940px; background-color: rgb(27, 33, 43);
+}
+#Header #MenuTop {
+	top: -27px; right: 0px; position: absolute;
+}
+#Header #MenuTop ul {
+	margin: 0px; padding: 0px; list-style-type: none;
+}
+#Header #MenuTop li {
+	margin: 0px; padding: 0px 6px; color: rgb(238, 238, 238); border-left-color: rgb(184, 190, 193); border-left-width: 1px; border-left-style: solid; display: inline;
+}
+#Header #MenuTop li a:link {
+	color: rgb(255, 255, 255);
+}
+#Header #MenuTop li a:visited {
+	color: rgb(238, 238, 238);
+}
+#Header #MenuTop li a:hover {
+	color: rgb(204, 204, 204);
+}
+#Header #navigation {
+	left: 5px; top: -27px; color: rgb(255, 255, 255); position: absolute;
+}
+#HeadLeft {
+	float: left;
+}
+#HeadLeft h1 {
+	margin: 0px; padding: 0px; text-indent: -20000px; font-size: 0px;
+}
+#HeadLeft h1 a {
+	background: url("images/logo.png") no-repeat; width: 162px; height: 78px; display: block;
+}
+#HeadLeft #Hi {
+	margin: 0px; padding: 0px; text-indent: -20000px; font-size: 0px;
+}
+#Header #Hi a {
+	background: url("images/logo.png") no-repeat; width: 162px; height: 78px; display: block;
+}
+#HeadRight {
+	padding: 5px; border-radius: 5px; float: right; position: relative; max-height: 68px; max-width: 718px; background-color: rgb(60, 65, 74);
+}
+#HeadRightTop {
+	background: url("images/HRTop.gif") no-repeat left top; left: 0px; top: 0px; width: 728px; height: 4px; position: absolute;
+}
+#HeadRight #topnavbox {
+	padding: 0px 2px; height: 68px; overflow: hidden; float: left; max-width: 384px;
+}
+#HeadRight #topnavbox ul {
+	margin: 0px auto; padding: 0px;
+}
+#HeadRight #topnavbox ul li {
+	list-style: none; margin: 0px; padding: 10px 0px; width: 64px; height: 48px; text-align: center; float: left; position: relative;
+}
+#HeadRight #topnavbox ul li img {
+	margin-bottom: 12px;
+}
+#HeadRight #topnavbox ul li a {
+	margin: 0px; padding: 0px 5px; text-decoration: none; display: block;
+}
+#HeadRight #topnavbox ul li a:link {
+	color: rgb(212, 212, 212);
+}
+#HeadRight #topnavbox ul li a:visited {
+	color: rgb(212, 212, 212);
+}
+#HeadRight #topnavbox ul li a:hover {
+	color: rgb(242, 135, 28);
+}
+#HeadRight #topnavbox ul li a:active {
+	color: rgb(242, 135, 28);
+}
+#HeadRight #topnavbox ul li {
+	line-height: 0;
+}
+#HeadRight #Submissions {
+	background: url("images/Submissions.gif") no-repeat left top; padding: 0px; height: 68px; right: 0px; float: right; max-width: 323px;
+}
+#HeadRight #Submissions p {
+	margin: 0px; padding: 27px 25px 0px 15px; color: rgb(214, 214, 214); line-height: 16px; font-size: 12px; display: block;
+}
+#Banner {
+	background: url("images/banner.jpg") no-repeat left bottom rgb(255, 255, 255); margin: 0px auto 10px; height: 100px; clear: left; position: relative;
+}
+#HeadUn {
+	margin: 0px auto 10px; border-radius: 5px; height: 105px; clear: left; position: relative; background-color: rgb(255, 255, 255);
+}
+#HeadUnTop {
+	background: url("images/HeadUnTop.gif") no-repeat left top; left: 0px; top: 0px; height: 5px; position: absolute;
+}
+#AdSenseTop {
+	left: 15px; top: 15px; width: 925px; height: 150px; position: absolute;
+}
+#AdSenseTop .topnewbox {
+	margin: 0px 15px 0px 0px; padding: 0px; width: 170px; text-align: center; float: left; display: inline;
+}
+#AdSenseTop img {
+	padding: 4px; border: 1px solid rgb(221, 221, 221); border-image: none; width: 160px; height: 120px; -moz-border-radius-bottomleft: 3px; -moz-border-radius-bottomright: 3px; -moz-border-radius-topleft: 3px; -moz-border-radius-topright: 3px;
+}
+#AdSenseTop span {
+	line-height: 24px;
+}
+.topblock {
+	background: url("images/border.gif") no-repeat right rgb(255, 255, 255); margin: 0px 0px 0px 12px; padding: 12px 12px 0px 0px; width: 285px; height: 90px; overflow: hidden; float: left;
+}
+.nobg {
+	margin: 0px 0px 0px 15px; padding: 12px 0px 0px; width: 310px; background-image: none;
+}
+.topblock h3 {
+	background: url("images/dotted.gif") repeat-x 0px bottom; color: rgb(5, 105, 5); padding-bottom: 3px; font-size: 13px;
+}
+.topblock p {
+	margin: 0px; padding: 0px; color: rgb(51, 51, 51); line-height: 20px; font-size: 12px;
+}
+.topblock p a {
+	background: url("images/joinlinkbg.gif") repeat-x left bottom rgb(50, 163, 0); margin: 0px 5px 0px 0px; padding: 0px 10px; height: 24px; color: rgb(255, 255, 255); line-height: 24px; font-size: 12px; font-weight: bold; text-decoration: none; float: left; display: block;
+}
+.topblock p a:hover {
+	background: rgb(32, 104, 0);
+}
+.topblock p a.want {
+	background: url("images/bluelinkbg.gif") repeat-x left bottom rgb(65, 181, 255);
+}
+.topblock p a.want:hover {
+	background: rgb(0, 116, 190);
+}
+#MainMenu {
+	margin: 0px 0px 10px; padding: 5px 0px; border-radius: 5px; width: 100%; float: left; position: relative; background-color: rgb(27, 33, 43);
+}
+#MainMenuTop {
+	background: url("images/HeaderTop.gif") no-repeat left top; left: 0px; top: 0px; width: 940px; height: 5px; position: absolute;
+}
+#MainMenu ul {
+	list-style: none; margin: 0px; padding: 0px; float: left;
+}
+#MainMenu ul li {
+	background: url("images/nav_border.gif") no-repeat right; margin: 0px; padding: 0px; text-align: center; float: left;
+}
+#MainMenu ul li a {
+	margin: 0px; padding: 8px 16px 5px; color: rgb(123, 130, 140); line-height: 11px; font-size: 12px; text-decoration: none; float: left; display: block;
+}
+#MainMenu ul li a strong {
+	color: rgb(221, 221, 221); text-transform: uppercase; padding-bottom: 4px; font-size: 13px; font-weight: bold; display: block;
+}
+#MainMenu li a:hover {
+	color: rgb(255, 255, 255);
+}
+#MainMenu ul li a:hover strong {
+	color: rgb(242, 135, 28);
+}
+#MainMenuiPad {
+	margin: 0px 0px 10px; padding: 5px 0px; border-radius: 5px; width: 100%; float: left; position: relative; background-color: rgb(27, 33, 43);
+}
+#MainMenuiPadTop {
+	background: url("images/HeaderTop.gif") no-repeat left top; left: 0px; top: 0px; width: 940px; height: 5px; position: absolute;
+}
+#MainMenuiPad ul {
+	list-style: none; margin: 0px; float: left;
+}
+#MainMenuiPad ul li {
+	background: url("images/nav_border.gif") no-repeat right; margin: 0px; padding: 0px; text-align: center; float: left;
+}
+#MainMenuiPad ul li a {
+	margin: 0px; padding: 8px 8px 5px; color: rgb(123, 130, 140); line-height: 11px; font-size: 12px; text-decoration: none; display: block;
+}
+#MainMenuiPad ul li a strong {
+	color: rgb(221, 221, 221); text-transform: uppercase; padding-bottom: 4px; font-size: 13px; font-weight: bold; display: block;
+}
+#MainMenuiPad li a:hover {
+	color: rgb(255, 255, 255);
+}
+#MainMenuiPad ul li a:hover strong {
+	color: rgb(242, 135, 28);
+}
+#MainBody {
+	background: rgb(255, 255, 255); padding: 10px; border-radius: 5px; width: 100%; float: left; position: relative; max-width: 100%; box-sizing: border-box;
+}
+#MainBodyTop {
+	background: url("images/HeadUnTop.gif") no-repeat left top; left: 0px; top: 0px; width: 940px; height: 5px; position: absolute;
+}
+#content {
+	padding: 0px 15px 15px 5px; width: 66%; overflow: hidden; clear: left; border-right-color: rgb(167, 167, 167); border-right-width: 1px; border-right-style: dotted; float: left;
+}
+h1.page {
+	margin: 0px 0px 16px; padding: 30px 0px 20px; text-align: center; color: rgb(24, 25, 26); line-height: 25px; font-size: 28px; font-weight: bold; border-bottom-color: rgb(204, 204, 204); border-bottom-width: 1px; border-bottom-style: dashed;
+}
+.Post {
+	padding: 0px 0px 15px; position: relative;
+}
+.PostHead {
+	margin: 0px 0px 12px; padding: 12px 10px; border-radius: 5px; clear: left; display: flex; align-items: center; background-color: rgb(243, 237, 220);
+}
+* html .PostHeadTop {
+	left: -10px;
+}
+.PostHeadTop {
+	background: url("images/PostHeadTop.gif") no-repeat left top; left: 0px; top: 0px; width: 580px; height: 5px; position: absolute;
+}
+.title-wrap {
+	line-height: 24px; overflow: hidden; padding-left: 5px; display: block; white-space: nowrap; -ms-text-overflow: ellipsis;
+}
+.title-wrap a {
+	display: block;
+}
+.date-wrap {
+	background: url("images/digg_bg.gif") no-repeat left top; margin: 0px; padding: 0px; top: 10px; width: 35px; height: 40px; text-align: center;
+}
+.date-day {
+	font: bold 16px/21px Georgia, "Times New Roman", Times, sans-serif; margin: 0px; padding: 0px; width: 35px; height: 21px; color: rgb(255, 255, 255); overflow: visible; font-size-adjust: none; font-stretch: normal;
+}
+.date-month {
+	font: bold 11px/19px Georgia, "Times New Roman", Times, sans-serif; margin: 0px; padding: 0px; width: 35px; height: 19px; color: rgb(255, 255, 255); overflow: hidden; display: block; font-size-adjust: none; font-stretch: normal;
+}
+.PostHead h1 {
+	padding: 3px 0px 0px; line-height: 17px; font-size: 15px; font-weight: bold;
+}
+.PostHead h1 a:link {
+	color: rgb(255, 102, 0); text-decoration: none;
+}
+.PostHead h1 a:visited {
+	color: rgb(255, 102, 0); text-decoration: none;
+}
+.PostHead h2 {
+	padding: 3px 0px 0px; line-height: 17px; font-size: 15px; font-weight: bold;
+}
+.PostHead h2 a:link {
+	color: rgb(255, 102, 0); text-decoration: none;
+}
+.PostHead h2 a:visited {
+	color: rgb(255, 102, 0); text-decoration: none;
+}
+.PostHead h1 a:hover {
+	color: rgb(204, 0, 0);
+}
+.PostHead h2 a:hover {
+	color: rgb(204, 0, 0);
+}
+.PostHead .submitted {
+	padding: 0px; color: rgb(102, 102, 102); font-size: 12px;
+}
+.PostContent {
+	font: 14px/normal Georgia, "Times New Roman", Times, sans-serif; margin: 0px 0px 10px; padding: 0px; color: rgba(0, 0, 0, 0.75); font-size-adjust: none; font-stretch: normal;
+}
+.PostContent p {
+	margin: 0px 0px 12px; line-height: 1.8em; font-size: 14px;
+}
+.PostContent blockquote {
+	background: rgb(242, 242, 242); margin: 0.5em 0em 1em; padding: 10px 15px; border: 1px solid rgb(221, 221, 221); border-image: none; color: rgb(51, 51, 51); line-height: 1.8em; font-size: 13px;
+}
+.PostContent blockquote p {
+	font-size: 13px;
+}
+.PostContent blockquote.cite {
+	padding: 8px; border: currentColor; border-image: none; color: rgb(153, 153, 153); text-indent: 23px; font-size: 15px; background-image: url("images/openquote.gif"); background-repeat: no-repeat; background-color: rgb(255, 255, 255);
+}
+.PostContent blockquote.cite .quote_cite {
+	background-position: 100% 100%; padding: 0px 15px 5px 0px; background-image: url("images/closequote.gif"); background-repeat: no-repeat;
+}
+.PostContent li {
+	padding: 3px 0px 3px 5px; line-height: 16px; margin-left: -20px; list-style-type: none;
+}
+.PostContent a:link {
+	color: rgb(5, 140, 5);
+}
+.PostContent a:visited {
+	color: rgb(5, 140, 5);
+}
+.PostContent a:hover {
+	color: rgb(255, 102, 0);
+}
+.PostContent h4 {
+	margin: 20px 0px 5px; color: rgb(51, 51, 51); padding-bottom: 5px; font-size: 15px; border-bottom-color: rgb(221, 221, 221); border-bottom-width: 1px; border-bottom-style: solid;
+}
+.PostContent h3 {
+	margin: 20px 0px 5px; color: rgb(51, 51, 51); padding-bottom: 5px; font-size: 18px; border-bottom-color: rgb(221, 221, 221); border-bottom-width: 1px; border-bottom-style: solid;
+}
+.PostContent h2 {
+	margin: 20px 0px 5px; color: rgb(51, 51, 51); padding-bottom: 5px; font-size: 21px; border-bottom-color: rgb(221, 221, 221); border-bottom-width: 1px; border-bottom-style: solid;
+}
+.PostContent .more {
+	margin: 10px 0px;
+}
+.PostContent .pic-container {
+	text-align: center; margin-right: auto; margin-bottom: 15px; margin-left: 1px;
+}
+.PostContent .typecho-caption {
+	border: 1px solid rgb(221, 221, 221); border-image: none; text-align: center; line-height: 14px; margin-top: -1px; margin-left: -1px; display: inline-block; background-color: rgb(255, 255, 255);
+}
+.PostContent .typecho-caption img {
+	margin: 0px; padding: 0px;
+}
+.PostContent .typecho-caption p {
+	margin: 0px; padding: 5px 20px; color: rgb(128, 128, 128); line-height: 14px; font-size: 12px; border-top-color: rgb(221, 221, 221); border-top-width: 1px; border-top-style: solid;
+}
+.tools {
+	background: rgb(239, 239, 239); margin: 10px 0px 0px; padding: 10px 0px; border-radius: 5px; width: 100%; color: rgb(0, 0, 0); font-size: 12px; float: left;
+}
+.tools span.cat {
+	background: url("images/PostCategIco.gif") no-repeat left; padding: 0px 0px 0px 21px; margin-left: 10px; float: left;
+}
+.tools span.comment_comments {
+	background: url("images/ComListHead.png") no-repeat left; margin: 0px 10px 0px 0px; padding: 0px 0px 0px 21px; float: right;
+}
+.tools span.node_read_more {
+	background: url("images/go.png") no-repeat left; margin: 0px 10px 0px 0px; padding: 0px 0px 0px 21px; float: right;
+}
+.tools span a {
+	color: rgb(0, 102, 0); text-decoration: none;
+}
+.tools span a:hover {
+	color: rgb(255, 102, 0);
+}
+.entrynavigation {
+	background: rgb(247, 242, 229); margin: 10px 0px; padding: 10px 0px; border-radius: 5px; width: 100%; text-align: center; float: left;
+}
+#similar {
+	margin: 0px 0px 10px; padding: 10px; border: 1px solid rgb(219, 217, 181); border-image: none; clear: both;
+}
+#similar h3 {
+	background: url("images/PostCategIco.gif") no-repeat left; margin: 0px; padding: 0px 0px 0px 20px; color: rgb(51, 51, 51); font-size: 12px; font-weight: bold;
+}
+#similar ul {
+	width: 100%; margin-top: 5px; list-style-type: none;
+}
+#similar ul li {
+	background: url("images/widgetlisticon.gif") no-repeat left; list-style: none; margin: 0px; padding: 2px 0px 2px 12px; width: 282px; height: 20px; line-height: 20px; overflow: hidden; float: left;
+}
+#PostComment {
+	height: 20px; padding-top: 25px;
+}
+#PostComment strong {
+	display: none;
+}
+#PostComment a {
+	background: url("images/SubmitComment.png") no-repeat left top; padding: 0px 0px 0px 20px; width: 134px; height: 28px; text-indent: -9999px; float: left;
+}
+#PostComment a:hover {
+	background-position: 0% -28px;
+}
+.ComListLi {
+	margin: 8px 0px 0px; padding: 25px 15px 10px; list-style-type: none; position: relative; -ms-word-break: break-all; background-color: rgb(237, 238, 239);
+}
+* html .ComListLiTop {
+	left: -15px;
+}
+.ComListLiTop {
+	background: url("images/ComListLiTop.gif") no-repeat left top; left: 0px; top: 0px; width: 580px; height: 15px; position: absolute;
+}
+* html .ListNr {
+	right: 25px;
+}
+.ListNr {
+	font: 24px/24px "Arial"; padding: 0px; top: 25px; right: 15px; color: rgb(161, 168, 176); position: absolute; font-size-adjust: none; font-stretch: normal;
+}
+* html .ListUser .picture {
+	left: 0px;
+}
+.ListUser {
+	font: bold 12px/14px "Arial"; margin: 0px; padding: 0px; color: rgb(71, 79, 87); font-size-adjust: none; font-stretch: normal;
+}
+.ListUser a:link {
+	color: rgb(153, 48, 0); text-decoration: none;
+}
+.ListUser a:visited {
+	color: rgb(153, 48, 0); text-decoration: none;
+}
+.ListUser a:hover {
+	color: rgb(255, 102, 0);
+}
+.ListDate {
+	margin: 0px; padding: 0px; color: rgb(133, 140, 147); line-height: 18px; font-size: 12px; font-weight: bold;
+}
+.ListDate a {
+	color: rgb(133, 140, 147); text-decoration: none;
+}
+.ListDate a:visited {
+	text-decoration: none;
+}
+.ListContent {
+	margin: 5px 0px 0px; color: rgb(56, 53, 44); line-height: 18px; font-size: 12px; border-top-color: rgb(221, 221, 221); border-top-width: 1px; border-top-style: solid;
+}
+.ListContent p {
+	margin: 7px 0px 0px; line-height: 18px; font-size: 12px; -ms-word-break: break-all;
+}
+#comments {
+	margin: 30px 0px 0px;
+}
+#comments blockquote {
+	background: url("images/blockquote.gif") no-repeat 3px 3px rgb(244, 245, 247); margin: 5px 0px; padding: 8px 12px 8px 36px; border: 1px dashed rgb(204, 204, 204); border-image: none;
+}
+#commentform form textarea blockquote {
+	display: none;
+}
+.subcomments {
+	margin: 6px 3px 6px 6px; border: 1px solid rgb(221, 221, 221); border-image: none; position: relative;
+}
+.deep2 {
+	background: rgb(240, 251, 235);
+}
+.deep3 {
+	background: rgb(239, 248, 255);
+}
+.deep4 {
+	background: rgb(226, 239, 238);
+}
+.deep5 {
+	background: rgb(241, 246, 249);
+}
+.deep6 {
+	background: rgb(231, 242, 253);
+}
+.deep7 {
+	background: rgb(214, 233, 252);
+}
+.deep8 {
+	background: rgb(255, 255, 221);
+}
+.deep9 {
+	background: rgb(242, 253, 219);
+}
+.deep10 {
+	background: rgb(255, 249, 237);
+}
+.deep11 {
+	background: rgb(241, 246, 249);
+}
+.comment_2 {
+	background: url("images/orange-fade.jpg") no-repeat right top white; padding: 10px;
+}
+.odd {
+	background: url("images/green-fade.jpg") no-repeat left top rgb(255, 255, 255);
+}
+.comment_data {
+	padding: 0px 50px 0px 0px;
+}
+.comment_data span {
+	color: rgb(153, 153, 153); float: right;
+}
+.comment_content {
+	margin-top: 5px; border-top-color: rgb(221, 221, 221); border-top-width: 1px; border-top-style: dashed;
+}
+.comment_content p {
+	margin: 7px 0px 0px;
+}
+.AllComments {
+	padding: 0px 0px 24px; margin-bottom: 20px;
+}
+.respond form input {
+	border: 1px solid rgb(204, 204, 204); border-image: none; overflow: auto;
+}
+#respond form textarea {
+	border: 1px solid rgb(204, 204, 204); border-image: none; overflow: auto;
+}
+.respond form input.submit {
+	border: 1px solid rgb(204, 204, 204); border-image: none; width: 70px; height: 28px; color: rgb(255, 255, 255); background-color: rgb(102, 102, 102);
+}
+.box2 .cancle_comment_reply {
+	display: none;
+}
+.ComListLi .respond .cancle_comment_reply {
+	display: inline;
+}
+.respond .cancle_comment_reply {
+	display: none;
+}
+.comment_reply {
+	background: url("images/comment_reply_link.png") no-repeat left; padding: 5px 0px 5px 12px;
+}
+#SideBar {
+	width: 30.5%; float: right;
+}
+div#searchblock {
+	margin: 0px auto 15px; border-radius: 5px; height: 122px; overflow: hidden; background-color: rgb(244, 244, 231);
+}
+div#searchblock h3 {
+	padding: 0px 15px; width: 270px; height: 38px; color: rgb(5, 105, 5); text-transform: uppercase; line-height: 38px; font-size: 14px; display: inline;
+}
+div#searchblock div.text {
+	line-height: 16px;
+}
+div#right_search_form {
+	background: url("images/textfield_bg.gif") no-repeat; margin: 0px 15px; width: 278px; height: 33px;
+}
+div#right_search_form input {
+	background: none; margin: 3px 0px 3px 5px; padding: 5px; border: 0px currentColor; border-image: none; width: 214px; color: rgb(153, 153, 153); font-size: 14px; float: left;
+}
+div#right_search_form input.btn_search_small {
+	background: url("images/btn_tweet.png") no-repeat; border: 0px currentColor; border-image: none; width: 25px; height: 25px; text-indent: -999em; float: left; cursor: pointer;
+}
+div.text {
+	margin: 10px 15px; padding: 0px; width: 270px; color: rgb(153, 153, 153); font-size: 12px;
+}
+b.rtop {
+	background: rgb(255, 255, 255); display: block;
+}
+b.rbottom {
+	background: rgb(255, 255, 255); display: block;
+}
+b.rtop b {
+	height: 1px; overflow: hidden; display: block;
+}
+b.rbottom b {
+	height: 1px; overflow: hidden; display: block;
+}
+b.r1 {
+	margin: 0px 5px;
+}
+b.r2 {
+	margin: 0px 3px;
+}
+b.r3 {
+	margin: 0px 2px;
+}
+b.rtop b.r4 {
+	margin: 0px 1px; height: 2px;
+}
+b.rbottom b.r4 {
+	margin: 0px 1px; height: 2px;
+}
+.alt-wrapper {
+	background: rgb(230, 239, 255); margin: 0px 0px 15px; color: rgb(68, 68, 68); line-height: 150%;
+}
+.alt-wrapper .inner-wrapper {
+	padding: 10px 10px 10px 15px; overflow: hidden; -ms-text-overflow: ellipsis;
+}
+.alt-wrapper b.rtop b {
+	background: rgb(230, 239, 255);
+}
+.alt-wrapper b.rbottom b {
+	background: rgb(230, 239, 255);
+}
+.alt-wrapper ul {
+	margin: 0px; padding: 0px;
+}
+.alt-wrapper li {
+	background: url("images/widgetlisticon.gif") no-repeat 0px; height: 24px; color: rgb(102, 102, 102); line-height: 24px; padding-left: 12px; font-size: 12px;
+}
+.wrapper {
+	background: rgb(239, 239, 239); color: rgb(68, 68, 68); line-height: 150%; font-size: 13px; margin-bottom: 15px;
+}
+.wrapper .inner-wrapper {
+	padding: 10px 15px; overflow: hidden; -ms-text-overflow: ellipsis;
+}
+.wrapper a {
+	text-decoration: none;
+}
+.wrapper b.rtop b {
+	background: rgb(239, 239, 239);
+}
+.wrapper b.rbottom b {
+	background: rgb(239, 239, 239);
+}
+.wrapper ul {
+	list-style: none; margin: 8px 0px 0px; padding: 0px;
+}
+.wrapper ul li {
+	margin-bottom: 2px;
+}
+.wrapper h3 {
+	margin: 0px 0px 5px; padding: 0px; font-size: 14px;
+}
+.wrapper .block-comment {
+	-ms-word-break: break-all;
+}
+.wrapper .block-comment ul {
+	margin: 0px; padding: 0px;
+}
+.wrapper .block-comment h3 {
+	margin: 0px 0px 5px; padding: 0px; font-size: 14px;
+}
+.wrapper .block-comment ul li {
+	list-style: none; padding: 5px 0px; line-height: 20px; font-size: 12px; border-top-color: rgb(204, 204, 204); border-top-width: 1px; border-top-style: dotted;
+}
+.wrapper .block-comment ul li a {
+	padding-right: 5px;
+}
+.ad-wrapper .inner-wrapper {
+	padding: 15px 25px; -ms-text-overflow: ellipsis;
+}
+.diggwrapper {
+	background: rgb(226, 249, 227); margin: 0px 0px 15px;
+}
+.diggwrapper .inner-wrapper {
+	margin: 0px 10px 0px 0px; padding: 10px 25px 10px 15px; overflow: hidden; white-space: nowrap; -ms-text-overflow: ellipsis;
+}
+.diggwrapper h3 {
+	margin: 0px 0px 5px; padding: 0px; font-size: 14px;
+}
+.diggwrapper ul {
+	margin: 0px; padding: 0px;
+}
+.diggwrapper ul li {
+	background: url("images/widgetlisticon.gif") no-repeat 0px; height: 24px; color: rgb(102, 102, 102); line-height: 24px; padding-left: 12px; font-size: 12px;
+}
+.diggwrapper b.rtop b {
+	background: rgb(226, 249, 227);
+}
+.diggwrapper b.rbottom b {
+	background: rgb(226, 249, 227);
+}
+#breadcrumb {
+	margin: 0px 0px 15px; padding: 11px; border-radius: 4px; background-color: rgb(237, 237, 225);
+}
+#breadcrumb a {
+	background: url("images/breadcrumb_arrow.gif") no-repeat right 3px; margin: 0px 5px 0px 0px; padding: 0px 10px 0px 0px;
+}
+#pages {
+	margin: 5px 0px 5px -40px; padding: 0px; clear: both; min-height: 24px;
+}
+#pages ul {
+	margin: 0px; padding: 0px; list-style-type: none;
+}
+#pages li {
+	margin: 0px 3px 0px 0px; padding: 0px; line-height: 1.2em; font-size: 12px; float: left; display: block;
+}
+#pages li a {
+	padding: 4px 7px; border-radius: 3px; border: 1px solid rgb(204, 204, 204); border-image: none; color: rgb(136, 136, 136); line-height: 1.2em; text-decoration: none; float: left; background-image: none; background-color: rgb(255, 255, 255); -moz-border-radius: 3px; -khtml-border-radius: 3px; -webkit-border-radius: 3px;
+}
+#pages li a:hover {
+	background: rgb(255, 255, 255); border: 1px solid rgb(101, 159, 25); border-image: none; color: rgb(101, 159, 25);
+}
+#pages li.current a {
+	background: rgb(134, 182, 72); padding: 4px 7px; border-radius: 3px; border: 1px solid rgb(101, 159, 25); border-image: none; color: rgb(255, 255, 255); font-weight: bold; -moz-border-radius: 3px; -khtml-border-radius: 3px; -webkit-border-radius: 3px;
+}
+#bottom_pages {
+	margin: -37px -3px 0px -40px; clear: both; float: right;
+}
+#bottom_pages ul {
+	margin: 0px; padding: 0px; list-style-type: none;
+}
+#bottom_pages li {
+	margin: 0px 3px 0px 0px; padding: 0px; line-height: 1.2em; font-size: 12px; float: left; display: block;
+}
+#bottom_pages li a {
+	padding: 4px 7px; border-radius: 3px; border: 1px solid rgb(204, 204, 204); border-image: none; color: rgb(136, 136, 136); line-height: 1.2em; text-decoration: none; float: left; background-image: none; background-color: rgb(255, 255, 255); -moz-border-radius: 3px; -khtml-border-radius: 3px; -webkit-border-radius: 3px;
+}
+#bottom_pages li a:hover {
+	background: rgb(255, 255, 255); border: 1px solid rgb(101, 159, 25); border-image: none; color: rgb(101, 159, 25);
+}
+#bottom_pages li.current a {
+	background: rgb(134, 182, 72); padding: 4px 7px; border-radius: 3px; border: 1px solid rgb(101, 159, 25); border-image: none; color: rgb(255, 255, 255); font-weight: bold; -moz-border-radius: 3px; -khtml-border-radius: 3px; -webkit-border-radius: 3px;
+}
+#Footer {
+	padding: 15px 0px 0px; width: 100%; color: rgb(255, 255, 255); clear: left; position: relative;
+}
+#Footer p {
+	margin: 0px; padding: 0px; line-height: 20px; font-size: 12px;
+}
+#Footer p a {
+	color: rgb(255, 255, 204);
+}
+#Footer p a:hover {
+	color: rgb(255, 255, 255); text-decoration: underline;
+}
+#Footer img {
+	margin: 4px 5px 0px 0px; float: right;
+}
+#newlist {
+	
+}
+#newlist ul {
+	
+}
+#newlist li {
+	background: url("images/widgetlisticon.gif") no-repeat 0px; padding: 10px 0px 10px 12px; font-size: 14px; border-bottom-color: rgb(141, 179, 192); border-bottom-width: 1px; border-bottom-style: dashed;
+}
+#newlist span {
+	color: rgb(102, 102, 102); font-size: 12px; float: right;
+}
+#friends {
+	background: rgb(242, 242, 242); margin: 0px 0px 15px; width: 290px;
+}
+#friends b.top b {
+	background: rgb(242, 242, 242);
+}
+#flink b.bottom b {
+	background: rgb(242, 242, 242);
+}
+#friends ul {
+	_padding-bottom: 20px;
+}
+#friends li {
+	width: 49.5%; height: 22px; line-height: 22px; overflow: hidden; float: left;
+}
+#friends li a {
+	background: url("images/breadcrumb_arrow.gif") no-repeat left 50%; padding: 0px 0px 0px 10px; font-size: 12px; text-decoration: none;
+}
+#MobileSideBar h2 {
+	margin: 10px; color: rgb(119, 124, 127); line-height: 20px; padding-bottom: 5px; font-size: 10px; font-weight: bold !important; border-bottom-color: rgb(119, 124, 127); border-bottom-width: 1px; border-bottom-style: solid;
+}
+#MobileSideBar h2 span {
+	font-size: 125%; font-weight: normal !important;
+}
+#MobileSideBar ul {
+	margin: 0px; padding: 0px;
+}
+#MobileSideBar li a:link {
+	margin: 0px; padding: 0px; color: rgb(255, 255, 255); font-size: 120%; text-decoration: none;
+}
+#MobileSideBar li a:visited {
+	margin: 0px; padding: 0px; color: rgb(255, 255, 255); font-size: 120%; text-decoration: none;
+}
+#MobileSideBar li a:hover {
+	color: rgb(243, 237, 220); text-decoration: none;
+}
+#MobileSideBar {
+	background-position: left top; top: 28px; width: auto; height: auto; text-align: left; right: 0px; position: absolute; z-index: 999; cursor: pointer; background-image: url("images/background.png"); background-repeat: repeat-y;
+}
+#MobileSideBarTab {
+	width: 28px; height: 45px; float: left;
+}
+#MobileSideBarTab img {
+	border: 0px solid rgb(255, 255, 255); border-image: none;
+}
+#MobileSideBarContents {
+	width: 280px; overflow: hidden !important; float: left;
+}
+.MobileSideBar_one_column li {
+	padding: 4px 16px; color: rgb(255, 255, 255); display: block; list-style-type: none;
+}
+.MobileSideBar_two_columns {
+	column-count: 2; -webkit-column-count: 2; -moz-column-count: 2;
+}
+.MobileSideBar_two_columns li {
+	padding: 4px 16px; color: rgb(255, 255, 255); display: block; list-style-type: none;
+}
+#MobileNewposts li {
+	background: url("images/widgetlisticon.gif") no-repeat 0px; margin: 4px 16px; padding: 2px 2px 2px 10px; overflow: hidden; float: none; white-space: nowrap; -ms-text-overflow: ellipsis;
+}
+#MobileComments li {
+	width: 90%; float: none;
+}
+#author-me {
+	margin: 12px 12px 6px; text-align: center;
+}
+.author-avatar {
+	display: inline-block; position: relative;
+}
+.author-avatar img {
+	background: rgb(255, 255, 255); padding: 5px; border-radius: 100px; width: 90px; height: 90px; float: left;
+}
+.author-description {
+	padding: 8px 10px; color: rgb(128, 128, 128);
+}
+.author-description li {
+	height: 20px; color: red; line-height: 20px; list-style-type: none;
+}
+.author-th {
+	margin: 0px auto; padding: 0px 0px 5px; position: relative;
+}
+@media screen and (min-width:992px)
+{
+#MainMenuiPad {
+	display: none;
+}
+#respond form input {
+	width: 40%;
+}
+#respond form textarea {
+	width: 100%;
+}
+#MobileSideBar {
+	display: none;
+}
+}
+@media screen and (max-width:992px) and (min-width:737px)
+{
+#MenuTop {
+	display: none;
+}
+#Submissions {
+	display: none;
+}
+#HeadUn {
+	display: none;
+}
+#content {
+	padding: 0px; width: 100%; border-right-color: currentColor; border-right-width: medium; border-right-style: none;
+}
+#SideBar {
+	display: none;
+}
+#respond form input {
+	width: 30%;
+}
+#respond form textarea {
+	width: 100%;
+}
+#MainMenu {
+	display: none;
+}
+#MainMenuiPad {
+	display: none;
+}
+}
+@media screen and (max-width:736px)
+{
+#MenuTop {
+	display: none;
+}
+#MainMenu {
+	display: none;
+}
+#MainMenuiPad {
+	display: none;
+}
+#HeadRight {
+	display: none;
+}
+#HeadUn {
+	display: none;
+}
+#content {
+	padding: 0px; width: 100%; border-right-color: currentColor; border-right-width: medium; border-right-style: none;
+}
+#SideBar {
+	display: none;
+}
+#respond form input {
+	width: 50%;
+}
+#respond form textarea {
+	width: 100%;
+}
+#comment_commentsP {
+	display: none;
+}
+#comment_commentsP {
+	display: none;
+}
+.tools span.node_read_more {
+	display: none;
+}
+.tools span.comment_comments {
+	display: none;
+}
+}
+.timeline {
+	font-family: "Source Sans Pro", sans-serif; margin-top: 20px; margin-bottom: 30px;
+}
+.timeline ul {
+	list-style: none; margin: 0px; padding: 1em 0px 0px 2em; position: relative;
+}
+.timeline ul::before {
+	left: 1.4em; top: 0px; width: 1px; height: 100%; position: absolute; z-index: 0; content: " "; background-color: rgb(217, 217, 217);
+}
+.timeline li div {
+	margin-top: 8px; margin-bottom: 8px; vertical-align: top; display: inline-block;
+}
+.timeline .bullet {
+	background: rgb(255, 255, 255); border-radius: 50%; width: 1em; height: 1em; margin-top: 10px; position: absolute; z-index: 1; box-sizing: border-box;
+}
+.timeline .bullet.blue {
+	border: 2px solid rgb(92, 172, 238); border-image: none;
+}
+.timeline .bullet.green {
+	border: 2px solid rgb(102, 205, 0); border-image: none;
+}
+.timeline .time {
+	width: 15%; line-height: 1.3em; font-size: 14px; margin-left: 20px;
+}
+.timeline .desc {
+	width: 75%;
+}
+@media screen and (min-width:610px)
+{
+.timeline .desc {
+	width: 80%;
+}
+}
+@media screen and (max-width:490px)
+{
+#share {
+	display: none;
+}
+}
+.timeline h3 {
+	margin: 0px; border: currentColor; border-image: none; line-height: 1.5em; font-size: 14px; font-weight: 400;
+}
+.timeline h4 {
+	margin: -2px 0px 6px; border: currentColor; border-image: none; color: rgb(128, 128, 128); font-size: 12px; font-weight: 400;
+}
+.timeline p {
+	margin: 0px 0px 5px; border: currentColor; border-image: none; color: rgb(128, 128, 128); line-height: 1.5em; font-size: 13px; font-weight: 400;
+}
+@media print
+{
+#SideBar {
+	display: none;
+}
+#Header {
+	display: none;
+}
+#PostComment {
+	display: none;
+}
+#comments {
+	display: none;
+}
+#similar {
+	display: none;
+}
+#breadcrumb {
+	display: none;
+}
+#pay {
+	display: none;
+}
+#tools {
+	display: none;
+}
+#entrynavigation {
+	display: none;
+}
+#content_tips {
+	display: none;
+}
+#Footer {
+	display: none;
+}
+#MobileSideBar {
+	display: none;
+}
+#MainMenu {
+	display: none;
+}
+#MainMenuiPad {
+	display: none;
+}
+#print {
+	display: none;
+}
+#share {
+	display: none;
+}
+#HeadUn {
+	display: none;
+}
+body {
+	background: none;
+}
+#Container {
+	padding: 0px; max-width: 100%;
+}
+#content {
+	border: currentColor; border-image: none; width: 100%;
+}
+#PostContent {
+	color: rgb(0, 0, 0);
+}
+}

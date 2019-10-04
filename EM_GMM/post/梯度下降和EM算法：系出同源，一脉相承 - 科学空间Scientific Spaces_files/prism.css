@@ -1,0 +1,159 @@
+code[class*='language-'] {
+	background: none; text-align: left; color: black; line-height: 1.5; font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace; font-size: 13px; word-spacing: normal; white-space: pre; -ms-word-break: normal; -ms-word-wrap: normal; text-shadow: 0px 1px white; -ms-hyphens: none; -moz-tab-size: 4; -o-tab-size: 4; tab-size: 4; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none;
+}
+pre[class*='language-'] {
+	background: none; text-align: left; color: black; line-height: 1.5; font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace; font-size: 13px; word-spacing: normal; white-space: pre; -ms-word-break: normal; -ms-word-wrap: normal; text-shadow: 0px 1px white; -ms-hyphens: none; -moz-tab-size: 4; -o-tab-size: 4; tab-size: 4; -webkit-hyphens: none; -moz-hyphens: none; hyphens: none;
+}
+pre[class*='language-']::selection {
+	background: rgb(179, 212, 252); text-shadow: none;
+}
+pre[class*='language-'] ::selection {
+	background: rgb(179, 212, 252); text-shadow: none;
+}
+code[class*='language-']::selection {
+	background: rgb(179, 212, 252); text-shadow: none;
+}
+code[class*='language-'] ::selection {
+	background: rgb(179, 212, 252); text-shadow: none;
+}
+@media print
+{
+code[class*='language-'] {
+	text-shadow: none;
+}
+pre[class*='language-'] {
+	text-shadow: none;
+}
+}
+pre[class*='language-'] {
+	margin: 0.5em 0.5em 1em; padding: 0.5em; border: 1px solid rgb(221, 221, 221); border-image: none; overflow: auto;
+}
+:not(pre) > code[class*='language-'] {
+	background: rgb(245, 242, 240);
+}
+pre[class*='language-'] {
+	background: rgb(245, 242, 240);
+}
+:not(pre) > code[class*='language-'] {
+	padding: 0.1em; border-radius: 0.3em; white-space: normal;
+}
+.token.comment {
+	color: slategray;
+}
+.token.prolog {
+	color: slategray;
+}
+.token.doctype {
+	color: slategray;
+}
+.token.cdata {
+	color: slategray;
+}
+.token.punctuation {
+	color: rgb(153, 153, 153);
+}
+.namespace {
+	opacity: 0.7;
+}
+.token.property {
+	color: rgb(153, 0, 85);
+}
+.token.tag {
+	color: rgb(153, 0, 85);
+}
+.token.boolean {
+	color: rgb(153, 0, 85);
+}
+.token.number {
+	color: rgb(153, 0, 85);
+}
+.token.constant {
+	color: rgb(153, 0, 85);
+}
+.token.symbol {
+	color: rgb(153, 0, 85);
+}
+.token.deleted {
+	color: rgb(153, 0, 85);
+}
+.token.selector {
+	color: rgb(102, 153, 0);
+}
+.token.attr-name {
+	color: rgb(102, 153, 0);
+}
+.token.string {
+	color: rgb(102, 153, 0);
+}
+.token.char {
+	color: rgb(102, 153, 0);
+}
+.token.builtin {
+	color: rgb(102, 153, 0);
+}
+.token.inserted {
+	color: rgb(102, 153, 0);
+}
+.token.operator {
+	background: hsla(0, 0%, 100%, 0.5); color: rgb(166, 127, 89);
+}
+.token.entity {
+	background: hsla(0, 0%, 100%, 0.5); color: rgb(166, 127, 89);
+}
+.token.url {
+	background: hsla(0, 0%, 100%, 0.5); color: rgb(166, 127, 89);
+}
+.language-css .token.string {
+	background: hsla(0, 0%, 100%, 0.5); color: rgb(166, 127, 89);
+}
+.style .token.string {
+	background: hsla(0, 0%, 100%, 0.5); color: rgb(166, 127, 89);
+}
+.token.atrule {
+	color: rgb(0, 119, 170);
+}
+.token.attr-value {
+	color: rgb(0, 119, 170);
+}
+.token.keyword {
+	color: rgb(0, 119, 170);
+}
+.token.function {
+	color: rgb(221, 74, 104);
+}
+.token.regex {
+	color: rgb(238, 153, 0);
+}
+.token.important {
+	color: rgb(238, 153, 0);
+}
+.token.variable {
+	color: rgb(238, 153, 0);
+}
+.token.important {
+	font-weight: bold;
+}
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+.token.entity {
+	cursor: help;
+}
+pre.line-numbers {
+	padding-left: 3.5em; position: relative; counter-reset: linenumber;
+}
+pre.line-numbers > code {
+	position: relative;
+}
+.line-numbers .line-numbers-rows {
+	left: -3.6em; top: 0px; width: 3.2em; letter-spacing: -1px; font-size: 100%; border-right-color: rgb(153, 153, 153); border-right-width: 1px; border-right-style: solid; position: absolute; pointer-events: none; -ms-user-select: none; -webkit-user-select: none; -moz-user-select: none; user-select: none;
+}
+.line-numbers-rows > span {
+	display: block; counter-increment: linenumber; pointer-events: none;
+}
+.line-numbers-rows > span::before {
+	text-align: right; color: rgb(153, 153, 153); padding-right: 0.8em; display: block; content: counter(linenumber);
+}

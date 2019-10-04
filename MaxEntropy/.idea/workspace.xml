@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="eab26728-f42f-4432-97ec-8e8fcadff22b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/MaxEntropy.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/example.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SVM/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SVM/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="eab26728-f42f-4432-97ec-8e8fcadff22b" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,7 +9,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -41,7 +37,7 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="725" />
-    <option name="y" value="72" />
+    <option name="y" value="71" />
     <option name="width" value="1440" />
     <option name="height" value="950" />
   </component>
@@ -51,7 +47,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -63,10 +58,12 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../EM_GMM" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -234,30 +231,9 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/quickSort.py" />
     <entry file="file://$PROJECT_DIR$/src/t.py" />
-    <entry file="file://$PROJECT_DIR$/src/t3.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/t2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="11" column="12" lean-forward="true" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="69" column="39" lean-forward="true" selection-start-line="69" selection-start-column="39" selection-end-line="69" selection-end-column="39" />
-          <folding>
-            <element signature="e#95#106#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/t3.py" />
+    <entry file="file://$PROJECT_DIR$/src/t2.py" />
+    <entry file="file://$PROJECT_DIR$/src/test.py" />
     <entry file="file://$PROJECT_DIR$/src/example.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">

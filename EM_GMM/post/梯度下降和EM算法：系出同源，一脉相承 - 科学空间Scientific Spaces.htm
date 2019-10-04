@@ -1,0 +1,1176 @@
+﻿<!DOCTYPE HTML>
+<!-- saved from url=(0034)https://spaces.ac.cn/archives/4277 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><HTML 
+xmlns="http://www.w3.org/1999/xhtml"><!-- 页面设计者：www.laogui.com --><!-- 页面完善者：www.kexue.fm --><HEAD><META 
+content="IE=11.0000" http-equiv="X-UA-Compatible">
+         
+<META baidu-gxt-verify-token="2e7e16245e9e60b47ef9abf7da323d7f">     
+<META name="baidu-site-verification" content="ovVHx28ijH">     
+<META name="baidu-site-verification" content="aAbtts7I8Y">     
+<META charset="UTF-8">     
+<META name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+    <!-- google验证 -->     
+<META name="google-site-verification" content="2OH3qUDPmSsnHkKhUC7j3EEhESVaHJObE6YuwxWNw4c"> 
+    
+<META name="google-site-verification" content="1IF-re5N9bZpBaUiwSAARvUyPkEomCWxrQU4YkVZfIE"> 
+        <!-- 百度推送 --> 
+<SCRIPT>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</SCRIPT>
+     
+<META http-equiv="Cache-Control" content="no-transform">     
+<META http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">     
+<META name="renderer" content="webkit">     
+<META name="applicable-device" content="pc,mobile">     
+<META name="apple-mobile-web-app-title" content="Scientific Spaces">     
+<META name="apple-mobile-web-app-capable" content="yes">     
+<META name="apple-mobile-web-app-status-bar-style" content="black">     
+<TITLE>梯度下降和EM算法：系出同源，一脉相承 - 科学空间|Scientific Spaces</TITLE>     <!-- 使用url函数转换相关路径 --> 
+    <LINK href="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/style.css" 
+rel="stylesheet">     <LINK href="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/prism.css" 
+rel="stylesheet">     <LINK href="https://spaces.ac.cn/usr/themes/geekg/favicon.ico" 
+rel="shortcut icon">     <LINK href="https://spaces.ac.cn/index.php/action/xmlrpc" 
+rel="pingback">     <LINK title="RSD" href="https://spaces.ac.cn/action/xmlrpc?rsd" 
+rel="EditURI" type="application/rsd+xml">     <LINK href="https://spaces.ac.cn/action/xmlrpc?wlw" 
+rel="wlwmanifest" type="application/wlwmanifest+xml">     <!-- 通过自有函数输出HTML头部信息 --> 
+    
+<META name="description" content="PS：本文就是梳理了梯度下降与EM算法的关系，通过同一种思路，推导了普通的梯度下降法、pLSA中的EM算法、K-Means中的EM算法，以此表明它们基本都是同一个东西的不同方面，所谓“横看成岭侧..."> 
+<META name="keywords" content="概率,优化,聚类"> 
+<META name="GENERATOR" content="MSHTML 11.00.10570.1001"> 
+<META name="template" content="geekg"> <LINK href="https://spaces.ac.cn/action/xmlrpc" 
+rel="pingback"> <LINK title="RSD" href="https://spaces.ac.cn/action/xmlrpc?rsd" 
+rel="EditURI" type="application/rsd+xml"> <LINK href="https://spaces.ac.cn/action/xmlrpc?wlw" 
+rel="wlwmanifest" type="application/wlwmanifest+xml"> <LINK title="梯度下降和EM算法：系出同源，一脉相承 » 科学空间|Scientific Spaces » RSS 2.0" 
+href="https://spaces.ac.cn/feed/archives/4277" rel="alternate" type="application/rss+xml"> 
+<LINK title="梯度下降和EM算法：系出同源，一脉相承 » 科学空间|Scientific Spaces » RSS 1.0" href="https://spaces.ac.cn/feed/rss/archives/4277" 
+rel="alternate" type="application/rdf+xml"> <LINK title="梯度下降和EM算法：系出同源，一脉相承 » 科学空间|Scientific Spaces » ATOM 1.0" 
+href="https://spaces.ac.cn/feed/atom/archives/4277" rel="alternate" type="application/atom+xml"> 
+<SCRIPT type="text/javascript">
+(function () {
+    window.TypechoComment = {
+        dom : function (id) {
+            return document.getElementById(id);
+        },
+    
+        create : function (tag, attr) {
+            var el = document.createElement(tag);
+        
+            for (var key in attr) {
+                el.setAttribute(key, attr[key]);
+            }
+        
+            return el;
+        },
+
+        reply : function (cid, coid) {
+            var comment = this.dom(cid), parent = comment.parentNode,
+                response = this.dom('respond-post-4277'), input = this.dom('comment-parent'),
+                form = 'form' == response.tagName ? response : response.getElementsByTagName('form')[0],
+                textarea = response.getElementsByTagName('textarea')[0];
+
+            if (null == input) {
+                input = this.create('input', {
+                    'type' : 'hidden',
+                    'name' : 'parent',
+                    'id'   : 'comment-parent'
+                });
+
+                form.appendChild(input);
+            }
+
+            input.setAttribute('value', coid);
+
+            if (null == this.dom('comment-form-place-holder')) {
+                var holder = this.create('div', {
+                    'id' : 'comment-form-place-holder'
+                });
+
+                response.parentNode.insertBefore(holder, response);
+            }
+
+            comment.appendChild(response);
+            this.dom('cancel-comment-reply-link').style.display = '';
+
+            if (null != textarea && 'text' == textarea.name) {
+                textarea.focus();
+            }
+
+            return false;
+        },
+
+        cancelReply : function () {
+            var response = this.dom('respond-post-4277'),
+            holder = this.dom('comment-form-place-holder'), input = this.dom('comment-parent');
+
+            if (null != input) {
+                input.parentNode.removeChild(input);
+            }
+
+            if (null == holder) {
+                return true;
+            }
+
+            this.dom('cancel-comment-reply-link').style.display = 'none';
+            holder.parentNode.insertBefore(response, holder);
+            return false;
+        }
+    };
+})();
+</SCRIPT>
+ 
+<SCRIPT type="text/javascript">
+(function () {
+    var event = document.addEventListener ? {
+        add: 'addEventListener',
+        triggers: ['scroll', 'mousemove', 'keyup', 'touchstart'],
+        load: 'DOMContentLoaded'
+    } : {
+        add: 'attachEvent',
+        triggers: ['onfocus', 'onmousemove', 'onkeyup', 'ontouchstart'],
+        load: 'onload'
+    }, added = false;
+
+    document[event.add](event.load, function () {
+        var r = document.getElementById('respond-post-4277'),
+            input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = '_';
+        input.value = (function () {
+    var _IMmlcsp = //'DW'
+'DW'+//'py'
+'e40'+'544'//'kS'
++//'3yA'
+'7'+//'l6K'
+'2'+//'0'
+'7'+//'t'
+'600'+'36b'//'s'
++'f9'//'3'
++/* 'EQ'//'EQ' */''+//'e'
+'e'+//'t4'
+'2'+'7f'//'lze'
++//'RF6'
+'RF6'+//'VC'
+'6c6'+//'u'
+'6'+/* '7X'//'7X' */''+'8T'//'8T'
++'Ov'//'Ov'
++'813'//'N'
++''///*'l'*/'l'
++//'tk'
+'92'+'ed'//'C'
++'6z'//'6z'
++//'Pn'
+'6', _0o2C = [[0,2],[17,18],[20,23],[24,26],[24,26],[31,33]];
+    
+    for (var i = 0; i < _0o2C.length; i ++) {
+        _IMmlcsp = _IMmlcsp.substring(0, _0o2C[i][0]) + _IMmlcsp.substring(_0o2C[i][1]);
+    }
+
+    return _IMmlcsp;
+})();
+
+        if (null != r) {
+            var forms = r.getElementsByTagName('form');
+            if (forms.length > 0) {
+                function append() {
+                    if (!added) {
+                        forms[0].appendChild(input);
+                        added = true;
+                    }
+                }
+            
+                for (var i = 0; i < event.triggers.length; i ++) {
+                    var trigger = event.triggers[i];
+                    document[event.add](trigger, append);
+                    window[event.add](trigger, append);
+                }
+            }
+        }
+    });
+})();
+</SCRIPT>
+     
+<SCRIPT src="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/prism.js"></SCRIPT>
+     <!-- 导入jquery，目前只有ajax评论翻页用到了 -->     
+<SCRIPT src="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/jquery.js"></SCRIPT>
+         <!-- 下面三个都是为移动端侧边栏准备的 -->     
+<SCRIPT src="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/prototype.js"></SCRIPT>
+     
+<SCRIPT src="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/effects.js"></SCRIPT>
+     
+<SCRIPT src="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/side-bar.js"></SCRIPT>
+     
+<SCRIPT type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+            TeX: {equationNumbers: {autoNumber: ["AMS"], useLabelIds: true}, extensions: ["AMSmath.js", "AMSsymbols.js", "extpfeil.js"]},
+            "HTML-CSS": {linebreaks: {automatic: true, width: "95% container"}, noReflows: false},
+            "PreviewHTML": {linebreaks: {automatic: true, width: "95% container"}, noReflows: false},
+            "CommonHTML": {linebreaks: {automatic: true, width: "95% container"}, noReflows: false},
+            "SVG": {linebreaks: {automatic: true, width: "95% container"}, noReflows: false}
+        });
+    </SCRIPT>
+         
+<SCRIPT src="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/MathJax.js" type="text/javascript"></SCRIPT>
+ </HEAD> 
+<BODY>
+<DIV id="Container">
+<DIV id="Header">
+<DIV id="MobileSideBar"><A id="MobileSideBarTab"><IMG title="MobileSideBar" alt="MobileSideBar" 
+src="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/slide-button.png"></A> 
+                
+<DIV id="MobileSideBarContents" style="display: none;">
+<DIV class="MobileSideBarContentsInner">
+<H2>SEARCH</H2>
+<DIV class="search d5">
+<FORM action="" method="post"><INPUT name="s" type="text" placeholder="搜索从这里开始..." value=""></FORM></DIV></DIV>
+<DIV class="MobileSideBarContentsInner">
+<DIV class="MobileSideBar_two_columns"></DIV></DIV>
+<DIV class="MobileSideBarContentsInner">
+<H2>MENU</H2>
+<DIV class="MobileSideBar_two_columns">
+<UL>
+  <LI><A href="https://spaces.ac.cn/reward.html">打赏</A></LI>
+  <LI><A href="https://spaces.ac.cn/latex.html">公式</A></LI>
+  <LI><A href="https://spaces.ac.cn/ac.html">天象</A></LI>
+  <LI><A href="https://spaces.ac.cn/links.html">链接</A></LI>
+  <LI><A href="https://spaces.ac.cn/me.html">时光</A></LI>
+  <LI><A href="https://spaces.ac.cn/science.html">博览</A></LI>
+  <LI><A href="https://spaces.ac.cn/content.html">归档</A></LI></UL></DIV></DIV>
+<DIV class="MobileSideBarContentsInner">
+<H2>CATEGORIES</H2>
+<DIV class="MobileSideBar_two_columns">
+<UL>
+  <LI><A href="https://spaces.ac.cn/category/Everything">千奇百怪</A></LI>
+  <LI><A href="https://spaces.ac.cn/category/Astronomy">天文探索</A></LI>
+  <LI><A href="https://spaces.ac.cn/category/Mathematics">数学研究</A></LI>
+  <LI><A href="https://spaces.ac.cn/category/Phy-chem">物理化学</A></LI>
+  <LI><A href="https://spaces.ac.cn/category/Big-Data">信息时代</A></LI>
+  <LI><A href="https://spaces.ac.cn/category/Biology">生物自然</A></LI>
+  <LI><A href="https://spaces.ac.cn/category/photograph">图片摄影</A></LI>
+  <LI><A href="https://spaces.ac.cn/category/Questions">问题百科</A></LI>
+  <LI><A href="https://spaces.ac.cn/category/Life-Feeling">生活/情感</A></LI>
+  <LI><A 
+href="https://spaces.ac.cn/category/Resources">资源共享</A></LI></UL></DIV></DIV>
+<DIV class="MobileSideBarContentsInner">
+<H2>NEWPOSTS</H2>
+<DIV class="MobileSideBar_one_column" id="MobileNewposts">
+<UL>
+  <LI><A href="https://spaces.ac.cn/archives/6985">“让Keras更酷一些！”：层与模...</A></LI>
+  <LI><A href="https://spaces.ac.cn/archives/6933">从语言模型到Seq2Seq：Tra...</A></LI>
+  <LI><A href="https://spaces.ac.cn/archives/6920">重新写了之前的新词发现算法：更快更...</A></LI>
+  <LI><A href="https://spaces.ac.cn/archives/6919">百度实体链接比赛后记：行为建模和实体链接</A></LI>
+  <LI><A href="https://spaces.ac.cn/archives/6915">自己实现了一个bert4keras</A></LI>
+  <LI><A href="https://spaces.ac.cn/archives/6910">HSIC简介：一个有意思的判断相关...</A></LI>
+  <LI><A href="https://spaces.ac.cn/archives/6906">开源一版DGCNN阅读理解问答模型...</A></LI>
+  <LI><A href="https://spaces.ac.cn/archives/6877">seq2seq之双向解码</A></LI>
+  <LI><A href="https://spaces.ac.cn/archives/6869">Keras实现两个优化器：Look...</A></LI>
+  <LI><A 
+href="https://spaces.ac.cn/archives/6853">为节约而生：从标准Attentio...</A></LI></UL></DIV></DIV>
+<DIV class="MobileSideBarContentsInner">
+<H2>COMMENTS</H2>
+<DIV class="MobileSideBar_one_column" id="MobileComments">
+<UL>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/3154/comment-page-1#comment-12095"><FONT 
+  style="color: rgb(173, 203, 131);">苦苦</FONT>: 数学家竟然谈论起有用了。</A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/6482/comment-page-1#comment-12094"><FONT 
+  style="color: rgb(173, 203, 131);">张兴远</FONT>: 博主你好，非常感谢你的分享，文章写得通俗易懂。
+   我有几个小问题...</A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/6280/comment-page-1#comment-12093"><FONT 
+  style="color: rgb(173, 203, 131);">利伯蒂</FONT>: 
+  博主总结的推导非常令人舒适，可对于最后的目标函数我还存有一些疑...</A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/6985/comment-page-1#comment-12092"><FONT 
+  style="color: rgb(173, 203, 131);">chandlervan</FONT>: 苏神你好，请教一下~ 
+  在交叉引用那一节中，如果我把层内的操作放...</A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/6985/comment-page-1#comment-12091"><FONT 
+  style="color: rgb(173, 203, 131);">苏剑林</FONT>: 必要的，但有个笔误，已经修正。</A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/6736/comment-page-3#comment-12090"><FONT 
+  style="color: rgb(173, 203, 131);">苏剑林</FONT>: 
+  肯定有必要。seq_padding是用来处理输入的训练数据的，...</A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/6736/comment-page-3#comment-12089"><FONT 
+  style="color: rgb(173, 203, 131);">王坛</FONT>: 
+  seq_padding()这个函数有必要吗，直接在load_t...</A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/6985/comment-page-1#comment-12088"><FONT 
+  style="color: rgb(173, 203, 131);">NLP_LEARNER</FONT>: 
+  get_outputs_of函数中，第16行的判断是不是多余了？</A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/6280/comment-page-1#comment-12087"><FONT 
+  style="color: rgb(173, 203, 131);">苏剑林</FONT>: 后面的内容都是在为证明$(14)$服务呀。</A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/3902/comment-page-1#comment-12086"><FONT 
+  style="color: rgb(173, 203, 131);">苏剑林</FONT>: 
+这里边没有vim呀～</A></LI></UL></DIV></DIV>
+<DIV class="MobileSideBarContentsInner">
+<H2>USERLOGIN</H2>
+<DIV class="MobileSideBar_one_column">
+<UL>
+  <LI style='background: url("https://spaces.ac.cn/usr/themes/geekg/images/widgetlisticon.gif") no-repeat 0px; margin: 4px 16px; padding: 2px 2px 2px 10px; width: 90%; float: none;'><A 
+  href="https://spaces.ac.cn/admin/login.php" 
+target="_blank">登录</A></LI></UL></DIV></DIV></DIV></DIV>
+<DIV id="HeadLeft">
+<DIV id="Hi"><A href="https://spaces.ac.cn/">科学空间|Scientific Spaces</A></DIV>
+<DIV id="MenuTop">
+<UL>
+  <LI><A href="https://spaces.ac.cn/admin/login.php" target="_blank">登录</A></LI> 
+                                          
+  <LI><A href="https://spaces.ac.cn/reward.html">打赏</A></LI>
+  <LI><A href="https://spaces.ac.cn/latex.html">公式</A></LI>
+  <LI><A href="https://spaces.ac.cn/ac.html">天象</A></LI>
+  <LI><A href="https://spaces.ac.cn/links.html">链接</A></LI>
+  <LI><A href="https://spaces.ac.cn/me.html">时光</A></LI>
+  <LI><A href="https://spaces.ac.cn/science.html">博览</A></LI>
+  <LI><A href="https://spaces.ac.cn/content.html">归档</A></LI>                
+</UL></DIV>
+<DIV id="navigation">渴望成为一个小飞侠</DIV></DIV>
+<DIV id="HeadRight">
+<DIV id="topnavbox">
+<UL>
+  <LI><A href="https://spaces.ac.cn/feed" target="_blank"><IMG alt="" src="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/rss.png"><BR> 
+                     欢迎订阅</A></LI>
+  <LI><A href="https://spaces.ac.cn/archives/119" target="_blank"><IMG alt="" 
+  src="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/mail.png"><BR>    
+                  个性邮箱</A></LI>
+  <LI><A href="https://spaces.ac.cn/ac.html" target="_blank"><IMG alt="" src="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/Saturn.png"><BR> 
+                     天象信息</A></LI>
+  <LI><A href="https://spaces.ac.cn/archives/41" target="_blank"><IMG alt="" 
+  src="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/iss.png"><BR>     
+                 观测ISS</A></LI>
+  <LI><A href="https://spaces.ac.cn/latex.html" target="_blank"><IMG alt="" src="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/pi.png"><BR> 
+                     LaTeX</A></LI>
+  <LI><A href="https://spaces.ac.cn/me.html" target="_blank"><IMG alt="" src="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/mlogo.png"><BR>关于博主</A></LI></UL></DIV>
+<DIV id="Submissions">
+<P>欢迎访问“科学空间”，这里将与您共同探讨自然科学，回味人生百态；也期待大家的分享～</P></DIV></DIV></DIV>
+<DIV id="MainMenu">
+<UL>
+  <LI><A 
+  href="https://spaces.ac.cn/category/Everything"><STRONG>千奇百怪</STRONG>Everything</A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/category/Astronomy"><STRONG>天文探索</STRONG>Astronomy</A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/category/Mathematics"><STRONG>数学研究</STRONG>Mathematics</A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/category/Phy-chem"><STRONG>物理化学</STRONG>Phy-chem</A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/category/Big-Data"><STRONG>信息时代</STRONG>Big-Data</A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/category/Biology"><STRONG>生物自然</STRONG>Biology</A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/category/photograph"><STRONG>图片摄影</STRONG>photograph</A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/category/Questions"><STRONG>问题百科</STRONG>Questions</A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/category/Life-Feeling"><STRONG>生活/情感</STRONG>Life-Feeling</A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/category/Resources"><STRONG>资源共享</STRONG>Resources</A></LI></UL></DIV>
+<DIV id="MainMenuiPad">
+<DIV style="text-align: center;">
+<UL>
+  <LI><A 
+  href="https://spaces.ac.cn/category/Everything"><STRONG>千奇百怪</STRONG></A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/category/Astronomy"><STRONG>天文探索</STRONG></A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/category/Mathematics"><STRONG>数学研究</STRONG></A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/category/Phy-chem"><STRONG>物理化学</STRONG></A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/category/Big-Data"><STRONG>信息时代</STRONG></A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/category/Biology"><STRONG>生物自然</STRONG></A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/category/photograph"><STRONG>图片摄影</STRONG></A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/category/Questions"><STRONG>问题百科</STRONG></A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/category/Life-Feeling"><STRONG>生活/情感</STRONG></A></LI>
+  <LI><A 
+  href="https://spaces.ac.cn/category/Resources"><STRONG>资源共享</STRONG></A></LI></UL></DIV></DIV><!-- end #header --> 
+<DIV id="MainBody">
+<DIV id="content">
+<DIV id="breadcrumb"><A href="https://spaces.ac.cn/">首页</A>             <A href="https://spaces.ac.cn/category/Mathematics">数学研究</A><A 
+href="https://spaces.ac.cn/category/Big-Data">信息时代</A>            
+梯度下降和EM算法：系出同源，一脉相承        </DIV>
+<DIV class="Post">
+<DIV class="PostHead">
+<DIV class="date-wrap"><SPAN class="date-day">23</SPAN>                     
+<SPAN class="date-month">Mar</SPAN></DIV>
+<DIV class="title-wrap">
+<H1><A 
+href="https://spaces.ac.cn/archives/4277">梯度下降和EM算法：系出同源，一脉相承</A></H1><SPAN 
+class="submitted"><SPAN>By </SPAN>                         <SPAN>苏剑林</SPAN> |    
+                     <SPAN>2017-03-23</SPAN> |                         
+<SPAN>43916位读者</SPAN>                         <SPAN id="print">| <INPUT class="title_button" onclick="document.getElementById('SideBar').style.display = 'none'; document.getElementById('content').style.width = '100%'; document.getElementById('content').style.border = 'none'; document.getElementById('Header').style.display = 'none'; document.getElementById('PostComment').style.display = 'none'; document.getElementById('comments').style.display = 'none'; document.getElementById('similar').style.display = 'none'; document.getElementById('breadcrumb').style.display = 'none'; document.getElementById('pay').style.display = 'none'; document.getElementById('tools').style.display = 'none'; document.getElementById('entrynavigation').style.display = 'none'; document.getElementById('content_tips').style.display = 'none'; document.getElementById('Container').style.padding = '0'; document.getElementById('Footer').style.display = 'none'; document.getElementById('MobileSideBar').style.display = 'none'; document.getElementById('MainMenu').style.display = 'none'; document.getElementById('MainMenuiPad').style.display = 'none'; document.getElementById('print').style.display = 'none'; document.getElementById('PostContent').style.color = '#000'; document.getElementById('Container').style.maxWidth = '100%'; document.body.style.background = 'none'; document.getElementById('share').style.display = 'none'; document.getElementById('to_cite').style.display = 'none'; window.print();" type="button" value="打印"></SPAN> 
+<SPAN id="to_cite"><INPUT class="title_button" onclick="location.href='#how_to_cite'" type="button" value="引用"></SPAN> 
+<SPAN id="share"><INPUT class="title_button" onclick="var to_share = document.getElementById('share_position'); if (to_share.style.display === 'none') {to_share.style.display = 'inline-block';} else {to_share.style.display = 'none'}" type="button" value="分享"> 
+    <SPAN id="share_position" style="display: none;">        :         
+<INPUT class="title_button" onclick="shareTo('qzone')" type="button" value="空间"> 
+        <INPUT class="title_button" onclick="shareTo('qq')" type="button" value="QQ"> 
+        
+<INPUT class="title_button" onclick="shareTo('sina')" type="button" value="微博">  
+       
+<INPUT class="title_button" onclick="shareTo('wechat')" type="button" value="微信"> 
+    </SPAN> </SPAN> 
+<SCRIPT type="text/javascript">
+//一键分享
+function shareTo(stype){
+    //获取文章标题
+    var share_title = document.title;
+    //获取文章地址
+    var share_url = document.location.href.split('#')[0];
+    //获取文章描述
+    var share_content = document.querySelector('meta[name="description"]').getAttribute('content');
+    //获取文章第一章图片
+    var share_img = document.getElementById('PostContent').getElementsByTagName('img')[0].src;
+    if (share_img.indexOf('wx.png') >= 0) {
+        //如果文章无图则用默认的logo
+        share_img = 'https://kexue.fm/usr/uploads/2014/06/1891032154.png';
+    }
+
+    if(stype=='qzone'){
+        window.open('https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+share_url+'&share_title='+share_title+'&pics='+share_img+'&summary='+share_content);
+    }
+    if(stype=='sina'){
+        window.open('http://service.weibo.com/share/share.php?url='+share_url+'?sharesource=weibo&title='+share_title+'&pic='+share_img+'&appkey= 287385219');
+    }
+    if(stype == 'qq'){
+        window.open('http://connect.qq.com/widget/shareqq/index.html?url='+share_url+'&title='+share_title+'&pics='+share_img+'&summary='+share_content+'&desc='+share_title);
+    }
+    if(stype == 'wechat'){
+        //分享到微信实际上就是生成对应的二维码
+        window.open('https://bshare.optimix.asia/barCode?site=weixin&url='+share_url);
+    }
+}
+</SCRIPT>
+                    </SPAN>                 </DIV></DIV>
+<DIV class="PostContent" id="PostContent">
+<P><STRONG><FONT 
+color="red">PS：本文就是梳理了梯度下降与EM算法的关系，通过同一种思路，推导了普通的梯度下降法、pLSA中的EM算法、K-Means中的EM算法，以此表明它们基本都是同一个东西的不同方面，所谓“横看成岭侧成峰，远近高低各不同”罢了。</FONT></STRONG></P>
+<P>在机器学习中，通常都会将我们所要求解的问题表示为一个带有未知参数的损失函数(Loss)，如平均平方误差（MSE），然后想办法求解这个函数的最小值，来得到最佳的参数值，从而完成建模。因将函数乘以-1后，最大值也就变成了最小值，因此一律归为最小值来说。如何求函数的最小值，在机器学习领域里，一般会流传两个大的方向：1、梯度下降；2、EM算法，也就是最大期望算法，一般用于复杂的最大似然问题的求解。</P>
+<P>在通常的教程中，会将这两个方法描述得迥然不同，就像两大体系在分庭抗礼那样，而EM算法更是被描述得玄乎其玄的感觉。但事实上，这两个方法，都是同一个思路的不同例子而已，所谓“本是同根生”，它们就是一脉相承的东西。</P>
+<P>让我们，先从远古的牛顿法谈起。</P>
+<H2 id="牛顿迭代法">牛顿迭代法<A 
+href="https://spaces.ac.cn/archives/4277#牛顿迭代法">#</A></H2>
+<P>给定一个复杂的非线性函数$f(x)$，希望求它的最小值，我们一般可以这样做，假定它足够光滑，那么它的最小值也就是它的极小值点，满足$f'(x_0)=0$，然后可以转化为求方程$f'(x)=0$的根了。非线性方程的根我们有个牛顿法，所以<BR>\begin{equation}x_{n+1} 
+= x_{n} - \frac{f'(x_n)}{f''(x_n)}$$<!--more--></P>
+<P>然而，<FONT 
+color="red">这种做法脱离了几何意义，不能让我们窥探到更多的秘密。</FONT>我们宁可使用如下的思路：在$y=f(x)$的$x=x_n$这一点处，我们可以用一条近似的曲线来逼近原函数，如果近似的曲线容易求最小值，那么我们就可以用这个近似的曲线求得的最小值，来近似代替原来曲线的最小值了：<BR>
+<DIV class="pic-container">
+<DIV class="typecho-caption aligncenter" style="max-width: 100%;">
+<DIV style="margin: 5px;"><A title="点击查看原图" href="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/447951958.jpg" 
+target="_blank"><IMG style="max-width: 100%;" alt="逼近-迭代" src="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/447951958.jpg"></A></DIV>
+<P class="typecho-caption-text">逼近-迭代</P></DIV></DIV>
+<P></P>
+<P>显然，对近似曲线的要求是：</P>
+<BLOCKQUOTE>
+  <P>1、跟真实曲线在某种程度上近似，一般而言，要求至少具有一阶的近似度；</P>
+  <P>2、要有极小值点，并且极小值点容易求解。</P></BLOCKQUOTE>
+<P>这样，我们很自然可以选择“切抛物线”来近似：<BR>\begin{equation}f(x)\approx g(x) = 
+f(x_n)+f'(x_n)(x-x_n)+\frac{1}{2}f''(x_n)(x-x_n)^2\end{equation}<BR>该抛物线具有二阶的精度。对于这条抛物线来说，极值点是<BR>\begin{equation}x_n 
+- 
+\frac{f'(x_n)}{f''(x_n)}\end{equation}<BR>所以我们重新得到了牛顿法的迭代公式：<BR>\begin{equation}x_{n+1} 
+= x_n - \frac{f'(x_n)}{f''(x_n)}\end{equation}</P>
+<P>如果$f(x)$足够光滑并且在全局只有一个极值点，那么牛顿法将会是快速收敛的（速度指数增长），然而真实的函数并没有这么理想，因此，它的缺点就暴露出来了：</P>
+<BLOCKQUOTE>
+  <P>1、需要求二阶导数，有些函数求二阶导数之后就相当复杂了；</P>
+  <P>2、因为$f''(x_n)$的大小不定，所以$g(x)$开口方向不定，我们无法确定最后得到的结果究竟是极大值还是极小值。</P></BLOCKQUOTE>
+<H2 id="梯度下降">梯度下降<A href="https://spaces.ac.cn/archives/4277#梯度下降">#</A></H2>
+<P>这两个缺点在很多问题上都是致命性的，因此，为了解决这两个问题，我们放弃二阶精度，即去掉$f''(x_n)$，改为一个固定的正数$1/h$：<BR>\begin{equation}g(x) 
+= 
+f(x_n)+f'(x_n)(x-x_n)+\frac{1}{2h}(x-x_n)^2\end{equation}<BR>这条近似曲线只有一阶精度，但是同时也去掉了二阶导数的计算，并且保证了这是一条开口向上的抛物线，因此，通过它来迭代，至少可以保证最后会收敛到一个极小值（至少是局部最小值）。上述$g(x)$的最小值点为<BR>\begin{equation}x_n 
+- h f'(x_n)\end{equation}<BR>所以我们得到迭代公式<BR>\begin{equation}x_{n+1} = x_n - h 
+f'(x_n)\end{equation}<BR>对于高维空间就是<BR>\begin{equation}\boldsymbol{x}_{n+1} = 
+\boldsymbol{x}_n - h 
+\nabla(\boldsymbol{x}_n)\end{equation}<BR>这就是著名的梯度下降法了。当然，它本身存在很多问题，但很多改进的算法都是围绕着它来展开，如随机梯度下降等等。</P>
+<P>这里我们将梯度下降法理解为近似抛物线来逼近得到的结果，既然这样子看，读者应该也会想到，<FONT 
+color="red">凭啥我一定要用抛物线来逼近，用其他曲线来逼近不可以吗</FONT>？当然可以，对于很多问题来说，梯度下降法还有可能把问题复杂化，也就是说，抛物线失效了，这时候我们就要考虑其他形式的逼近了。事实上，<FONT 
+color="red">其他逼近方案，基本都被称为EM算法，恰好就只排除掉了系出同源的梯度下降法，实在让人不解</FONT>。</P>
+<H2 id="最大似然">最大似然<A href="https://spaces.ac.cn/archives/4277#最大似然">#</A></H2>
+<P>在估算概率的时候，我们通常的优化目标是最大似然函数，而不是MSE。比如，我们要做语言模型，就要估计任意两个词$x,y$的共现概率$p(x,y)$，假设在一个规模为$N$的语料库中，$x,y$共现的次数为$\#(x,y)$，那么我们可以得到统计结果<BR>\begin{equation}\tilde{p}(x,y)=\frac{\#(x,y)}{N}\end{equation}<BR>这当然是一个最基本的结果，但是会存在稀疏性问题，而且要为任意两个词语对都存一个结果，内存也基本吃不消。</P>
+<P>更加好的解决方案是，假定$p(x,y)$可以用一个带有未知参数$\theta$（$\theta$可能是向量）的函数$p(x,y;\theta)$来表示（比如神经网络），也就是然后想办法优化参数就行了。那么问题来了，优化目标是什么呢？要注意如果用MSE，最大的问题是没法保证最后得到的结果一定是非负的，而概率一定是非负的。</P>
+<P>针对概率问题，统计学家提出了一个更加自然的方案——最大似然函数。哲学家常说“存在就是合理”的，最大似然函数的思想更加彻底，它说“<STRONG><FONT 
+color="red">存在就是最合理的</FONT></STRONG>”，假如$x,y$共现的次数为$\#(x,y)$，那么这个事件既然发生了，它必然是最合理的，因此概率函数<BR>\begin{equation}\prod_{x,y} 
+p(x,y;\theta)^{\#(x,y)}\end{equation}<BR>取最大值，取对数后就是<BR>\begin{equation}\sum_{x,y} 
+\#(x,y)\log 
+p(x,y;\theta)\end{equation}<BR>我们应该最大化这个函数，这个函数就叫做最大似然函数。显然，$\#(x,y)$可以换成统计频率$\tilde{p}(x,y)$，结果是等价的：<BR>\begin{equation}\sum_{x,y} 
+\tilde{p}(x,y)\log 
+p(x,y;\theta)\end{equation}<BR>事实上，将它乘以负-1，得到<BR>\begin{equation}S=-\sum_{x,y} 
+\tilde{p}(x,y)\log 
+p(x,y;\theta)\end{equation}<BR>我们给它起了一个特别的名字——交叉熵，它是机器学习的一个常见的损失函数。也就是说，求最大似然函数的最大值，等价于求交叉熵的最小值。如果不预先给定$p(x,y;\theta)$的具体形式，而是直接估算$p(x,y;\theta)$，那么不难算得$p(x,y;\theta)=\tilde{p}(x,y)$，这正是我们所期望的，也说明了最大似然函数作为优化目标的合理性。</P>
+<H2 id="EM算法">EM算法<A href="https://spaces.ac.cn/archives/4277#EM算法">#</A></H2>
+<P>对于交叉熵的优化，我们通常也会尝试用梯度下降法。但很多情况下，<FONT 
+color="red">梯度下降并不有效，我们更愿意使用EM算法，它被称为上帝的算法</FONT>。</P>
+<P>还是以前面的语言模型为例，为了使得估计的结果泛化能力更加好，我们将$p(x,y)$变换为$p(x|y)p(y)$，然后将$p(x|y)$分解为$p(x|y)=\sum_z 
+p(x|z)p(z|y)$，这样分解的意义，在文章<A href="https://spaces.ac.cn/archives/4216/" target="_blank">《SVD分解(二)：为什么SVD意味着聚类？》</A>已经提到过，$z$可以理解为类别，或者主题，$p(x|y)$就是$y$后面接$x$的概率，而$p(z|y)$就是$y$属于主题$z$的概率，而$p(x|z)$可以理解为主题$z$里边出现$x$的概率。一般来说$z$的数目要比$x,y$的数目要少得多，从而减少参数总量。</P>
+<P>这时候，交叉熵为<BR>\begin{equation}S=-\sum_{x,y} \tilde{p}(x,y)\log \sum_z 
+p(x|z)p(z|y)p(y)\end{equation}<BR>可以认为$p(y)$可以由$\tilde{p}(y)$精确估计，因此这一项只是贡献一个常数，所以等价的优化目标是：<BR>\begin{equation}S=-\sum_{x,y} 
+\tilde{p}(x,y)\log \sum_z 
+p(x|z)p(z|y)\end{equation}<BR>这里的$p(x|z),p(z|y)$都是待求参数（遍历所有可能的x,y,z组合）。</P>
+<P>它的梯度是<BR>\begin{equation}\begin{aligned}&amp;\frac{\partial S}{\partial 
+p(x|z)} = -\sum_{y} \frac{\tilde{p}(x,y)}{\sum_z p(x|z)p(z|y)}p(z|y)\\<BR>
+&amp;\frac{\partial S}{\partial p(z|y)} = -\sum_{x} \frac{\tilde{p}(x,y)}{\sum_z 
+p(x|z)p(z|y)}p(x|z)\end{aligned}\end{equation}</P>
+<P>直接梯度下降是行不通的，因为这里$p(x|z),p(z|y)$都是非负数，并且满足约束<BR>\begin{equation}\sum_x p(x|z) 
+= 1,\quad \sum_z p(z|y)=1\end{equation}<BR><FONT 
+color="red">梯度下降没法保证非负数约束，这注定了它无法有效解决此类问题。</FONT>我们回顾文章开始推导梯度下降的思路，是用近似曲线代替原曲线来迭代，梯度下降使用的是抛物线近似，这里我们不使用抛物线近似（因为它不能保证正定约束），而是想办法构造新的近似。假设我们已经进行了$n$次迭代，得到估计$p_n(x|z),p_n(z|y)$，那么根据梯度公式，本次的梯度为<BR>\begin{equation}\begin{aligned}&amp;\frac{\partial 
+S}{\partial p_n(x|z)} = -\sum_{y} \frac{\tilde{p}(x,y)}{\sum_z 
+p_n(x|z)p_n(z|y)}p_n(z|y)\\<BR>&amp;\frac{\partial S}{\partial p_n(z|y)} = 
+-\sum_{x} \frac{\tilde{p}(x,y)}{\sum_z 
+p_n(x|z)p_n(z|y)}p_n(x|z)\end{aligned}\end{equation}</P>
+<P>原问题的难度就在于，$\log$里边还带有求和，如果能把求和放到外边就简单了，因此，我们不妨考虑这样的近似函数<BR>\begin{equation}S_n'=-\sum_{x,y} 
+\tilde{p}(x,y)\sum_z C_{x,y,z,n} \log 
+p(x|z)p(z|y)\end{equation}<BR>其中$C$是一个常数（在本次迭代），这样$S_n'$也具有最大值，并且可以精确求解出来。自然，我们希望$S'$的梯度跟原来$S$的梯度是一样的（具有一阶精度）。$S'$的梯度是<BR>\begin{equation}\begin{aligned}&amp;\frac{\partial 
+S'}{\partial p_n(x|z)} = -\sum_{y} 
+\frac{\tilde{p}(x,y)C_{x,y,z,n}}{p_n(x|z)}\\<BR>&amp;\frac{\partial S'}{\partial 
+p_n(z|y)} = -\sum_{x} 
+\frac{\tilde{p}(x,y)C_{x,y,z,n}}{p_n(z|y)}\end{aligned}\end{equation}<BR>对比两组梯度，就可以得到<BR>\begin{equation}C_{x,y,z,n}=\frac{p_n(x|z)p_n(z|y)}{\sum_z 
+p_n(x|z)p_n(z|y)}\end{equation}<BR>也就是说，当我们有了一组初始参数之后，可以代入上式求出$C_{x,y,z,n}$，然后求$S_n'$取最小值的参数作为$p_{n+1}(x|z)$和$p_{n+1}(z|y)$，如此迭代下去。</P>
+<P>这部分内容，基本就是pLSA模型的求解过程，后面的细节可以参考<A href="http://www.tuicool.com/articles/z6jyiyj" 
+target="_blank">《自然语言处理之PLSA》</A>。<FONT 
+color="red">对于本文来说，这里就是要指出，EM算法跟梯度下降一样，系出同源，都是基于近似曲线逼近的，并非什么玄乎的方法，并且这个近似函数的寻找，是有根有据的。</FONT>而网上几乎所有的教程，都是直接地给出$S'$的表达式（一般的教程称为Q函数），以一种我感觉像是玄学的方式来讲解这个函数，让我非常反感。</P>
+<H2 id="K-Means">K-Means<A href="https://spaces.ac.cn/archives/4277#K-Means"> 
+#</A></H2>
+<P>K-Means聚类很容易理解，就是已知$N$个点的坐标$\boldsymbol{x}_i,\,i=1,\dots,N$，然后想办法将这堆点分为$K$类，每个类有一个聚类中心$\boldsymbol{c}_j,\,j=1,\dots,K$，很自然地，一个点所属的类别，就是跟它最近的那个聚类中心$\boldsymbol{c}_j$所代表的类别，这里的距离定义为欧式距离。</P>
+<P>所以，K-Means聚类的主要任务就是求聚类中心$\boldsymbol{c}_j$。我们当然希望每个聚类中心正好就在类别的“中心”了，用函数来表示出来，就是希望下述函数$L$最小：<BR>\begin{equation}L=\sum_{i=1}^N 
+\min\bigg\{|\boldsymbol{x}_i-\boldsymbol{c}_1|^2,|\boldsymbol{x}_i-\boldsymbol{c}_2|^2,\dots,|\boldsymbol{x}_i-\boldsymbol{c}_n|^2\bigg\}\end{equation}<BR>其中，$\min$操作保证了每个点只属于离它最近的那一类。</P>
+<P>如果直接用梯度下降法优化$L$，那么将会遇到很大困难，不过这倒不是因为$\min$操作难以求导，而是因为这是一个NP的问题，理论收敛时间随着$N$成指数增长。这时我们也是用EM算法的，这时候EM算法表现为：</P>
+<BLOCKQUOTE>
+  <P>1、随机选$K$个点作为初始聚类中心；</P>
+  <P>2、已知$K$个聚类中心的前提下，算出各个点分别属于哪一类，然后用同一类的所有点的平均坐标，来作为新的聚类中心。</P></BLOCKQUOTE>
+<P>这种方法迭代几次基本就能够收敛了，那么，这样做的理由又在哪儿呢？</P>
+<P>我们依旧是近似曲线逼近的思路，但问题是，现在的$\min$不可导怎么办呢？可以考虑用光滑近似，然后再取极限，答案在这里：<A href="https://spaces.ac.cn/archives/3290/" 
+target="_blank">《寻求一个光滑的最大值函数》</A>。取一个足够大的$M$，那么就可以认为（最小值等于相反数的最大值的相反数）<BR>\begin{equation}\begin{aligned}&amp;\min\bigg\{|\boldsymbol{x}_i-\boldsymbol{c}_1|^2,|\boldsymbol{x}_i-\boldsymbol{c}_2|^2,\dots,|\boldsymbol{x}_i-\boldsymbol{c}_n|^2\bigg\}\\<BR>
+=&amp;-\frac{1}{M}\ln\bigg(e^{-M|\boldsymbol{x}_i-\boldsymbol{c}_1|^2}+e^{-M|\boldsymbol{x}_i-\boldsymbol{c}_2|^2}+\dots+e^{-M|\boldsymbol{x}_i-\boldsymbol{c}_n|^2}\bigg)\end{aligned}\end{equation}<BR>这时候<BR>\begin{equation}L=-\sum_{i=1}^N 
+\frac{1}{M}\ln\bigg(e^{-M|\boldsymbol{x}_i-\boldsymbol{c}_1|^2}+e^{-M|\boldsymbol{x}_i-\boldsymbol{c}_2|^2}+\dots+e^{-M|\boldsymbol{x}_i-\boldsymbol{c}_n|^2}\bigg)\end{equation}<BR>就可以求梯度了：<BR>\begin{equation}\frac{\partial 
+L}{\boldsymbol{c}_j}=\sum_{i=1}^N 
+\frac{2e^{-M|\boldsymbol{x}_i-\boldsymbol{c}_j|^2 } 
+}{e^{-M|\boldsymbol{x}_i-\boldsymbol{c}_1|^2}+e^{-M|\boldsymbol{x}_i-\boldsymbol{c}_2|^2}+\dots+e^{-M|\boldsymbol{x}_i-\boldsymbol{c}_n|^2}}(\boldsymbol{c}_j-\boldsymbol{x}_i)\end{equation}<BR>设第$n$次迭代的结果为$\boldsymbol{c}^{(n)}_j$，那么该轮的梯度就是：<BR>\begin{equation}\frac{\partial 
+L}{\boldsymbol{c}^{(n)}_j}=\sum_{i=1}^N 
+\frac{2e^{-M|\boldsymbol{x}_i-\boldsymbol{c}^{(n)}_j|^2 } 
+}{e^{-M|\boldsymbol{x}_i-\boldsymbol{c}^{(n)}_1|^2}+e^{-M|\boldsymbol{x}_i-\boldsymbol{c}^{(n)}_2|^2}+\dots+e^{-M|\boldsymbol{x}_i-\boldsymbol{c}^{(n)}_n|^2}}(\boldsymbol{c}^{(n)}_j-\boldsymbol{x}_i)\end{equation}<BR>根据这个式子的特点，我们可以寻找这样的近似曲线（应该是超曲面了）：<BR>\begin{equation}L'=\sum_{i=1}^N 
+\sum_{i=1}^K C^{(n)}_{i,j} |\boldsymbol{x}_i-\boldsymbol{c}_j|^2 
+\end{equation}<BR>其中$C^{(n)}_{i,j}$待定，它在每一轮都是一个常数，所以这只是一个二次函数，不难求得它的最小值点是<BR>\begin{equation}\boldsymbol{c}_j 
+= \frac{\sum_{i=1}^N C^{(n)}_{i,j}\boldsymbol{x}_i}{\sum_{i=1}^N 
+C^{(n)}_{i,j}}\end{equation}<BR>即$\boldsymbol{x}_i$的加权平均。</P>
+<P>同样地，我们希望它这个近似曲线跟原函数比，至少具有一阶近似，因此我们求它的导数：<BR>\begin{equation}\frac{\partial 
+L'}{\boldsymbol{c}_j}=\sum_{i=1}^N 2C^{(n)}_{i,j} 
+(\boldsymbol{c}_j-\boldsymbol{x}_i)\end{equation}<BR>对比原函数的导数，不难得到<BR>\begin{equation}C^{(n)}_{i,j} 
+= \frac{e^{-M|\boldsymbol{x}_i-\boldsymbol{c}^{(n)}_j|^2 } 
+}{e^{-M|\boldsymbol{x}_i-\boldsymbol{c}^{(n)}_1|^2}+e^{-M|\boldsymbol{x}_i-\boldsymbol{c}^{(n)}_2|^2}+\dots+e^{-M|\boldsymbol{x}_i-\boldsymbol{c}^{(n)}_n|^2}}\end{equation}<BR>这时候我们就得到迭代公式：<BR>\begin{equation}\boldsymbol{c}^{(n+1)}_j 
+= \frac{\sum_{i=1}^N C^{(n)}_{i,j}\boldsymbol{x}_i}{\sum_{i=1}^N 
+C^{(n)}_{i,j}}\end{equation}</P>
+<P>至此，我们对各个步骤都推导完毕，但我们还是使用连续近似，最后我们要取$M\to\infty$的极限了，取极限后问题可以化简。由上式可以推得：<BR>\begin{equation}\lim_{M\to\infty} 
+C^{(n)}_{i,j} = \Delta^{(n)}_{i,j} = 
+\left\{\begin{aligned}&amp;1,\text{对于固定的i，j到i的距离最小}\\<BR>
+&amp;0,\text{其它情况}\end{aligned}\right.\end{equation}<BR>说白了，将$\Delta^{(n)}_{i,j}$看成是$N$行$K$列的矩阵，那么矩阵的每一行只能有一个1，其它都是0；如果第$i$行中是第$j$个元素为1，就意味着距离$\boldsymbol{x}_i$最近的类别中心为$\boldsymbol{c}_j$。这时候，迭代公式变为<BR>\begin{equation}\boldsymbol{c}^{(n+1)}_j 
+= \frac{\sum_{i=1}^N \Delta^{(n)}_{i,j}\boldsymbol{x}_i}{\sum_{i=1}^N 
+\Delta^{(n)}_{i,j}}\end{equation}<BR>根据$\Delta^{(n)}_{i,j}$的含义，这无外乎就是说：</P>
+<BLOCKQUOTE>$\boldsymbol{c}^{(n+1)}_j$就是距离$\boldsymbol{c}^{(n)}_j$最近的那些点的平均值。</BLOCKQUOTE>
+<P>这就得到了通常我们在求解K-Means问题时所用的迭代算法了，它也被称为EM算法。</P>
+<H2 id="总结">总结<A href="https://spaces.ac.cn/archives/4277#总结">#</A></H2>
+<P><STRONG><FONT 
+color="red">可以看到，所谓EM算法，并不是一个特定的方法，而是一类方法，或者说一种策略，而梯度下降法本来也就是这类方法中的一个特例，完全是一回事，严格来讲不应该排除它。所谓上帝算法，其实就是迭代法，通过自身的迭代更新可以趋于完美（最优解），这如同生物进化般完美，好比造物者精心设计般，无怪乎被称为上帝算法了。</FONT></STRONG></P>
+<P 
+style="color: rgb(255, 136, 0); margin-top: 30px; margin-bottom: 0px;"><EM><STRONG>转载到请包括本文地址：</STRONG><A 
+title="梯度下降和EM算法：系出同源，一脉相承" href="https://spaces.ac.cn/archives/4277" rel="bookmark">https://spaces.ac.cn/archives/4277</A></EM></P>
+<P 
+style="color: rgb(255, 136, 0); margin-top: 0px; margin-bottom: 15px;"><EM><STRONG>更详细的转载事宜请参考：</STRONG></EM><A 
+title="《科学空间FAQ》" href="https://spaces.ac.cn/archives/6508#%E6%96%87%E7%AB%A0%E5%A6%82%E4%BD%95%E8%BD%AC%E8%BD%BD/%E5%BC%95%E7%94%A8" 
+rel="bookmark">《科学空间FAQ》</A></P>
+<DIV id="content_tips">
+<P style="color: rgb(255, 136, 0); padding-top: 5px; border-top-color: rgb(221, 221, 221); border-top-width: 1px; border-top-style: solid;"><STRONG>如果您还有什么疑惑或建议，欢迎在下方评论区继续讨论。</STRONG></P>
+<P style="color: rgb(255, 136, 0);"><STRONG>如果您觉得本文还不错，欢迎<A href="https://spaces.ac.cn/archives/4277#share">分享</A>/<A 
+href="https://spaces.ac.cn/archives/4277#pay">打赏</A>本文。打赏并非要从中获得收益，而是希望知道科学空间获得了多少读者的真心关注。当然，如果你无视它，也不会影响你的阅读。再次表示欢迎和感谢！</STRONG></P></DIV>
+<DIV id="pay" style="margin: 20px auto; padding: 10px 0px; width: 100%; text-align: center; font-size: 16px;"><BUTTON 
+id="payButton" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display = 'block';} else {qr.style.display = 'none'}" 
+disable="enable"><SPAN>打赏</SPAN>                 </BUTTON>
+<DIV id="QR" style="display: none;">
+<DIV id="wechat" style="display: inline-block;"><A class="fancybox" 
+rel="group"><IMG id="wechat_qr" alt="科学空间" src="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/wx.png"></A> 
+                        
+<P>微信打赏</P></DIV>
+<DIV id="alipay" style="display: inline-block;"><A class="fancybox" 
+rel="group"><IMG id="alipay_qr" alt="科学空间" src="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/zfb.png"></A> 
+                        
+<P>支付宝打赏</P></DIV>
+<P><FONT color="red">因为网站后台对打赏并无记录，因此欢迎在打赏时候备注留言。</FONT><BR>你还可以<A href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=tN7d1drY3drrx8H0xcWa19vZ" 
+target="_blank"><STRONG>点击这里</STRONG></A>或在下方评论区留言来告知你的建议或需求。</P></DIV></DIV>
+<DIV id="how_to_cite">
+<P><STRONG>如果您需要引用本文，请参考：</STRONG></P>
+<P style="font-size: 12px;">苏剑林. (2017, Mar 23). 《梯度下降和EM算法：系出同源，一脉相承 》[Blog 
+post]. Retrieved from <A 
+href="https://spaces.ac.cn/archives/4277">https://spaces.ac.cn/archives/4277</A></P></DIV></DIV>
+<DIV class="clear"></DIV></DIV>
+<DIV class="tools" id="tools"><SPAN class="cat">分类：<A href="https://spaces.ac.cn/category/Mathematics">数学研究</A>,<A 
+href="https://spaces.ac.cn/category/Big-Data">信息时代</A>&nbsp; &nbsp; 标签：<A href="https://spaces.ac.cn/tag/%E6%A6%82%E7%8E%87/">概率</A>, 
+<A href="https://spaces.ac.cn/tag/%E4%BC%98%E5%8C%96/">优化</A>, <A href="https://spaces.ac.cn/tag/%E8%81%9A%E7%B1%BB/">聚类</A> 
+           </SPAN>             <SPAN class="comment_comments"><A href="https://spaces.ac.cn/archives/4277#comments">40 
+评论</A>             </SPAN>             </DIV>
+<DIV class="entrynavigation" id="entrynavigation"><FONT 
+color="green">&lt;</FONT> <A title="泰迪杯赛前培训之数据挖掘与建模“慢谈”" href="https://spaces.ac.cn/archives/4271">泰迪杯赛前培训之数据挖掘与建模“慢谈”</A> 
+| <A title="文本情感分类（四）：更好的损失函数" 
+href="https://spaces.ac.cn/archives/4293">文本情感分类（四）：更好的损失函数</A> <FONT color="green">&gt;</FONT> 
+        </DIV>
+<DIV id="similar">
+<H3>你也许还对下面的内容感兴趣</H3>
+<UL style="padding: 0px;">
+  <LI><A title="HSIC简介：一个有意思的判断相关性的思路" 
+  href="https://spaces.ac.cn/archives/6910">HSIC简介：一个有意思的判断相关性的思路</A>            
+               </LI>
+  <LI><A title="Keras实现两个优化器：Lookahead和LazyOptimizer" href="https://spaces.ac.cn/archives/6869">Keras实现两个优化器：Lookahead和LazyOptimizer</A> 
+                          </LI>
+  <LI><A title="用时间换取效果：Keras梯度累积优化器" 
+  href="https://spaces.ac.cn/archives/6794">用时间换取效果：Keras梯度累积优化器</A>             
+              </LI>
+  <LI><A title="VQ-VAE的简明介绍：量子化自编码器" 
+  href="https://spaces.ac.cn/archives/6760">VQ-VAE的简明介绍：量子化自编码器</A>              
+             </LI>
+  <LI><A title="简述无偏估计和有偏估计" 
+  href="https://spaces.ac.cn/archives/6747">简述无偏估计和有偏估计</A>                      
+     </LI>
+  <LI><A title="漫谈重参数：从正态分布到Gumbel Softmax" href="https://spaces.ac.cn/archives/6705">漫谈重参数：从正态分布到Gumbel 
+  Softmax</A>                         </LI>
+  <LI><A title="能量视角下的GAN模型（三）：生成模型=能量模型" href="https://spaces.ac.cn/archives/6612">能量视角下的GAN模型（三）：生成模型=能量模型</A> 
+                          </LI>
+  <LI><A title="“让Keras更酷一些！”：中间变量、权重滑动和安全生成器" href="https://spaces.ac.cn/archives/6575">“让Keras更酷一些！”：中间变量、权重滑动和安全生成器</A> 
+                          </LI>
+  <LI><A title="细水长flow之可逆ResNet：极致的暴力美学" href="https://spaces.ac.cn/archives/6482">细水长flow之可逆ResNet：极致的暴力美学</A> 
+                          </LI>
+  <LI><A title="非对抗式生成模型GLANN的简单介绍" 
+  href="https://spaces.ac.cn/archives/6394">非对抗式生成模型GLANN的简单介绍</A>               
+            </LI></UL>
+<DIV class="clear"></DIV></DIV>
+<DIV id="PostComment"><A 
+href="https://spaces.ac.cn/archives/4277#comment_form">发表你的看法</A>     </DIV>
+<SCRIPT>
+    
+    //评论预览功能
+    var Comment_Preview = {
+  delay: 150,        // delay after keystroke before updating
+  preview: null,     // filled in by Init below
+  buffer: null,      // filled in by Init below
+  timeout: null,     // store setTimout id
+  mjRunning: false,  // true when MathJax is processing
+  mjPending: false,  // true when a typeset has been queued
+  oldText: null,     // used to check if an update is needed
+  //
+  //  Get the preview and buffer DIV's
+  //
+  Init: function () {
+    this.preview = document.getElementById("comment_preview");
+    this.buffer = document.getElementById("comment_buffer");
+},
+  //
+  //  Switch the buffer and preview, and display the right one.
+  //  (We use visibility:hidden rather than display:none since
+  //  the results of running MathJax are more accurate that way.)
+  //
+  SwapBuffers: function () {
+    var buffer = this.preview, preview = this.buffer;
+    this.buffer = buffer; this.preview = preview;
+    buffer.style.visibility = "hidden"; buffer.style.position = "absolute";
+    preview.style.position = ""; preview.style.visibility = "";
+},
+  //
+  //  This gets called when a key is pressed in the textarea.
+  //  We check if there is already a pending update and clear it if so.
+  //  Then set up an update to occur after a small delay (so if more keys
+  //    are pressed, the update won't occur until after there has been 
+  //    a pause in the typing).
+  //  The callback function is set up below, after the Comment_Preview object is set up.
+  //
+  Update: function () {
+    if (this.timeout) {clearTimeout(this.timeout)}
+        this.timeout = setTimeout(this.callback,this.delay);
+},
+  //
+  //  Creates the preview and runs MathJax on it.
+  //  If MathJax is already trying to render the code, return
+  //  If the text hasn't changed, return
+  //  Otherwise, indicate that MathJax is running, and start the
+  //    typesetting.  After it is done, call Comment_PreviewDone.
+  //  
+  CreateComment_Preview: function () {
+    Comment_Preview.timeout = null;
+    if (this.mjPending) return;
+    var text = document.getElementById("comment_texts").value;
+    text = text.replace(/\n/g, '<br>');
+    var subStr=new RegExp('\\[comment=(.*?)\\](.*?)\\[\\/comment\\]', 'ig');
+    text = text.replace(subStr, '<a href="#comment-$1">@$2|$1</a>');
+    if (text === this.oldtext) return;
+    if (this.mjRunning) {
+      this.mjPending = true;
+      MathJax.Hub.Queue(["CreateComment_Preview",this]);
+  } else {
+      this.buffer.innerHTML = this.oldtext = text;
+      this.mjRunning = true;
+      MathJax.Hub.Queue(
+          ["Typeset",MathJax.Hub,this.buffer],
+          ["Comment_PreviewDone",this]
+          );
+  }
+},
+  //
+  //  Indicate that MathJax is no longer running,
+  //  and swap the buffers to show the results.
+  //
+  Comment_PreviewDone: function () {
+    this.mjRunning = this.mjPending = false;
+    this.SwapBuffers();
+}
+};
+//
+//  Cache a callback to the CreateComment_Preview action
+//
+Comment_Preview.callback = MathJax.Callback(["CreateComment_Preview",Comment_Preview]);
+Comment_Preview.callback.autoReset = true;  // make sure it can run more than once
+
+
+    //评论引用功能
+    function Cite_Comment(comment_id, author_name){  
+        document.getElementById('comment_texts').value += ('[comment=' + comment_id.replace('comment-','') + ']' + author_name + '[/comment]\n\n');
+        var this_url = window.location.href;
+        window.location.href='#comment_texts';
+        Comment_Preview.Update();
+        window.history.pushState({}, 0, this_url.split('#')[0]+'#'+comment_id); // 修改地址栏，方便需要复制评论地址的读者
+    }
+
+</SCRIPT>
+ 
+<DIV id="comments">
+<DIV id="pages">
+<UL>
+  <OL class="page-navigator">
+    <LI class="prev"><A href="https://spaces.ac.cn/archives/4277/comment-page-1#comments">«</A></LI>
+    <LI><A 
+    href="https://spaces.ac.cn/archives/4277/comment-page-1#comments">1</A></LI>
+    <LI class="current"><A href="https://spaces.ac.cn/archives/4277/comment-page-2#comments">2</A></LI></OL></UL></DIV>
+<DIV class="AllComments">
+<DIV class="ComListLi">
+<DIV class="ListUser">xx205</DIV>
+<P class="ListDate">November 14th, 2018</P><SPAN class="ListNr"><INPUT class="cite_comment" style='font: 24px/24px "Arial"; font-size-adjust: none; font-stretch: normal;' onclick="Cite_Comment('comment-10123', 'xx205')" type="button" value="1"></SPAN> 
+            
+<DIV class="ListContent" id="comment-10123">
+<P>文中提到很多文章喜欢用 Q 函数来进行解释，显得很生硬。但是一般提到 Q 函数的时候会解释一个特性，那就是利用 Jensen 不等式证明对 Q 
+函数的优化必然会导致原函数的优化。而本文中没有提到这个特性，如果能在给出 S' 
+函数的形式之后对这一点进行证明就更好了，形式既直观，又给出了这么优化一种保证。</P>
+<DIV class="comment_reply"><A onclick="return TypechoComment.reply('comment-10123', 10123);" 
+href="https://spaces.ac.cn/archives/4277/comment-page-2?replyTo=10123#respond-post-4277" 
+rel="nofollow">回复评论</A>                </DIV></DIV>
+<DIV class="subcomments">
+<DIV class="comment_2 odd">
+<DIV class="comment_data"><SPAN><INPUT class="cite_comment" onclick="Cite_Comment('comment-10128', '苏剑林')" type="button" value="第2层"></SPAN> 
+                <A href="https://kexue.fm/" rel="external nofollow">苏剑林</A> 发表于  
+               November 14th, 2018            </DIV>
+<DIV class="comment_content" id="comment-10128">
+<P>本文的过程没有办法保证这一点。</P>
+<P>Q函数基于Jensen不等式的证明，必须要求目标是凸的（Jensen不等式只适用于凸函数），所以有局限性。</P>
+<P>本文是希望用曲线近似的方式来统一理解梯度下降和em算法，这种做法的好处是直观，容易推广，但是既然能包含“梯度下降”，那么就注定没有类似Q函数那样的证明。因为梯度下降的收敛性本身也没有严格保证的。</P>
+<DIV class="comment_reply"><A onclick="return TypechoComment.reply('comment-10128', 10128);" 
+href="https://spaces.ac.cn/archives/4277/comment-page-2?replyTo=10128#respond-post-4277" 
+rel="nofollow">回复评论</A>                </DIV></DIV></DIV></DIV></DIV>
+<DIV class="ComListLi">
+<DIV class="ListUser"><A href="https://drivingc.com/" 
+rel="external nofollow">张强</A></DIV>
+<P class="ListDate">December 12th, 2018</P><SPAN class="ListNr"><INPUT class="cite_comment" style='font: 24px/24px "Arial"; font-size-adjust: none; font-stretch: normal;' onclick="Cite_Comment('comment-10319', '张强')" type="button" value="2"></SPAN> 
+            
+<DIV class="ListContent" id="comment-10319">
+<P>文中有一处梯度下降写成了题目下降</P>
+<DIV class="comment_reply"><A onclick="return TypechoComment.reply('comment-10319', 10319);" 
+href="https://spaces.ac.cn/archives/4277/comment-page-2?replyTo=10319#respond-post-4277" 
+rel="nofollow">回复评论</A>                </DIV></DIV></DIV>
+<DIV class="ComListLi">
+<DIV class="ListUser">Wp</DIV>
+<P class="ListDate">September 4th, 2019</P><SPAN class="ListNr"><INPUT class="cite_comment" style='font: 24px/24px "Arial"; font-size-adjust: none; font-stretch: normal;' onclick="Cite_Comment('comment-11912', 'Wp')" type="button" value="3"></SPAN> 
+            
+<DIV class="ListContent" id="comment-11912">
+<P>苏神您好。EM算法那一节，为什么有<BR>$\sum_zp(x|z)=1,\sum_yp(z|y)=1$的约束呢？？</P>
+<DIV class="comment_reply"><A onclick="return TypechoComment.reply('comment-11912', 11912);" 
+href="https://spaces.ac.cn/archives/4277/comment-page-2?replyTo=11912#respond-post-4277" 
+rel="nofollow">回复评论</A>                </DIV></DIV>
+<DIV class="subcomments">
+<DIV class="comment_2 odd">
+<DIV class="comment_data"><SPAN><INPUT class="cite_comment" onclick="Cite_Comment('comment-11913', '苏剑林')" type="button" value="第4层"></SPAN> 
+                <A href="https://kexue.fm/" rel="external nofollow">苏剑林</A> 发表于  
+               September 4th, 2019            </DIV>
+<DIV class="comment_content" id="comment-11913">
+<P>笔误了，已经修正，谢谢反馈。</P>
+<DIV class="comment_reply"><A onclick="return TypechoComment.reply('comment-11913', 11913);" 
+href="https://spaces.ac.cn/archives/4277/comment-page-2?replyTo=11913#respond-post-4277" 
+rel="nofollow">回复评论</A>                </DIV></DIV></DIV></DIV></DIV>
+<DIV class="ComListLi">
+<DIV class="ListUser">Wp</DIV>
+<P class="ListDate">September 4th, 2019</P><SPAN class="ListNr"><INPUT class="cite_comment" style='font: 24px/24px "Arial"; font-size-adjust: none; font-stretch: normal;' onclick="Cite_Comment('comment-11916', 'Wp')" type="button" value="4"></SPAN> 
+            
+<DIV class="ListContent" id="comment-11916">
+<P>您好，苏神。恕我愚昧。</P>
+<P>1、EM算法一节，说: "原问题难就难在$\log$里面还有求和,如果能把求和放到外边就简单了".<BR>为什么$\log$里面有求和就很难呢？</P>
+<P>2、$S_n'$像是神来之笔，而且您说它就是Q函数。我看《李航统计学习方法》给Q函数的定义是：“完全数据的对数似然函数关于给定观测数据Y和当前参数....”</P>
+<P>有点好奇您构造$S_n'$的过程。而且感觉$S_n'$不满足Q函数定义呀，您对Q函数的看法是什么呢？您对李航书中定义的Q函数的看法是什么呢？</P>
+<DIV class="comment_reply"><A onclick="return TypechoComment.reply('comment-11916', 11916);" 
+href="https://spaces.ac.cn/archives/4277/comment-page-2?replyTo=11916#respond-post-4277" 
+rel="nofollow">回复评论</A>                </DIV></DIV>
+<DIV class="subcomments">
+<DIV class="comment_2 odd">
+<DIV class="comment_data"><SPAN><INPUT class="cite_comment" onclick="Cite_Comment('comment-11922', '苏剑林')" type="button" value="第5层"></SPAN> 
+                <A href="https://kexue.fm/" rel="external nofollow">苏剑林</A> 发表于  
+               September 5th, 2019            </DIV>
+<DIV class="comment_content" id="comment-11922">
+<P>1. $(18)$式你可以解析地求出最优解，$(14)$式做不到，所以$(18)$比$(14)$更容易。</P>
+<P>2. 
+将$(20)$代入$(18)$后得到的就是pLSA的Q函数，你可以对比常规资料，形式是一样的。至于“完全数据的对数似然函数关于给定观测数据Y和当前参数....”这样的“定义”，完全就是没有意义的“官话”罢了（难道你看了这个“定义”，就能轻松写出它的形式了么？），所以不需要太纠结，倒不如根据本文的思路：Q函数就是构造出来的近似函数。</P>
+<DIV class="comment_reply"><A onclick="return TypechoComment.reply('comment-11922', 11922);" 
+href="https://spaces.ac.cn/archives/4277/comment-page-2?replyTo=11922#respond-post-4277" 
+rel="nofollow">回复评论</A>                </DIV></DIV></DIV>
+<DIV class="subcomments">
+<DIV class=" comment_2">
+<DIV class="comment_data"><SPAN><INPUT class="cite_comment" onclick="Cite_Comment('comment-11926', 'Wp')" type="button" value="第6层"></SPAN> 
+               Wp 发表于                 September 5th, 2019            </DIV>
+<DIV class="comment_content" id="comment-11926">
+<P>Q函数可以看做构造出来的近似函数，确实是很精辟的观点，谢谢苏神</P>
+<DIV class="comment_reply"><A onclick="return TypechoComment.reply('comment-11926', 11926);" 
+href="https://spaces.ac.cn/archives/4277/comment-page-2?replyTo=11926#respond-post-4277" 
+rel="nofollow">回复评论</A>                </DIV></DIV></DIV></DIV></DIV></DIV>
+<DIV class="ComListLi">
+<DIV class="ListUser">Wp</DIV>
+<P class="ListDate">September 4th, 2019</P><SPAN class="ListNr"><INPUT class="cite_comment" style='font: 24px/24px "Arial"; font-size-adjust: none; font-stretch: normal;' onclick="Cite_Comment('comment-11917', 'Wp')" type="button" value="5"></SPAN> 
+            
+<DIV class="ListContent" id="comment-11917">
+<P>还有一个问题。。</P>
+<P>关于定义的$S_n$, 为什么就能保证非负性约束了呢。我看$\log$中是$\log p(x|z)p(z|y)$. 
+只要保证$p(x|z)p(z|y)&gt;0$而不用保证它们单独&gt;0即可呀。</P>
+<P>而关于两个约束$\sum_x p(x|z)=1，\sum_z p(z|y)=1$，在优化的过程中似乎并没有体现约束呀。</P>
+<DIV class="comment_reply"><A onclick="return TypechoComment.reply('comment-11917', 11917);" 
+href="https://spaces.ac.cn/archives/4277/comment-page-2?replyTo=11917#respond-post-4277" 
+rel="nofollow">回复评论</A>                </DIV></DIV>
+<DIV class="subcomments">
+<DIV class="comment_2 odd">
+<DIV class="comment_data"><SPAN><INPUT class="cite_comment" onclick="Cite_Comment('comment-11923', '苏剑林')" type="button" value="第6层"></SPAN> 
+                <A href="https://kexue.fm/" rel="external nofollow">苏剑林</A> 发表于  
+               September 5th, 2019            </DIV>
+<DIV class="comment_content" id="comment-11923">
+<P>因为实际求导的时候，将它当成了$\log p(x|z) + \log p(z|y)$来求的，所以自动隐含了$p(x|z) &gt; 0, p(z|y) 
+&gt; 0$的约束。</P>
+<P>至于归一化约束，实际上是在求$(18)$的最优解的解析解的时候引入的，不在本文范围，事实上本文这部分内容，仅仅是希望通过梯度的思想来给出$Q$函数的一个（个人认为）更直观的思路，所以推导出$Q$函数后就没有写下去了。</P>
+<DIV class="comment_reply"><A onclick="return TypechoComment.reply('comment-11923', 11923);" 
+href="https://spaces.ac.cn/archives/4277/comment-page-2?replyTo=11923#respond-post-4277" 
+rel="nofollow">回复评论</A>                </DIV></DIV></DIV></DIV></DIV>
+<DIV class="ComListLi">
+<DIV class="ListUser">Wp</DIV>
+<P class="ListDate">September 26th, 2019</P><SPAN class="ListNr"><INPUT class="cite_comment" style='font: 24px/24px "Arial"; font-size-adjust: none; font-stretch: normal;' onclick="Cite_Comment('comment-12063', 'Wp')" type="button" value="6"></SPAN> 
+            
+<DIV class="ListContent" id="comment-12063">
+<P>苏神，又重看了一遍博客。。有点疑惑。。怎么看出$(26)$式就是近似曲线的呢...是靠直觉吗，还是有什么套路？我感觉您是从【导数形式相等】出发构造的，不知道是不是这样。。</P>
+<DIV class="comment_reply"><A onclick="return TypechoComment.reply('comment-12063', 12063);" 
+href="https://spaces.ac.cn/archives/4277/comment-page-2?replyTo=12063#respond-post-4277" 
+rel="nofollow">回复评论</A>                </DIV></DIV>
+<DIV class="subcomments">
+<DIV class="comment_2 odd">
+<DIV class="comment_data"><SPAN><INPUT class="cite_comment" onclick="Cite_Comment('comment-12071', '苏剑林')" type="button" value="第7层"></SPAN> 
+                <A href="https://kexue.fm/" rel="external nofollow">苏剑林</A> 发表于  
+               September 26th, 2019            </DIV>
+<DIV class="comment_content" id="comment-12071">
+<P>将$(25)$中复杂的分子分母那一项视为常数$\boldsymbol{c}_{ij}$，反推此时的原函数。</P>
+<DIV class="comment_reply"><A onclick="return TypechoComment.reply('comment-12071', 12071);" 
+href="https://spaces.ac.cn/archives/4277/comment-page-2?replyTo=12071#respond-post-4277" 
+rel="nofollow">回复评论</A>                </DIV></DIV></DIV></DIV></DIV></DIV>
+<DIV id="bottom_pages">
+<UL>
+  <OL class="page-navigator">
+    <LI class="prev"><A href="https://spaces.ac.cn/archives/4277/comment-page-1#comments">«</A></LI>
+    <LI><A 
+    href="https://spaces.ac.cn/archives/4277/comment-page-1#comments">1</A></LI>
+    <LI class="current"><A href="https://spaces.ac.cn/archives/4277/comment-page-2#comments">2</A></LI></OL></UL></DIV>
+<DIV class="respond" id="respond-post-4277">
+<DIV class="cancle_comment_reply"><A id="cancel-comment-reply-link" style="display: none;" 
+onclick="return TypechoComment.cancelReply();" href="https://spaces.ac.cn/archives/4277#respond-post-4277" 
+rel="nofollow">取消回复</A></DIV>
+<FORM id="comment_form" action="https://spaces.ac.cn/archives/4277/comment" 
+method="post">
+<P><INPUT name="author" class="comment_infos" id="author" type="text" size="14"> 
+                        <LABEL for="author">你的大名</LABEL>                     
+</P>
+<P><INPUT name="mail" class="comment_infos" id="mail" type="text" size="14">     
+                    <LABEL for="mail">电子邮箱</LABEL>                     </P>
+<P><INPUT name="url" class="comment_infos" id="url" type="text" size="14">       
+                  <LABEL for="url">个人网站（选填）</LABEL>                     </P>
+<P><TEXTAREA name="text" id="comment_texts" onkeyup="Comment_Preview.Update()"></TEXTAREA></P>
+<P>1. 可以在评论中使用LaTeX代码，点击“预览效果”可即时查看效果，点击<A href="https://spaces.ac.cn/content.html" 
+target="_blank">这里</A>可以查看更多内容；<BR>2. 可以通过点击评论楼层编号来引用该楼层。</P>
+<P><INPUT class="submit" type="submit" value="提交评论">  <INPUT class="submit" id="preview_button" onclick="var preview = document.getElementById('preview'); if (preview.style.display === 'none') {preview.style.display='block'; document.getElementById('preview_button').value='隐藏预览';} else {preview.style.display='none'; document.getElementById('preview_button').value='预览效果';}" type="button" value="预览效果"></P></FORM>
+<DIV id="preview" style="margin-bottom: 10px; display: none;">
+<DIV id="comment_preview" style="padding: 5px; border: 1px solid rgb(204, 204, 204); border-image: none; width: 100%; color: rgb(102, 102, 102); -ms-word-break: break-all; -ms-word-wrap: break-word; min-height: 125px; box-sizing: border-box;"></DIV>
+<DIV id="comment_buffer" style="padding: 5px; border: 1px solid rgb(204, 204, 204); border-image: none; left: 0px; top: 0px; width: 100%; color: rgb(102, 102, 102); visibility: hidden; position: absolute; -ms-word-break: break-all; -ms-word-wrap: break-word; min-height: 125px; box-sizing: border-box;"></DIV></DIV>
+<SCRIPT>
+                Comment_Preview.Init();
+                //超链接都在新页面打开
+                var anchors = document.getElementById('comments').getElementsByTagName('a');
+                for (i=0; i<anchors.length; i++) {
+                    var anchor_item = anchors[i];
+                    if (anchor_item.getAttribute("rel") == 'external nofollow') {
+                        anchor_item.target = '_blank';
+                    }
+                }
+            </SCRIPT>
+         </DIV></DIV></DIV><!-- end #content-->     
+<DIV id="SideBar"><!-- 页面是非文章页 或 没有找到目录 -->                 
+<DIV class="alt-wrapper"><B class="rtop"><B class="r1"></B><B class="r2"></B><B 
+class="r3"></B><B class="r4"></B></B>
+<DIV class="inner-wrapper">
+<H3>内容速览</H3>
+<DIV class="tableofcontents">
+<LI class="toc-2"><A 
+href="https://spaces.ac.cn/archives/4277#牛顿迭代法">牛顿迭代法</A></LI>
+<LI class="toc-2"><A 
+href="https://spaces.ac.cn/archives/4277#梯度下降">梯度下降</A></LI>
+<LI class="toc-2"><A 
+href="https://spaces.ac.cn/archives/4277#最大似然">最大似然</A></LI>
+<LI class="toc-2"><A 
+href="https://spaces.ac.cn/archives/4277#EM算法">EM算法</A></LI>
+<LI class="toc-2"><A 
+href="https://spaces.ac.cn/archives/4277#K-Means">K-Means</A></LI>
+<LI class="toc-2"><A 
+href="https://spaces.ac.cn/archives/4277#总结">总结</A></LI></DIV></DIV><B class="rbottom"><B 
+class="r4"></B><B class="r3"></B><B class="r2"></B><B class="r1"></B></B></DIV>
+<DIV id="searchblock">
+<H3>智能搜索</H3>             
+<DIV id="right_search_form">
+<FORM action="" method="post">
+<DIV><INPUT name="s" onfocus="if(this.value=='请输入关键词') this.value='';" onblur="if(this.value=='') this.value='请输入关键词';" type="text" size="15" value="请输入关键词"> 
+<INPUT class="btn_search_small" type="submit"></DIV></FORM></DIV>
+<DIV class="text">支持整句搜索！网站自动使用<A href="https://github.com/fxsjy/jieba" target="_blank">结巴分词</A>进行分词，并结合ngrams排序算法给出合理的搜索结果。</DIV></DIV>
+<DIV class="alt-wrapper"><B class="rtop"><B class="r1"></B><B class="r2"></B><B 
+class="r3"></B><B class="r4"></B></B>
+<DIV class="inner-wrapper">
+<H3>热门标签</H3>
+<DIV style="margin: 7px 0px 0px;">
+<UL><A href="https://spaces.ac.cn/tag/%E7%BD%91%E7%AB%99/">网站</A>              
+                                   <A href="https://spaces.ac.cn/tag/%E8%BD%AC%E8%BD%BD/">转载</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E5%A4%A9%E8%B1%A1/">天象</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E7%A7%AF%E5%88%86/">积分</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E6%A8%A1%E5%9E%8B/">模型</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E5%8A%9B%E5%AD%A6/">力学</A> 
+                                                <A href="https://spaces.ac.cn/tag/python/">python</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E6%A6%82%E7%8E%87/">概率</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E8%8A%82%E6%97%A5/">节日</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E6%95%B0%E8%AE%BA/">数论</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B/">微分方程</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E5%87%A0%E4%BD%95/">几何</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E6%96%B9%E7%A8%8B/">方程</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E7%94%9F%E6%B4%BB/">生活</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E8%B4%B9%E6%9B%BC/">费曼</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E6%83%85%E6%84%9F/">情感</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E5%A4%8D%E6%95%B0/">复数</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E7%9F%A9%E9%98%B5/">矩阵</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E7%AB%9E%E8%B5%9B/">竞赛</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E6%97%A0%E7%9B%91%E7%9D%A3/">无监督</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E7%BF%BB%E8%AF%91/">翻译</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E5%BC%95%E5%8A%9B/">引力</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E7%BA%A7%E6%95%B0/">级数</A> 
+                                                <A href="https://spaces.ac.cn/tag/%E7%B4%A0%E6%95%B0/">素数</A> 
+                                      </UL></DIV></DIV><B class="rbottom"><B 
+class="r4"></B><B class="r3"></B><B class="r2"></B><B class="r1"></B></B></DIV>
+<DIV class="diggwrapper"><B class="rtop"><B class="r1"></B><B class="r2"></B><B 
+class="r3"></B><B class="r4"></B></B>
+<DIV class="inner-wrapper">
+<H3>随机文章</H3>
+<DIV>
+<UL>
+  <LI><A href="https://spaces.ac.cn/archives/6794">用时间换取效果：Keras梯度累积优化器</A></LI>
+  <LI><A href="https://spaces.ac.cn/archives/1523">2012年快乐！</A></LI>
+  <LI><A href="https://spaces.ac.cn/archives/1344">无固定点的单摆运动</A></LI>
+  <LI><A href="https://spaces.ac.cn/archives/232">沉痛,默哀！中国科学巨星钱学森逝世</A></LI>
+  <LI><A href="https://spaces.ac.cn/archives/22">听那“童年”之音</A></LI>
+  <LI><A href="https://spaces.ac.cn/archives/3320">胡闹的胜利：将算子引入级数求和</A></LI>
+  <LI><A href="https://spaces.ac.cn/archives/4356">科学空间添加新域名kexue.fm</A></LI>
+  <LI><A href="https://spaces.ac.cn/archives/1630">为方轮自行车铺路</A></LI>
+  <LI><A href="https://spaces.ac.cn/archives/2236">写在2013年即将逝去之际</A></LI>
+  <LI><A 
+href="https://spaces.ac.cn/archives/2022">欢聚兴隆，畅言科普</A></LI></UL></DIV></DIV><B 
+class="rbottom"><B class="r4"></B><B class="r3"></B><B class="r2"></B><B class="r1"></B></B></DIV>
+<DIV class="wrapper"><B class="rtop"><B class="r1"></B><B class="r2"></B><B 
+class="r3"></B><B class="r4"></B></B>
+<DIV class="inner-wrapper">
+<DIV class="block-comment">
+<H3>最近评论</H3>
+<DIV class="content">
+<UL>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/3154/comment-page-1#comment-12095">苦苦</A>: 
+  数学家竟然谈论起有用了。</LI>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/6482/comment-page-1#comment-12094">张兴远</A>: 
+  博主你好，非常感谢你的分享，文章写得通俗易懂。 我有几个小问题： 在第二个问题上，求逆的方法是...</LI>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/6280/comment-page-1#comment-12093">利伯蒂</A>: 
+  博主总结的推导非常令人舒适，可对于最后的目标函数我还存有一些疑问： 作为目标函数，函数中带有不...</LI>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/6985/comment-page-1#comment-12092">chandlervan</A>: 
+  苏神你好，请教一下~ 在交叉引用那一节中，如果我把层内的操作放到外面去做，直接做个转置然后点乘...</LI>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/6985/comment-page-1#comment-12091">苏剑林</A>: 
+  必要的，但有个笔误，已经修正。</LI>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/6736/comment-page-3#comment-12090">苏剑林</A>: 
+  肯定有必要。seq_padding是用来处理输入的训练数据的，模型的输入必须是一个矩阵形式。</LI>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/6736/comment-page-3#comment-12089">王坛</A>: 
+  seq_padding()这个函数有必要吗，直接在load_trained_model_fro...</LI>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/6985/comment-page-1#comment-12088">NLP_LEARNER</A>: 
+  get_outputs_of函数中，第16行的判断是不是多余了？</LI>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/6280/comment-page-1#comment-12087">苏剑林</A>: 
+  后面的内容都是在为证明$(14)$服务呀。</LI>
+  <LI><A 
+  href="https://spaces.ac.cn/archives/3902/comment-page-1#comment-12086">苏剑林</A>: 
+  这里边没有vim呀～</LI></UL></DIV></DIV></DIV><B class="rbottom"><B class="r4"></B><B 
+class="r3"></B><B class="r2"></B><B class="r1"></B></B></DIV>
+<DIV class="wrapper"><B class="rtop"><B class="r1"></B><B class="r2"></B><B 
+class="r3"></B><B class="r4"></B></B>
+<DIV class="inner-wrapper">
+<H3>友情链接</H3>
+<DIV id="friends">
+<UL>
+  <LI><A href="http://cosmostation.lamost.org/website/" 
+  target="_blank">宇宙驿站</A></LI>
+  <LI><A href="http://songshuhui.net/" target="_blank">科学松鼠会</A></LI>
+  <LI><A href="http://bbs.emath.ac.cn/" target="_blank">数学研发</A></LI>
+  <LI><A href="http://space.lamost.org/" target="_blank">空间天文网</A></LI>
+  <LI><A href="http://www.seatop.com.cn/" target="_blank">Seatop</A></LI>
+  <LI><A href="http://xiaoxia.org/" target="_blank">Xiaoxia</A></LI>
+  <LI><A href="https://kexue.fm/sci/integral/index.html" 
+  target="_blank">积分表-网络版</A></LI>
+  <LI><A href="http://www.matrix67.com/blog/" target="_blank">matrix67</A></LI>
+  <LI><A href="http://blog.dvxj.com/" target="_blank">丝路博傲</A></LI>
+  <LI><A href="http://www.physixfan.com/" target="_blank">宇宙的心弦</A></LI>
+  <LI><A href="http://www.changhai.org/" target="_blank">卢昌海主页</A></LI>
+  <LI><A href="http://taho.cc/" target="_blank">TAHOROOM</A></LI>
+  <LI><A href="http://www.ph4ntasy.com/" target="_blank">ph4ntasy 饭特稀</A></LI>
+  <LI><A href="http://www.2math.cn/" target="_blank">数学之家</A></LI>
+  <LI><A href="http://interesting-sky.china-vo.org/" 
+  target="_blank">有趣天文奇观</A></LI>
+  <LI><A href="http://www.dili520.com/" target="_blank">天文地理知识</A></LI>
+  <LI><A href="http://chuangzaoshi.com/" target="_blank">创造狮创意导航</A></LI>
+  <LI><A href="http://bsky.spaces.ac.cn/" target="_blank">bsky</A></LI>
+  <LI><A href="http://www.twistedwg.com/" target="_blank">TwistedW</A></LI>
+  <LI><A href="https://godweiyang.com/" target="_blank">godweiyang</A></LI>
+  <LI><A href="https://blog.ailemon.me/" target="_blank">AI柠檬</A></LI>
+  <LI><A href="https://drivingc.com/" target="_blank">DrivingC</A></LI>
+  <LI><A href="https://msst.longlan.xyz/" target="_blank">聚星科技论坛</A></LI>
+  <LI><A href="https://greatdk.com/" target="_blank">王登科-DK博客</A></LI>
+  <LI><A href="https://5663015.github.io/" target="_blank">贾维斯的小屋</A></LI>
+  <LI><A href="https://kexue.fm/links.html" 
+target="_blank">申请链接</A></LI></UL></DIV></DIV><B class="rbottom"><B 
+class="r4"></B><B class="r3"></B><B class="r2"></B><B 
+class="r1"></B></B></DIV></DIV><!-- end #sidebar -->    </DIV>
+<DIV id="Footer">
+<P><A href="http://creativecommons.org/licenses/by-nc-nd/2.5/cn/" target="_blank"><IMG 
+alt="署名-非商业用途-保持一致" src="梯度下降和EM算法：系出同源，一脉相承%20-%20科学空间Scientific%20Spaces_files/cc.gif"></A> 
+本站采用创作共用版权协议，要求署名、非商业用途和保持一致。转载本站内容必须也遵循“<A href="http://creativecommons.org/licenses/by-nc-nd/2.5/cn/" 
+target="_blank">署名-非商业用途-保持一致</A>”的创作共用协议。          <BR>© 2009-2019 Scientific 
+Spaces. All rights reserved. Theme by <A href="http://www.laogui.com/" target="_blank">laogui</A>. 
+Powered by <A href="http://typecho.org/" target="_blank">Typecho</A>. 备案号: <A 
+title="粤ICP备09093259号" href="http://www.miibeian.gov.cn/" 
+target="_blank">粤ICP备09093259号</A>。       </P><SPAN class="myurl"></SPAN> </DIV>
+<SCRIPT>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?05a8a552590dfa8b88bcff93d9ec3ba8";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+</SCRIPT>
+ 
+<SCRIPT>
+// 评论ajax翻页
+jQuery(document).ready(function($) {
+    var comments = $("#comments"), // 评论部分id
+        loadingText = "\u8bc4\u8bba\u6570\u636e\u52a0\u8f7d\u4e2d\x2e\x2e\x2e", // 加载loading提示
+        ajaxed = false;
+    $(document).on('click', '#comments .page-navigator li a', function(e){
+        e.preventDefault();
+        var _this = $(this),
+            _thisP = _this.parent();
+        if(_thisP.hasClass('current') || ajaxed==true) return; // 判断是否是当前页面
+        var _list = $('.ComListLi'),
+            url = _this.attr("href").replace("#comments", "") + "?action=ajax_comments";
+            window.history.pushState({}, 0, _this.attr("href")); // 修改地址栏，方便复制评论
+        $.ajax({ // Ajax请求
+            url: url,
+            beforeSend: function() {
+                _list.text(loadingText);
+                ajaxed = true;
+            },
+            success: function(data) {
+                comments.html(data);
+                ajaxed = false;
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+            }
+        });
+        return false;
+    });
+});
+</SCRIPT>
+ <!-- end #footer --> </DIV>
+<SCRIPT type="text/javascript">
+var typechoAddCommentReply = function (cid, coid, cfid, style) {
+    var _ce = document.getElementById(cid), _cp = _ce.parentNode;
+    var _cf = document.getElementById(cfid);
+
+    var _pi = document.getElementById('comment-parent');
+    if (null == _pi) {
+        _pi = document.createElement('input');
+        _pi.setAttribute('type', 'hidden');
+        _pi.setAttribute('name', 'parent');
+        _pi.setAttribute('id', 'comment-parent');
+
+        var _form = 'form' == _cf.tagName ? _cf : _cf.getElementsByTagName('form')[0];
+
+        _form.appendChild(_pi);
+    }
+    _pi.setAttribute('value', coid);
+
+    if (null == document.getElementById('comment-form-place-holder')) {
+        var _cfh = document.createElement('div');
+        _cfh.setAttribute('id', 'comment-form-place-holder');
+        _cf.parentNode.insertBefore(_cfh, _cf);
+    }
+
+    1 == style ? (null == _ce.nextSibling ? _cp.appendChild(_cf)
+    : _cp.insertBefore(_cf, _ce.nextSibling)) : _ce.appendChild(_cf);
+
+    return false;
+};
+
+var typechoCancelCommentReply = function (cfid) {
+    var _cf = document.getElementById(cfid),
+    _cfh = document.getElementById('comment-form-place-holder');
+
+    var _pi = document.getElementById('comment-parent');
+    if (null != _pi) {
+        _pi.parentNode.removeChild(_pi);
+    }
+
+    if (null == _cfh) {
+        return true;
+    }
+
+    _cfh.parentNode.insertBefore(_cf, _cfh);
+    return false;
+};
+</SCRIPT>
+ </BODY></HTML>
