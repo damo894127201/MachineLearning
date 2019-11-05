@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<!-- saved from url=(0100)https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/ -->
+<html lang="zh-CN" class="wf-sortsmillgoudy1-n5-active wf-active translated-ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="https://graph.facebook.com/?callback=WPCOMSharing.update_facebook_count&amp;ids=https%3A%2F%2Fjeremykun.com%2F2016%2F04%2F18%2Fsingular-value-decomposition-part-1-perspectives-on-linear-algebra%2F&amp;_=1572929889209"></script><script async="" src="https://api.pinterest.com/v1/urls/count.json?callback=WPCOMSharing.update_pinterest_count&amp;url=https%3A%2F%2Fjeremykun.com%2F2016%2F04%2F18%2Fsingular-value-decomposition-part-1-perspectives-on-linear-algebra%2F&amp;_=1572929889208"></script>
+
+<meta name="viewport" content="width=device-width">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://jeremykun.com/xmlrpc.php">
+<!--[if lt IE 9]>
+<script src="https://s2.wp.com/wp-content/themes/pub/confit/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+
+<title>奇异值分解第1部分：线性代数的视角–数学∩编程</title>
+<script type="text/javascript" async="" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/ga.js.下载"></script><script src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/webfont.js.下载" type="text/javascript" async=""></script><script type="text/javascript">
+  WebFontConfig = {"typekit":{"id":"das4ere"}};
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = 'https://s0.wp.com/wp-content/plugins/custom-fonts/js/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+	})();
+</script><style id="jetpack-custom-fonts-css">.wf-active .site-title{font-family:"sorts-mill-goudy-1","sorts-mill-goudy-2",serif;font-size:32.6px;font-weight:500;font-style:normal}.wf-active .main-navigation{font-style:normal;font-weight:500}.wf-active .main-navigation a{font-family:"sorts-mill-goudy-1","sorts-mill-goudy-2",serif;font-weight:500;font-style:normal}.wf-active .main-small-navigation a{font-family:"sorts-mill-goudy-1","sorts-mill-goudy-2",serif;font-weight:500;font-style:normal}.wf-active .entry-title{font-family:"sorts-mill-goudy-1","sorts-mill-goudy-2",serif;font-weight:500;font-style:normal}.wf-active .comment-content h1, .wf-active .comment-content h2, .wf-active .comment-content h3, .wf-active .comment-content h4, .wf-active .comment-content h5, .wf-active .comment-content h6, .wf-active .entry-content h1, .wf-active .entry-content h2, .wf-active .entry-content h3, .wf-active .entry-content h4, .wf-active .entry-content h5, .wf-active .entry-content h6{font-family:"sorts-mill-goudy-1","sorts-mill-goudy-2",serif;font-weight:500;font-style:normal}.wf-active .comment-content h1, .wf-active .entry-content h1{font-style:normal;font-weight:500}.wf-active .comment-content h2, .wf-active .entry-content h2{font-style:normal;font-weight:500}.wf-active .comment-content h3, .wf-active .entry-content h3{font-style:normal;font-weight:500}.wf-active .comment-content h4, .wf-active .entry-content h4{font-style:normal;font-weight:500}.wf-active .comment-content h5, .wf-active .entry-content h5{font-style:normal;font-weight:500}.wf-active .comment-content h6, .wf-active .entry-content h6{font-style:normal;font-weight:500}.wf-active .page-template-page-menu-php .menu-group-title{font-family:"sorts-mill-goudy-1","sorts-mill-goudy-2",serif;font-weight:500;font-style:normal}.wf-active .widget-title{font-family:"sorts-mill-goudy-1","sorts-mill-goudy-2",serif;font-weight:500;font-style:normal}</style>
+<meta name="google-site-verification" content="8HY57qHGWbOLf0Mw2cmAeX9whInRfftYXbFRcYJ7JDA">
+
+<!-- Async WordPress.com Remote Login -->
+
+<link rel="dns-prefetch" href="https://s2.wp.com/">
+<link rel="dns-prefetch" href="https://s1.wp.com/">
+<link rel="dns-prefetch" href="https://jeremykun.wordpress.com/">
+<link rel="dns-prefetch" href="https://s0.wp.com/">
+<link rel="dns-prefetch" href="https://widgets.wp.com/">
+<link rel="dns-prefetch" href="https://wordpress.com/">
+<link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+<link rel="alternate" type="application/rss+xml" title="数学∩编程»提要" href="https://jeremykun.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Math ∩ Programming » Comments Feed" href="https://jeremykun.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Math ∩ Programming » Singular Value Decomposition Part 1: Perspectives on Linear Algebra Comments Feed" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/feed/">
+	<script type="text/javascript">
+		/* <![CDATA[ */
+		function addLoadEvent(func) {
+			var oldonload = window.onload;
+			if (typeof window.onload != 'function') {
+				window.onload = func;
+			} else {
+				window.onload = function () {
+					oldonload();
+					func();
+				}
+			}
+		}
+		/* ]]> */
+	</script>
+			<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/wpcom-smileys\/twemoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/wpcom-smileys\/twemoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/s2.wp.com\/wp-includes\/js\/wp-emoji-release.min.js?m=1572020829h&ver=5.3-beta2-46382"}};
+			!function(e,a,t){var r,n,o,i,p=a.createElement("canvas"),s=p.getContext&&p.getContext("2d");function c(e,t){var a=String.fromCharCode;s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,e),0,0);var r=p.toDataURL();return s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,t),0,0),r===p.toDataURL()}function l(e){if(!s||!s.fillText)return!1;switch(s.textBaseline="top",s.font="600 32px Arial",e){case"flag":return!c([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])&&(!c([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!c([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]));case"emoji":return!c([55357,56424,55356,57342,8205,55358,56605,8205,55357,56424,55356,57340],[55357,56424,55356,57342,8203,55358,56605,8203,55357,56424,55356,57340])}return!1}function d(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(i=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},o=0;o<i.length;o++)t.supports[i[o]]=l(i[o]),t.supports.everything=t.supports.everything&&t.supports[i[o]],"flag"!==i[o]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[i[o]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(r=t.source||{}).concatemoji?d(r.concatemoji):r.wpemoji&&r.twemoji&&(d(r.twemoji),d(r.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/wp-emoji-release.min.js.下载" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel="stylesheet" id="all-css-0-1" href="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/saved_resource(1)" type="text/css" media="all">
+<link rel="stylesheet" id="wpcom-block-editor-styles-css" href="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/common.min.css" media="all">
+<link rel="stylesheet" id="all-css-2-1" href="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/saved_resource(2)" type="text/css" media="all">
+<link rel="stylesheet" id="confit-font-muli-css" href="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/css" media="all">
+<link rel="stylesheet" id="confit-font-enriqueta-css" href="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/css(1)" media="all">
+<link rel="stylesheet" id="all-css-6-1" href="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/saved_resource(3)" type="text/css" media="all">
+<link rel="stylesheet" id="print-css-7-1" href="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/global-print.css" type="text/css" media="print">
+<link rel="stylesheet" id="all-css-8-1" href="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/saved_resource(4)" type="text/css" media="all">
+<script>
+var related_posts_js_options = {"post_heading":"h4"};
+</script>
+<script type="text/javascript" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/saved_resource(5)"></script>
+<link rel="stylesheet" id="all-css-0-2" href="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/style(1).css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563h&#038;ver=20110606' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://jeremykun.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Tensorphobia and the Outer Product" href="https://jeremykun.com/2016/03/28/tensorphobia-outer-product/">
+<link rel="next" title="Book mailing list" href="https://jeremykun.com/2016/04/25/book-mailing-list/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/">
+<link rel="shortlink" href="https://wp.me/p1Cqvi-1xU">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/?format=json&amp;url=https%3A%2F%2Fjeremykun.com%2F2016%2F04%2F18%2Fsingular-value-decomposition-part-1-perspectives-on-linear-algebra%2F&amp;for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/?format=xml&amp;url=https%3A%2F%2Fjeremykun.com%2F2016%2F04%2F18%2Fsingular-value-decomposition-part-1-perspectives-on-linear-algebra%2F&amp;for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Singular Value Decomposition Part 1: Perspectives on Linear Algebra">
+<meta property="og:url" content="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/">
+<meta property="og:description" content="The singular value decomposition (SVD) of a matrix is a fundamental tool in computer science, data analysis, and statistics. It’s used for all kinds of applications from regression to predict…">
+<meta property="article:published_time" content="2016-04-18T16:00:40+00:00">
+<meta property="article:modified_time" content="2017-03-18T20:31:07+00:00">
+<meta property="og:site_name" content="Math ∩ Programming">
+<meta property="og:image" content="https://jeremykun.files.wordpress.com/2015/11/movieratings.png">
+<meta property="og:image:width" content="812">
+<meta property="og:image:height" content="521">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:creator" content="@MathProgramming">
+<meta name="twitter:site" content="@MathProgramming">
+<meta name="twitter:text:title" content="Singular Value Decomposition Part 1: Perspectives on Linear Algebra">
+<meta name="twitter:card" content="summary">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+
+<!-- End Jetpack Open Graph Tags -->
+<link rel="shortcut icon" type="image/x-icon" href="https://secure.gravatar.com/blavatar/ffc08531463d8605aef9e0b51a9ac71f?s=32" sizes="16x16">
+<link rel="icon" type="image/x-icon" href="https://secure.gravatar.com/blavatar/ffc08531463d8605aef9e0b51a9ac71f?s=32" sizes="16x16">
+<link rel="apple-touch-icon-precomposed" href="https://secure.gravatar.com/blavatar/ffc08531463d8605aef9e0b51a9ac71f?s=114">
+<link rel="openid.server" href="https://jeremykun.com/?openidserver=1">
+<link rel="openid.delegate" href="https://jeremykun.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="https://jeremykun.com/osd.xml" title="Math ∩ Programming">
+<link rel="search" type="application/opensearchdescription+xml" href="https://s1.wp.com/opensearch.xml" title="WordPress.com">
+<meta name="theme-color" content="#ffffff">
+		<style type="text/css">
+			.recentcomments a {
+				display: inline !important;
+				padding: 0 !important;
+				margin: 0 !important;
+			}
+
+			table.recentcommentsavatartop img.avatar, table.recentcommentsavatarend img.avatar {
+				border: 0px;
+				margin: 0;
+			}
+
+			table.recentcommentsavatartop a, table.recentcommentsavatarend a {
+				border: 0px !important;
+				background-color: transparent !important;
+			}
+
+			td.recentcommentsavatarend, td.recentcommentsavatartop {
+				padding: 0px 0px 1px 0px;
+				margin: 0px;
+			}
+
+			td.recentcommentstextend {
+				border: none !important;
+				padding: 0px 0px 2px 10px;
+			}
+
+			.rtl td.recentcommentstextend {
+				padding: 0px 10px 2px 0px;
+			}
+
+			td.recentcommentstexttop {
+				border: none;
+				padding: 0px 0px 0px 10px;
+			}
+
+			.rtl td.recentcommentstexttop {
+				padding: 0px 10px 0px 0px;
+			}
+		</style>
+		<meta name="application-name" content="Math ∩ Programming"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-task" content="name=Subscribe;action-uri=https://jeremykun.com/feed/;icon-uri=https://secure.gravatar.com/blavatar/ffc08531463d8605aef9e0b51a9ac71f?s=16"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s1.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s1.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s1.wp.com/i/favicon.ico"><meta name="description" content="The singular value decomposition (SVD) of a matrix is a fundamental tool in computer science, data analysis, and statistics. It&#39;s used for all kinds of applications from regression to prediction, to finding approximate solutions to optimization problems. In this series of two posts we&#39;ll motivate, define, compute, and use the singular value decomposition to analyze some data. (Jump…">
+<style type="text/css" id="custom-background-css">
+	body.custom-background { background-color: #ffffff; }
+	</style>
+<style type="text/css" id="custom-colors-css">.site-description,.entry-header .entry-meta,.entry-content blockquote,.comment-content blockquote,.comment-meta a{opacity:.5}@media screen and (min-width:768px) and (min-device-width:769px){#masthead,#secondary{background-color:transparent !important}}body{background-color:#fff}#page:before{background-color:#fff}#page:before{background-color:rgba(255,255,255,.95)}.site-footer{background-color:#fff}.site-footer{background-color:rgba(255,255,255,.95)}.main-navigation ul ul{background-color:#fff}.main-navigation ul ul{background-color:rgba(255,255,255,.95)}.site-content article{background-color:#fff}.site-content article{background-color:rgba(255,255,255,.95)}.archive-header,.page-header,.single .menu-group-header{background-color:#fff}.archive-header,.page-header,.single .menu-group-header{background-color:rgba(255,255,255,.95)}.page-template-page-menu-php .menu-items{background-color:#fff}.page-template-page-menu-php .menu-items{background-color:rgba(255,255,255,.95)}.menu-labels span{color:#fff}.pdf-menu a{color:#fff}.site-content .site-navigation{background-color:#fff}.site-content .site-navigation{background-color:rgba(255,255,255,.95)}.comments-area{background-color:#fff}.comments-area{background-color:rgba(255,255,255,.95)}.comment-author span{background-color:#fff}#infinite-handle span{background-color:#fff}#infinite-handle span{background-color:rgba(255,255,255,.95)}#masthead{background-color:#fff}#masthead{background-color:rgba(255,255,255,.95)}#secondary{background-color:#fff}#secondary{background-color:rgba(255,255,255,.95)}button,html input[type=button],input[type=reset],input[type=submit]{color:#fff}button,html input[type=button],input[type=reset],input[type=submit]{color:rgba(255,255,255,.95)}input[type=text],input[type=email],input[type=password],textarea{background-color:#d8d8d8}input[type=text],input[type=email],input[type=password],textarea{border-color:#e5e5e5}hr{background-color:#e5e5e5}.main-navigation li{border-color:#e5e5e5}.entry-content pre,.comment-content pre{border-color:#e5e5e5}.entry-content abbr,.comment-content abbr,.entry-content dfn,.comment-content dfn,.entry-content acronym,.comment-content acronym{border-color:#e5e5e5}.entry-content table,.comment-content table,.entry-content td,.comment-content td{border-color:#e5e5e5}.page-template-page-menu-php .menu-items article{border-color:#e5e5e5}.wp-caption{border-color:#e5e5e5}.widget_calendar #wp-calendar,.widget_calendar #wp-calendar thead th,.widget_calendar #wp-calendar tbody td,.widget_calendar #wp-calendar tfoot td#next{border-color:#e5e5e5}.entry-content div.sharedaddy div.sd-block{border-color:#e5e5e5}.main-small-navigation{border-color:#e5e5e5}body,button,input,select,textarea{color:#36312d}.main-navigation a,.main-small-navigation a,.main-navigation a:visited,.main-small-navigation a:visited{color:#36312d}.page-template-page-menu-php .menu-items .entry-title{color:#36312d}.widget-title a{color:#36312d}input[type=text],input[type=email],input[type=password],textarea{color:#36312d}.site-description{color:#36312d}.entry-meta{color:#36312d}.entry-header .entry-meta a{color:#36312d}.entry-content blockquote,.comment-content blockquote{color:#36312d}.comment-meta a{color:#36312d}a{color:#2f7de4}a:visited{color:#2f7de4}button,html input[type=button],input[type=reset],input[type=submit]{background-color:#2f7de4}.main-navigation a:hover,.main-navigation .current_page_item>a,.main-navigation .current_page_ancestor>a,.main-navigation .current-menu-item>a,.main-navigation .current-menu-ancestor>a{color:#2f7de4}.main-navigation .current_page_item>a:visited,.main-navigation .current_page_ancestor>a:visited,.main-navigation .current-menu-item>a:visited,.main-navigation .current-menu-ancestor>a:visited{color:#2f7de4}.entry-title{color:#2f7de4}.entry-title{border-color:#2f7de4}.page-template-page-menu-php .menu-group-title{color:#2f7de4}.menu-labels span{background-color:#2f7de4}.pdf-menu a{background-color:#2f7de4}.bypostauthor>article .comment-author span{background-color:#2f7de4}.widget_flickr #flickr_badge_uber_wrapper a{color:#2f7de4}#infinite-handle span{color:#2f7de4}#infinite-handle span:before{color:#2f7de4}.entry-content blockquote p,.comment-content blockquote p{border-color:#2f7de4}a:hover,a:focus,a:active{color:#000}button:hover,html input[type=button]:hover,input[type=reset]:hover,input[type=submit]:hover,button:focus,html input[type=button]:focus,input[type=reset]:focus,input[type=submit]:focus,button:active,html input[type=button]:active,input[type=reset]:active,input[type=submit]:active{background-color:#000}.site-title a:hover{color:#000}.entry-header .entry-meta a:hover{color:#000}.entry-title a:hover{color:#000}.pdf-menu a:hover{background-color:#000}.widget_flickr #flickr_badge_uber_wrapper a:hover{color:#000}#infinite-handle span:hover,#infinite-handle span:hover:before{color:#000}</style>
+		<link rel="stylesheet" id="custom-css-css" type="text/css" href="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/saved_resource(6)">
+		<style type="text/css"></style><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/hovercard.min.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/services.min.css"><style type="text/css">.tk-sorts-mill-goudy{font-family:"sorts-mill-goudy-1","sorts-mill-goudy-2",serif;}</style><style type="text/css">@font-face{font-family:sorts-mill-goudy-1;src:url(https://use.typekit.net/af/fd93b1/00000000000000000000d755/27/l?subset_id=2&fvd=n5&v=3) format("woff2"),url(https://use.typekit.net/af/fd93b1/00000000000000000000d755/27/d?subset_id=2&fvd=n5&v=3) format("woff"),url(https://use.typekit.net/af/fd93b1/00000000000000000000d755/27/a?subset_id=2&fvd=n5&v=3) format("opentype");font-weight:500;font-style:normal;}</style><link type="text/css" rel="stylesheet" charset="UTF-8" href="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/translateelement.css"><script src="https://secure.gravatar.com/7432f32a40ea7fe6aef0f450d1e62020.json?callback=Gravatar.fetch_profile_callback" type="text/javascript"></script></head>
+
+<body class="post-template-default single single-post postid-5946 single-format-standard custom-background customizer-styles-applied group-blog highlander-enabled highlander-light custom-colors">
+
+<div id="wrapper">
+	<div id="page" class="hfeed site">
+				<header id="masthead" class="site-header" role="banner">
+
+			
+			
+			<hgroup>
+				<h1 class="site-title"><a href="https://jeremykun.com/" title="数学∩编程" rel="home"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">数学∩编程</font></font></a></h1>
+				<h2 class="site-description"></h2>
+			</hgroup>
+
+			<nav role="navigation" class="site-navigation main-navigation">
+				<h1 class="assistive-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">导航</font></font></h1>
+				<div class="assistive-text skip-link"><a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#content" title="跳到内容"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">跳到内容</font></font></a></div>
+
+				<div class="menu"><ul>
+<li><a href="https://jeremykun.com/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">家</font></font></a></li><li class="page_item page-item-374"><a href="https://jeremykun.com/main-content/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">主要内容</font></font></a></li>
+<li class="page_item page-item-150"><a href="https://jeremykun.com/primers/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">底漆</font></font></a></li>
+<li class="page_item page-item-3990"><a href="https://jeremykun.com/research/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">研究</font></font></a></li>
+<li class="page_item page-item-487"><a href="https://jeremykun.com/program-gallery/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">节目库</font></font></a></li>
+<li class="page_item page-item-360"><a href="https://jeremykun.com/proof-gallery/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">证明画廊</font></font></a></li>
+<li class="page_item page-item-2"><a href="https://jeremykun.com/about/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">关于作者</font></font></a></li>
+<li class="page_item page-item-3215"><a href="https://jeremykun.com/support/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">支持</font></font></a></li>
+</ul></div>
+			</nav><!-- .site-navigation .main-navigation -->
+		</header><!-- #masthead .site-header -->
+
+		<div id="main" class="site-main">
+
+		<div id="primary" class="content-area">
+			<div id="content" class="site-content" role="main">
+
+			
+					<nav role="navigation" id="nav-above" class="site-navigation post-navigation">
+		<h1 class="assistive-text">Post navigation</h1>
+
+	
+		<div class="nav-previous"><a href="https://jeremykun.com/2016/03/28/tensorphobia-outer-product/" rel="prev"><span class="meta-nav">←</span> Tensorphobia and the Outer Product</a></div>		<div class="nav-next"><a href="https://jeremykun.com/2016/04/25/book-mailing-list/" rel="next">Book mailing list <span class="meta-nav">→</span></a></div>
+	
+	</nav><!-- #nav-above -->
+	
+				
+<article id="post-5946" class="post-5946 post type-post status-publish format-standard hentry category-algorithms category-linear-algebra tag-algorithms-2 tag-linear-algebra-2 tag-mathematics tag-singular-value-decomposition">
+	<header class="entry-header">
+		<h1 class="entry-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">奇异值分解第1部分：线性代数的观点</font></font></h1>
+
+		<div class="entry-meta"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+		发表于 </font></font><a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/" title="9:00 AM" rel="bookmark"><time class="entry-date" datetime="2016-04-18T09:00:40-07:00" pubdate=""><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2016年4月18日</font></font></time></a><span class="byline"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">由</font></font><span class="author vcard"><a class="url fn n" href="https://jeremykun.com/author/jeremykun/" title="查看j2kun发表的所有帖子" rel="author"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">j2kun</font></font></a></span></span>		</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">矩阵的奇异值分解（SVD）是计算机科学，数据分析和统计中的基本工具。</font><font style="vertical-align: inherit;">它用于从回归到预测的各种应用程序，以及找到优化问题的近似解决方案。</font><font style="vertical-align: inherit;">在这两篇文章的系列文章中，我们将激发，定义，计算并使用奇异值分解来分析某些数据。</font><font style="vertical-align: inherit;">（</font></font><a href="https://jeremykun.com/2016/05/16/singular-value-decomposition-part-2-theorem-proof-algorithm/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">跳到第二篇文章</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">）</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我想将第一篇文章完全花在动机和背景上。</font><font style="vertical-align: inherit;">作为其一部分，我认为我们需要提醒一下线性代数如何消除线性子空间和矩阵。</font><font style="vertical-align: inherit;">我之所以说“我认为”，是因为我要说的话似乎很少被详细阐明。</font><font style="vertical-align: inherit;">确实，尽管我从数学的角度对线性代数有扎实的了解，但是当我第一次开始阅读应用于算法，机器学习和数据科学的线性代数时，我感到很困惑。</font><font style="vertical-align: inherit;">令人关注的是矩阵之间作为转换的矩阵与矩阵之间作为组织数据的“便捷”方式的联系。</font></font></p>
+<h2 style="text-align:center;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">数据与地图</font></font></h2>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">线性代数爱好者喜欢通过有关</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">矩阵分解的</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">陈述来表达深刻的事实&nbsp; </font><em><font style="vertical-align: inherit;">。</font></em><font style="vertical-align: inherit;">也就是说，他们会说一些不透明的内容（这是我们将在文章中获得的关于SVD的完整声明）：</font></font></p>
+<p><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">一个的SVD </font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex.php" alt="m \次" title="m \次" class="latex" width="44" height="8" srcset="https://s0.wp.com/latex.php?latex=m+%5Ctimes+n&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">矩阵</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">与真实值是的因式分解</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">为</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(2).php" alt="U \ Sigma V ^ T" title="U \ Sigma V ^ T" class="latex" width="46" height="14" srcset="https://s0.wp.com/latex.php?latex=U%5CSigma+V%5ET&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，其中</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(3).php" alt="ü" title="ü" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=U&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">是一个</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(4).php" alt="m \次m" title="m \次m" class="latex" width="48" height="8" srcset="https://s0.wp.com/latex.php?latex=m+%5Ctimes+m&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">正交矩阵，</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(5).php" alt="V" title="V" class="latex" width="13" height="11" srcset="https://s0.wp.com/latex.php?latex=V&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">是一个</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(6).php" alt="n \次n" title="n \次n" class="latex" width="40" height="8" srcset="https://s0.wp.com/latex.php?latex=n+%5Ctimes+n&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">正交矩阵，并且</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(7).php" alt="\ Sigma" title="\ Sigma" class="latex" width="11" height="11" srcset="https://s0.wp.com/latex.php?latex=%5CSigma&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">是与在对角线上非负实条目的对角矩阵。</font></font></em></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">好的，我可以单独理解这些词，但是从整体上看这意味着什么？</font><font style="vertical-align: inherit;">关于矩阵，似乎有两种看似矛盾的解释，这使我们的视线混乱了。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">第一个是</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">从某个</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(8).php" alt="ñ" title="ñ" class="latex" width="10" height="7" srcset="https://s0.wp.com/latex.php?latex=n&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">维向量空间到一个</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(9).php" alt="米" title="米" class="latex" width="14" height="7" srcset="https://s0.wp.com/latex.php?latex=m&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">维</font><font style="vertical-align: inherit;">向量空间</font><font style="vertical-align: inherit;">的线性映射</font><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">让我们处理实数，并将其称为域向量空间</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(10).php" alt="\ mathbb {R} ^ n" title="\ mathbb {R} ^ n" class="latex" width="19" height="11" srcset="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5En&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">和codomain </font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(11).php" alt="\ mathbb {R} ^ m" title="\ mathbb {R} ^ m" class="latex" width="23" height="11" srcset="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5Em&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">在这种解释中，因式分解表示域和共域中基础的变化。</font><font style="vertical-align: inherit;">具体而言，</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(5).php" alt="V" title="V" class="latex" width="13" height="11" srcset="https://s0.wp.com/latex.php?latex=V&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&nbsp;表示从通常的基础</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(10).php" alt="\ mathbb {R} ^ n" title="\ mathbb {R} ^ n" class="latex" width="19" height="11" srcset="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5En&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">到其他基础的变化，并且</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(3).php" alt="ü" title="ü" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=U&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">对co-domain也是如此</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(11).php" alt="\ mathbb {R} ^ m" title="\ mathbb {R} ^ m" class="latex" width="23" height="11" srcset="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5Em&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">只要组成的数据</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">是对一些线性映射的描述，我们就可以了解更多信息</font><font style="vertical-align: inherit;">，这很好</font><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">几年前，在此博客上，我们对线性地图进行了精确的分析，该线性地图对通过互联网随机游走进行了建模，最终得到了&nbsp; </font></font><a href="https://jeremykun.com/2011/06/12/googles-pagerank-introduction/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Google的PageRank算法</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">但是，在大多数线性代数应用程序中，</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">实际上</font><font style="vertical-align: inherit;">在其行或列中都</font><font style="vertical-align: inherit;">包含</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">数据</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">这是第二种解释。</font><font style="vertical-align: inherit;">也就是说，的每一行</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">都是中的数据点</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(10).php" alt="\ mathbb {R} ^ n" title="\ mathbb {R} ^ n" class="latex" width="19" height="11" srcset="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5En&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(9).php" alt="米" title="米" class="latex" width="14" height="7" srcset="https://s0.wp.com/latex.php?latex=m&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">总数据点，它们表示对世界上正在发生的某些过程的观察。</font><font style="vertical-align: inherit;">数据点就像人们给电影评分或测量风和温度的天气传感器一样。</font><font style="vertical-align: inherit;">如果您不了解线性代数世界视图，那么您自然不会认为这是向量从一个向量空间到另一个向量空间的映射。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在大多数情况下，人们谈论线性代数（甚至是数学家）时，他们将完全坚持线性映射透视图或数据透视图，这对您初次学习时会感到沮丧。</font><font style="vertical-align: inherit;">数据透视图似乎只是一个整洁的便利，将某些数据放入表中“有意义”。</font><font style="vertical-align: inherit;">以我的经验，奇异值分解是两种观点首次发生冲突，并且（至少在我的情况下）这与认知失调有关。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">这两种想法相结合的方式是将数据视为</font><font style="vertical-align: inherit;">由所指定的线性映射下的</font><font style="vertical-align: inherit;">基向量</font><font style="vertical-align: inherit;">的&nbsp; </font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">图像</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">这是一个具体的例子。</font><font style="vertical-align: inherit;">假设我想表达人们对电影的评价。</font><font style="vertical-align: inherit;">每行将对应于一部电影的评级，每列将对应于一个人，</font><font style="vertical-align: inherit;">矩阵</font><font style="vertical-align: inherit;">的</font><font style="vertical-align: inherit;">输入项</font><font style="vertical-align: inherit;">是人</font><font style="vertical-align: inherit;">对电影</font><font style="vertical-align: inherit;">的评级</font><font style="vertical-align: inherit;">。</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(10).php" alt="\ mathbb {R} ^ n" title="\ mathbb {R} ^ n" class="latex" width="19" height="11" srcset="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5En&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(12).php" alt="，" title="，" class="latex" width="20" height="15" srcset="https://s0.wp.com/latex.php?latex=i%2Cj&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(13).php" alt="Ĵ" title="Ĵ" class="latex" width="8" height="15" srcset="https://s0.wp.com/latex.php?latex=j&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(14).php" alt="一世" title="一世" class="latex" width="5" height="12" srcset="https://s0.wp.com/latex.php?latex=i&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"></font></p>
+<p><img data-attachment-id="6234" data-permalink="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/movieratings/#main" data-orig-file="https://jeremykun.files.wordpress.com/2015/11/movieratings.png" data-orig-size="812,521" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="movieratings" data-image-description="" data-medium-file="https://jeremykun.files.wordpress.com/2015/11/movieratings.png?w=300" data-large-file="https://jeremykun.files.wordpress.com/2015/11/movieratings.png?w=812" class="size-full wp-image-6234 aligncenter" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/movieratings.png" alt="电影评级" srcset="https://jeremykun.files.wordpress.com/2015/11/movieratings.png 812w, https://jeremykun.files.wordpress.com/2015/11/movieratings.png?w=150 150w, https://jeremykun.files.wordpress.com/2015/11/movieratings.png?w=300 300w, https://jeremykun.files.wordpress.com/2015/11/movieratings.png?w=768 768w" sizes="(max-width: 812px) 100vw, 812px"></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">实际上，它们的评级范围是1到5星，但为了简单起见，我们只能说评级可以是任何实数（它们只是选择整数）。</font><font style="vertical-align: inherit;">因此，此矩阵表示线性图。</font><font style="vertical-align: inherit;">域是&nbsp; </font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(15).php" alt="\ mathbb {R} ^ 3" title="\ mathbb {R} ^ 3" class="latex" width="18" height="14" srcset="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5E3&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，基本向量称为&nbsp; </font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">人</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，共域是</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(16).php" alt="\ mathbb {R} ^ 8" title="\ mathbb {R} ^ 8" class="latex" width="18" height="14" srcset="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5E8&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，其基本向量是电影。</font></font></p>
+<p><img data-attachment-id="6243" data-permalink="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/moviemapping/#main" data-orig-file="https://jeremykun.files.wordpress.com/2015/11/moviemapping.png" data-orig-size="592,437" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="moviemapping" data-image-description="" data-medium-file="https://jeremykun.files.wordpress.com/2015/11/moviemapping.png?w=300" data-large-file="https://jeremykun.files.wordpress.com/2015/11/moviemapping.png?w=592" class=" size-full wp-image-6243 aligncenter" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/moviemapping.png" alt="moviemapping.png" srcset="https://jeremykun.files.wordpress.com/2015/11/moviemapping.png 592w, https://jeremykun.files.wordpress.com/2015/11/moviemapping.png?w=150 150w, https://jeremykun.files.wordpress.com/2015/11/moviemapping.png?w=300 300w" sizes="(max-width: 592px) 100vw, 592px"></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">现在，&nbsp; </font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">数据集</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">由表示</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(17).php" alt="A（\ vec e _ {\ textup {Aisha}}），A（\ vec e _ {\ textup {Bob}}），A（\ vec e _ {\ textup {Chandrika}}）" title="A（\ vec e _ {\ textup {Aisha}}），A（\ vec e _ {\ textup {Bob}}），A（\ vec e _ {\ textup {Chandrika}}）" class="latex" width="216" height="18" srcset="https://s0.wp.com/latex.php?latex=A%28%5Cvec+e_%7B%5Ctextup%7BAisha%7D%7D%29%2CA%28%5Cvec+e_%7B%5Ctextup%7BBob%7D%7D%29%2CA%28%5Cvec+e_%7B%5Ctextup%7BChandrika%7D%7D%29&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，通过定义矩阵如何表示线性图，这些向量的全部正好是的列</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">如果共域确实很大，则的图像</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">是共域的一维线性子空间。</font><font style="vertical-align: inherit;">这是重要的一步，我们已经将视野从单个数据点扩展到了作为子空间的所有线性组合。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">为什么这完全有帮助？</font><font style="vertical-align: inherit;">这是我们开始看到线性代数的建模假设的地方。</font><font style="vertical-align: inherit;">如果我们尝试使用此矩阵来说明人们对电影的评价方式（也许我们想预测一个新人如何评价这些电影），则我们需要能够将该人表示&nbsp; </font><font style="vertical-align: inherit;">为Aisha </font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">的线性组合&nbsp;</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，鲍勃和钱德里卡。</font><font style="vertical-align: inherit;">同样，如果我们有一部新电影，并且希望使用此矩阵来表达有关它的任何信息，则必须将这部电影表示为现有电影的线性组合。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">当然，我并不是说电影（例如，包含电影的文件中的位）可以表示为其他电影的线性组合。</font><font style="vertical-align: inherit;">我的意思是，我们可以将电影</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">正式地</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">表示&nbsp; </font><font style="vertical-align: inherit;">为某种抽象矢量空间中的线性组合，以完成当前的任务。</font><font style="vertical-align: inherit;">换句话说，我们将电影的那些影响其收视率的特征</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">抽象</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">为矢量。</font><font style="vertical-align: inherit;">我们没有合法的数学方法来理解这一点，因此向量是代理。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">目前尚不清楚这对现实生活意味着什么，除了您可以希望（或假设或验证），如果电影的评级过程本质上是“线性的”，那么这种形式上的表现将准确地反映现实世界。</font><font style="vertical-align: inherit;">就像物理学家都暗中知道数学并没有&nbsp; </font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">真正</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> &nbsp;决定自然法则，因为人类在脑海中构筑了数学，而且如果您太刻薄地戳自然，数学就会崩溃，但是描述假设是如此的方便（等等）该死的准确），我们无法避免使用它来设计飞机。</font><font style="vertical-align: inherit;">为此，我们没有找到比数学更好的东西。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">同样，电影分级并不是字面上的线性图，但是如果我们假装成电影，我们可以制定算法来预测人们对电影的准确度。</font><font style="vertical-align: inherit;">因此，如果您知道Skyfall分别从Aisha，Bob和Chandrika获得1,2和1的评级，那么新人将根据他们与这三个人的融合程度的线性组合来对Skyfall进行评级。</font><font style="vertical-align: inherit;">换句话说，在此示例中，最多线性组合是Aisha，Bob和Chandrika代表电影评级过程的缩影。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">现在我们要解决关键：通过SVD分解矩阵提供了一种替代的，更有用的方式来表示</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">人们对电影进行评级</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">的</font><em><font style="vertical-align: inherit;">过程。</font></em><font style="vertical-align: inherit;">&nbsp;通过更改一个或两个向量空间的基础，我们隔离了过程的不同（正交）特征。</font><font style="vertical-align: inherit;">在我们的电影示例的上下文中，“因式分解”是指以下内容：</font></font></p>
+<ol>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">拿出一个特殊的向量列表，</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(18).php" alt="v_1，v_2，\ dots，v_8" title="v_1，v_2，\ dots，v_8" class="latex" width="87" height="11" srcset="https://s0.wp.com/latex.php?latex=v_1%2C+v_2%2C+%5Cdots%2C+v_8&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">这样每部电影都可以写成线性组合</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(19).php" alt="v_i" title="v_i" class="latex" width="12" height="10" srcset="https://s0.wp.com/latex.php?latex=v_i&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">做类似的事情让人们得到</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(20).php" alt="p_1，p_2，p_3" title="p_1，p_2，p_3" class="latex" width="59" height="11" srcset="https://s0.wp.com/latex.php?latex=p_1%2C+p_2%2C+p_3&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">以这样的方式进行（1）和（2）：地图</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">同时相对于两个新基准是对角线。</font></font></li>
+</ol>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">有人可能会认为</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(19).php" alt="v_i" title="v_i" class="latex" width="12" height="10" srcset="https://s0.wp.com/latex.php?latex=v_i&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">“理想化的电影”和</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(21).php" alt="_" title="_" class="latex" width="14" height="12" srcset="https://s0.wp.com/latex.php?latex=p_j&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">“理想化的评论家”。如果您想使用这些数据来讲述有关世界的事情，那么您将假设任何人都可以写为的</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(21).php" alt="_" title="_" class="latex" width="14" height="12" srcset="https://s0.wp.com/latex.php?latex=p_j&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">任何电影可以写成的线性组合</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(19).php" alt="v_i" title="v_i" class="latex" width="12" height="10" srcset="https://s0.wp.com/latex.php?latex=v_i&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">这些是</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(22).php" alt="U，V" title="U，V" class="latex" width="30" height="14" srcset="https://s0.wp.com/latex.php?latex=U%2C+V&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">分解</font><font style="vertical-align: inherit;">的行/列</font><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">重申一下，这些线性组合仅与对电影评级有关。</font><font style="vertical-align: inherit;">它们是“特殊的”，因为它们使矩阵对角线。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果世界是逻辑的（我不是说是这样），那么可能</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(23).php" alt="v_1" title="v_1" class="latex" width="13" height="11" srcset="https://s0.wp.com/latex.php?latex=v_1&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">对应于一些“动作电影”的理想化概念，并且</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(24).php" alt="p_1" title="p_1" class="latex" width="14" height="11" srcset="https://s0.wp.com/latex.php?latex=p_1&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">对应于“动作电影爱好者”的一些理想化概念。那么，为什么映射是有道理的在此基础上将是对角线：动作电影爱好者只喜欢动作电影，因此</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(24).php" alt="p_1" title="p_1" class="latex" width="14" height="11" srcset="https://s0.wp.com/latex.php?latex=p_1&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&nbsp;，除以外的所有内容的评分均为零</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(23).php" alt="v_1" title="v_1" class="latex" width="13" height="11" srcset="https://s0.wp.com/latex.php?latex=v_1&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">电影是通过其如何（线性）分解为“理想化”电影来表示的。</font><font style="vertical-align: inherit;">为了组成一些任意数字，也许《天降》是2/3动作片，1/5反乌托邦科幻小说和-6/7喜剧爱情小说。</font><font style="vertical-align: inherit;">同样，一个人将通过他们如何分解（通过线性组合）分解为动作电影爱好者，rom-com爱好者等来表示。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">要完全清楚，奇异值分解&nbsp; </font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">无法</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">找到理想的科幻电影。</font><font style="vertical-align: inherit;">奇异值分解的“理想”性是关于数据的固有几何结构以及线性假设的。</font><font style="vertical-align: inherit;">这是否与人类对电影的分类有任何关系是一个单独的问题，答案几乎肯定是没有。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">从这个角度来看，我们几乎准备讨论奇异值分解。</font><font style="vertical-align: inherit;">我只想花一点时间写下一系列假设，以确保在给定电影收视率数据集的情况下，我们可以使用线性代数</font><font style="vertical-align: inherit;">&nbsp;对世界</font><font style="vertical-align: inherit;">做出&nbsp; </font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">确切的</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">声明。</font></font></p>
+<ol>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">所有人都通过相同的线性图对电影评分。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">每个人都可以被表达为“理想”人的线性组合（仅出于电影分级的目的）。</font><font style="vertical-align: inherit;">电影也是如此。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">“理想化”的电影和人物可以表示为我们特定数据集中电影/人物的线性组合。</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">评级没有错误。</font></font></li>
+</ol>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">人们可能会对这些假设的哲学（或伦理或文化）方面进行深入而有趣的讨论。</font><font style="vertical-align: inherit;">但是由于互联网更喜欢观看有礼貌的话语，因此我们将转向算法。</font></font></p>
+<h2 style="text-align:center;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">近似子空间</font></font></h2>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在我们当前的上下文中，奇异值分解（SVD）并不是要像我们上面所说的那样在新的基础上完整地描述映射。</font><font style="vertical-align: inherit;">相反，我们希望使用它来&nbsp; </font><font style="vertical-align: inherit;">通过低维线性事物</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">近似&nbsp;</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">映射</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">当我说“低维线性事物”时，我的意思是给定的</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，我们想要找到另一个</font><font style="vertical-align: inherit;">在某种程度上</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(25).php" alt="乙" title="乙" class="latex" width="13" height="11" srcset="https://s0.wp.com/latex.php?latex=B&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">可测量的相似</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">且与相比具有较低等级的</font><font style="vertical-align: inherit;">矩阵</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我们怎么知道那</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">还不是低级？</font><font style="vertical-align: inherit;">原因是即使噪音很小的数据也具有很高的概率。</font><font style="vertical-align: inherit;">一种具体的说法是，低阶矩阵的空间在所有矩阵的空间内都具有较小的维数（就流形而言）。</font><font style="vertical-align: inherit;">因此，即使对单个条目进行无穷小的干扰，也会提高排名。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">但是，我们不需要了解多种方法来理解SVD。</font><font style="vertical-align: inherit;">对于我们对电影进行人物评分的示例，完整级别的属性应该显而易见。</font><font style="vertical-align: inherit;">人类偏好中的噪声，随机性和任意性无疑破坏了我们希望找到的任何“完美”线性结构，特别是这意味着数据集本身（即的图像</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">）是共域的一个大维子空间。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">找出低阶近似值可以认为是“消除”了数据中的噪声。</font><font style="vertical-align: inherit;">当基础过程</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">接近</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">线性图</font><font style="vertical-align: inherit;">时，此方法特别有效&nbsp; </font><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">即，当数据&nbsp; </font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">接近</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">完全包含在相对低维度的单个子空间中时。</font><font style="vertical-align: inherit;">思考为什么会这样的一种方法是，如果您正在观察的过程确实是线性的，但是您获得的数据却被少量的噪声破坏了。</font><font style="vertical-align: inherit;">然后</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，在可测量的意义上（将在续集中以数学方式定义）接近于低秩，并且低秩近似</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(25).php" alt="乙" title="乙" class="latex" width="13" height="11" srcset="https://s0.wp.com/latex.php?latex=B&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">将是的更有效，准确且可概括的替代</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">根据我们之前关于何时可以使用线性代数解决问题的假设列表，对于SVD，我们可以在前三个假设中“近似”添加，在第四个假设中“附加太多错误”。</font><font style="vertical-align: inherit;">如果这些假设成立，SVD将为我们提供一个矩阵</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(25).php" alt="乙" title="乙" class="latex" width="13" height="11" srcset="https://s0.wp.com/latex.php?latex=B&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，</font><font style="vertical-align: inherit;">该矩阵</font><font style="vertical-align: inherit;">可以准确地表示要测量的过程。</font><font style="vertical-align: inherit;">相反，如果SVD表现良好，则您有一些证据表明该过程是线性的。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">更具体地与符号中，如果</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">是代表通过的图像数据集的一些矩阵</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">和你提供一个小的整数</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(26).php" alt="ķ" title="ķ" class="latex" width="9" height="11" srcset="https://s0.wp.com/latex.php?latex=k&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，则奇异值分解来计算秩</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(26).php" alt="ķ" title="ķ" class="latex" width="9" height="11" srcset="https://s0.wp.com/latex.php?latex=k&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">矩阵</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(27).php" alt="B_k" title="B_k" class="latex" width="18" height="14" srcset="https://s0.wp.com/latex.php?latex=B_k&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，其最佳近似</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">并且由于现在我们可以轻松地用其图像定义的子空间来标识数据矩阵，因此这与查找</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(26).php" alt="ķ" title="ķ" class="latex" width="9" height="11" srcset="https://s0.wp.com/latex.php?latex=k&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">图像</font><font style="vertical-align: inherit;">的- </font><font style="vertical-align: inherit;">维子空间</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">是最好的近似数据（即的图像</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(27).php" alt="B_k" title="B_k" class="latex" width="18" height="14" srcset="https://s0.wp.com/latex.php?latex=B_k&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">）相同。</font><font style="vertical-align: inherit;">在下一篇文章中，我们将量化“最佳近似”的含义。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">就直觉地了解什么是SVD就是这样。</font><font style="vertical-align: inherit;">我应该补充一点，SVD&nbsp; </font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">不仅</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> &nbsp;允许人们计算等级</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(26).php" alt="ķ" title="ķ" class="latex" width="9" height="11" srcset="https://s0.wp.com/latex.php?latex=k&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">近似值，它实际上还允许您设置</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(28).php" alt="k = n" title="k = n" class="latex" width="41" height="11" srcset="https://s0.wp.com/latex.php?latex=k%3Dn&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">和获得的精确表示</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">在本系列中，我们只是不会将其用于此目的。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">直觉的第二点如下。</font><font style="vertical-align: inherit;">它仅比严格度稍高一点，但是以某种方式，这种小见解确实使SVD亲自为我点击：</font></font></p>
+<p style="text-align:center;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">SVD是您迭代解决将数据拟合到行的贪婪优化问题时得到的结果。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我的意思是，您可以通过执行以下操作来计算SVD：</font></font></p>
+<ol>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">最适合我的数据的线是什么？</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">好吧，忽略第一行，下一个最佳行是什么？</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">好吧，忽略前两行范围内的所有行，下一条最佳行是什么？</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">忽略</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">前三</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">行中的所有</font><font style="vertical-align: inherit;">行，下一条最佳行是什么？</font></font></li>
+<li><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">（重复）</font></font></li>
+</ol>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">这行事令人震惊。</font><font style="vertical-align: inherit;">对于大多数问题，在数学和生活中，贪婪算法远非最优。</font><font style="vertical-align: inherit;">当发生这种情况时，</font></font><a href="https://jeremykun.com/2014/08/26/when-greedy-algorithms-are-perfect-the-matroid/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">贪婪算法是</font><font style="vertical-align: inherit;">解决</font></font><em><font style="vertical-align: inherit;"></font></em><font style="vertical-align: inherit;"></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">自然问题</font><a href="https://jeremykun.com/2014/08/26/when-greedy-algorithms-are-perfect-the-matroid/"><font style="vertical-align: inherit;">的&nbsp; </font></a><a href="https://jeremykun.com/2014/08/26/when-greedy-algorithms-are-perfect-the-matroid/"><em><font style="vertical-align: inherit;">最佳</font></em></a><a href="https://jeremykun.com/2014/08/26/when-greedy-algorithms-are-perfect-the-matroid/"><font style="vertical-align: inherit;">解决方案</font></a><font style="vertical-align: inherit;">（并非</font><font style="vertical-align: inherit;">每次</font><font style="vertical-align: inherit;">如此，也并非</font></font><a href="https://jeremykun.com/2014/07/07/when-greedy-algorithms-are-good-enough-submodularity-and-the-1-1e-approximation/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如此</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">），这是我们的智力义务，它是要停止我们正在做的事情，坐直并坐下来，非常了解并欣赏它。</font><font style="vertical-align: inherit;">这些奇迹超越了政治争论和体育成绩。</font><font style="vertical-align: inherit;">然后，我们将</font><font style="vertical-align: inherit;">深入研究这个贪婪的优化问题，以立即</font><font style="vertical-align: inherit;">开始</font></font><a href="https://jeremykun.com/2016/05/16/singular-value-decomposition-part-2-theorem-proof-algorithm/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">下一篇文章</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+<h2 style="text-align:center;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">几何透视</font></font></h2>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我想在这里讨论另外两种观点，尽管对于不熟悉SVD的读者来说，在本书续篇之后等待阅读是比较合适的。</font><font style="vertical-align: inherit;">我将把我的理解（就贪婪算法和数据近似而言）与SVD的几何和统计观点联系起来。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">迈克尔·尼尔森（Michael Nielsen）写了</font></font><a href="http://cognitivemedium.com/emm/emm.html"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">一篇冗长而详尽的文章</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">&nbsp;提出一些有关思考数学的“新媒介”的想法。</font><font style="vertical-align: inherit;">他通过查看2×2矩阵的奇异值分解来证明框架。</font><font style="vertical-align: inherit;">他对SVD背后的直觉的解释是，您可以采用任何矩阵（线性映射）并将其分解为三部分：围绕原点旋转，重新调整每个坐标的缩放比例，以及随后围绕原点进行另一旋转。</font><font style="vertical-align: inherit;">尽管我对尼尔森（Nielsen）致以最大的敬意（他的量子力学著作是该领域最好的书），但这种解释从未使我个人对SVD产生兴趣。</font><font style="vertical-align: inherit;">似乎将不透明的SVD定义（作为矩阵分解）重新声明为几何术语。</font><font style="vertical-align: inherit;">实际上，正交矩阵是旋转，对角矩阵是每个坐标的缩放。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">对我来说，这种解释所缺少的关键是对近似的强调。</font><font style="vertical-align: inherit;">使得SVD如此神奇的并不是首先存在因式分解，而是SVD具有越来越好近似的这些层次。</font><font style="vertical-align: inherit;">尽管术语将在下一篇文章中介绍，但这些层是（有序的）奇异向量和奇异值。</font><font style="vertical-align: inherit;">而且，构造这些层的算法过程必须按照从最强近似到最弱的顺序进行。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">另一个几何立体，突出这是该秩</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(26).php" alt="ķ" title="ķ" class="latex" width="9" height="11" srcset="https://s0.wp.com/latex.php?latex=k&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">由SVD提供近似是矩阵的几何投影到秩中的最-K矩阵相对于空间上矩阵中的“频谱规范”（的频谱范数</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">是的最大特征值</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(29).php" alt="A ^ TA" title="A ^ TA" class="latex" width="33" height="14" srcset="https://s0.wp.com/latex.php?latex=A%5ETA&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">上面描述的基数的更改使这种投影非常容易：给定奇异值分解，您只需采用顶部</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(26).php" alt="ķ" title="ķ" class="latex" width="9" height="11" srcset="https://s0.wp.com/latex.php?latex=k&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">奇异矢量。</font><font style="vertical-align: inherit;">的确，Eckart-Young定理通过将</font><font style="vertical-align: inherit;">等级</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(26).php" alt="ķ" title="ķ" class="latex" width="9" height="11" srcset="https://s0.wp.com/latex.php?latex=k&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">SVD </font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(27).php" alt="B_k" title="B_k" class="latex" width="18" height="14" srcset="https://s0.wp.com/latex.php?latex=B_k&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">最小化了原始矩阵</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">与</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">任何</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">等级</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(26).php" alt="ķ" title="ķ" class="latex" width="9" height="11" srcset="https://s0.wp.com/latex.php?latex=k&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">矩阵</font><font style="vertical-align: inherit;">之间的距离（扭曲频谱范数）</font><font style="vertical-align: inherit;">的陈述来对此进行形式化</font><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">因此，您可以证明SVD为您提供了的最佳排名</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(26).php" alt="ķ" title="ķ" class="latex" width="9" height="11" srcset="https://s0.wp.com/latex.php?latex=k&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">近似</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(1).php" alt="一种" title="一种" class="latex" width="12" height="11" srcset="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 通过一些合理的措施。</font></font></p>
+<h2 style="text-align:center;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">下次：算法</font></font></h2>
+<p><a href="https://jeremykun.com/2016/05/16/singular-value-decomposition-part-2-theorem-proof-algorithm/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">下次，</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我们将所有这些与正式定义和严谨性联系起来。</font><font style="vertical-align: inherit;">我们将研究贪婪算法方法，然后实现SVD并在一些数据上对其进行测试。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">直到那时！</font></font></p>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon sd-sharing"><h3 class="sd-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">分享这个：</font></font></h3><div class="sd-content"><ul><li class="share-facebook"><a rel="nofollow noopener noreferrer" data-shared="sharing-facebook-5946" class="share-facebook sd-button share-icon no-text" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?share=facebook&amp;nb=1" target="_blank" title="点击分享到Facebook"><span></span><span class="sharing-screen-reader-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">单击以在Facebook上共享（在新窗口中打开）</font></font></span></a></li><li class="share-reddit"><a rel="nofollow noopener noreferrer" data-shared="" class="share-reddit sd-button share-icon no-text" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?share=reddit&amp;nb=1" target="_blank" title="点击分享在Reddit上"><span></span><span class="sharing-screen-reader-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">单击以共享Reddit（在新窗口中打开）</font></font></span></a></li><li class="share-twitter"><a rel="nofollow noopener noreferrer" data-shared="sharing-twitter-5946" class="share-twitter sd-button share-icon no-text" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?share=twitter&amp;nb=1" target="_blank" title="点击分享到Twitter"><span></span><span class="sharing-screen-reader-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">单击以在Twitter上共享（在新窗口中打开）</font></font></span></a></li><li><a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#" class="sharing-anchor sd-button share-more"><span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">更多</font></font></span></a></li><li class="share-end"></li></ul><div class="sharing-hidden"><div class="inner" style="display: none;"><ul><li class="share-email share-service-visible"><a rel="nofollow noopener noreferrer" data-shared="" class="share-email sd-button share-icon no-text" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?share=email&amp;nb=1" target="_blank" title="Click to email this to a friend"><span></span><span class="sharing-screen-reader-text">Click to email this to a friend (Opens in new window)</span></a></li><li class="share-pinterest"><a rel="nofollow noopener noreferrer" data-shared="sharing-pinterest-5946" class="share-pinterest sd-button share-icon no-text" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?share=pinterest&amp;nb=1" target="_blank" title="Click to share on Pinterest"><span></span><span class="sharing-screen-reader-text">Click to share on Pinterest (Opens in new window)</span></a></li><li class="share-end"></li><li class="share-linkedin"><a rel="nofollow noopener noreferrer" data-shared="sharing-linkedin-5946" class="share-linkedin sd-button share-icon no-text" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?share=linkedin&amp;nb=1" target="_blank" title="Click to share on LinkedIn"><span></span><span class="sharing-screen-reader-text">Click to share on LinkedIn (Opens in new window)</span></a></li><li class="share-tumblr"><a rel="nofollow noopener noreferrer" data-shared="" class="share-tumblr sd-button share-icon no-text" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?share=tumblr&amp;nb=1" target="_blank" title="Click to share on Tumblr"><span></span><span class="sharing-screen-reader-text">Click to share on Tumblr (Opens in new window)</span></a></li><li class="share-end"></li><li class="share-end"></li></ul></div></div></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-23934684-5946-5dc1015f4b1c2" data-src="//widgets.wp.com/likes/index.html?ver=20190321#blog_id=23934684&amp;post_id=5946&amp;origin=jeremykun.wordpress.com&amp;obj_id=23934684-5946-5dc1015f4b1c2&amp;domain=jeremykun.com" data-name="like-post-frame-23934684-5946-5dc1015f4b1c2"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-23934684-5946-5dc1015f4b1c2" height="55px" width="100%" frameborder="0" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/index.html"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div>
+<div id="jp-relatedposts" class="jp-relatedposts">
+	
+</div></div>			</div><!-- .entry-content -->
+
+	<footer class="entry-meta"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+		
+		此条目发布在</font></font><a href="https://jeremykun.com/category/algorithms/" rel="category tag"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">算法</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，</font></font><a href="https://jeremykun.com/category/linear-algebra/" rel="category tag"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">线性代数</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">和标记</font></font><a href="https://jeremykun.com/tag/algorithms-2/" rel="tag"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">算法</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，</font></font><a href="https://jeremykun.com/tag/linear-algebra-2/" rel="tag"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">线性代数</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，</font></font><a href="https://jeremykun.com/tag/mathematics/" rel="tag"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">数学</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">，</font></font><a href="https://jeremykun.com/tag/singular-value-decomposition/" rel="tag"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">奇异值分解中</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">为</font></font><a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/" title="固定连接到奇异值分解，第1部分：线性代数的观点" rel="bookmark"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">永久链接添加</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">书签</font><font style="vertical-align: inherit;">。
+			</font></font></footer><!-- .entry-meta -->
+</article><!-- #post-5946 -->
+
+					<nav role="navigation" id="nav-below" class="site-navigation post-navigation">
+		<h1 class="assistive-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">帖子导航</font></font></h1>
+
+	
+		<div class="nav-previous"><a href="https://jeremykun.com/2016/03/28/tensorphobia-outer-product/" rel="prev"><span class="meta-nav"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">←张</font></font></span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">恐怖症和外在产物</font></font></a></div>		<div class="nav-next"><a href="https://jeremykun.com/2016/04/25/book-mailing-list/" rel="next"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">图书邮寄清单</font></font><span class="meta-nav"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">→</font></font></span></a></div>
+	
+	</nav><!-- #nav-below -->
+	
+				
+
+	<div id="comments" class="comments-area">
+
+	
+			<h2 class="comments-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+			9个思考“ </font></font><span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">奇异值分解第1部分：线性代数的观点</font></font></span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> ”		</font></font></h2>
+
+		<ol class="commentlist">
+				<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-53774">
+		<article id="comment-53774" class="comment">
+			<footer class="clear">
+				<div class="comment-author vcard">
+					<span><img alt="" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/b79edaaf57a58afab2247b7b9880e948" class="avatar avatar-44 grav-hashed grav-hijack" height="44" width="44" originals="44" src-orig="https://2.gravatar.com/avatar/b79edaaf57a58afab2247b7b9880e948?s=44&amp;d=identicon&amp;r=G" scale="1.5" id="grav-b79edaaf57a58afab2247b7b9880e948-0"></span>
+					<cite class="fn"><a href="http://www.sidegeo.blogspot.com/" rel="external nofollow ugc" class="url"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">保罗·科埃略</font></font></a></cite>				</div><!-- .comment-author .vcard -->
+
+				<div class="comment-meta commentmetadata">
+					<a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#comment-53774"><time pubdate="" datetime="2016-04-18T13:22:45-07:00"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+					2016年4月18日，下午1:22					</font></font></time></a>
+										<a rel="nofollow" class="comment-reply-link" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?replytocom=53774#respond" data-commentid="53774" data-postid="5946" data-belowelement="comment-53774" data-respondelement="respond" aria-label="回复保罗·科埃略"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">回复</font></font></a>				</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content">
+				<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">矩阵的域基础图像是线性的，还是更正确的仿射？</font><font style="vertical-align: inherit;">如果它是超排队的几个点的近似值，那么我想它是仿射的。</font><font style="vertical-align: inherit;">我发表评论是因为我在博客中提出了一种不同的方式来考虑这些近似值。</font><font style="vertical-align: inherit;">问题是找到靠近点的（超）平面。</font><font style="vertical-align: inherit;">将这些点重新解释为平面，找到那些平面所包围的区域，找到该区域顶点的平均值，然后将其解释为（超）平面。</font><font style="vertical-align: inherit;">您的方法虽然更有条理。</font></font></p>
+<p id="comment-like-53774" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?like_comment=53774&amp;_wpnonce=9fc00ba7bd" class="comment-like-link needs-login" rel="nofollow" data-blog="23934684"><span>Like</span></a><span id="comment-like-count-53774" class="comment-like-feedback"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">喜欢</font></font></span></p>
+							</div>
+
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="li-comment-53776">
+		<article id="comment-53776" class="comment">
+			<footer class="clear">
+				<div class="comment-author vcard">
+					<span><img alt="" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/352603e575430df8997dad0ab4e35e17.jpeg" class="avatar avatar-44 grav-hashed grav-hijack" height="44" width="44" originals="44" src-orig="https://0.gravatar.com/avatar/352603e575430df8997dad0ab4e35e17?s=44&amp;d=identicon&amp;r=G" scale="1.5" id="grav-352603e575430df8997dad0ab4e35e17-0"></span>
+					<cite class="fn"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">珍妮</font></font></cite>				</div><!-- .comment-author .vcard -->
+
+				<div class="comment-meta commentmetadata">
+					<a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#comment-53776"><time pubdate="" datetime="2016-04-18T17:16:19-07:00"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+					2016年4月18日下午5:16					</font></font></time></a>
+										<a rel="nofollow" class="comment-reply-link" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?replytocom=53776#respond" data-commentid="53776" data-postid="5946" data-belowelement="comment-53776" data-respondelement="respond" aria-label="回复詹妮"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">回复</font></font></a>				</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content">
+				<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我认为转型不是仿射的？</font><font style="vertical-align: inherit;">没有平移，只有旋转和缩放。</font></font></p>
+<p id="comment-like-53776" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?like_comment=53776&amp;_wpnonce=702f9e0eda" class="comment-like-link needs-login" rel="nofollow" data-blog="23934684"><span>Like</span></a><span id="comment-like-count-53776" class="comment-like-feedback"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">喜欢</font></font></span></p>
+							</div>
+
+		</article><!-- #comment-## -->
+
+	<ul class="children">
+	<li class="comment even depth-2 highlander-comment" id="li-comment-53799">
+		<article id="comment-53799" class="comment">
+			<footer class="clear">
+				<div class="comment-author vcard">
+					<span><img alt="" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/2e820fb5b687a44bc48b3ded407d9df1" class="avatar avatar-44 grav-hashed grav-hijack" height="44" width="44" originals="44" src-orig="https://2.gravatar.com/avatar/2e820fb5b687a44bc48b3ded407d9df1?s=44&amp;d=identicon&amp;r=G" scale="1.5" id="grav-2e820fb5b687a44bc48b3ded407d9df1-0"></span>
+					<cite class="fn"><a href="http://sidegeo.blogspot.com/" rel="external nofollow ugc" class="url"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">保罗·科埃略</font></font></a></cite>				</div><!-- .comment-author .vcard -->
+
+				<div class="comment-meta commentmetadata">
+					<a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#comment-53799"><time pubdate="" datetime="2016-04-23T10:50:52-07:00"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+					2016年4月23日上午10:50					</font></font></time></a>
+										<a rel="nofollow" class="comment-reply-link" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?replytocom=53799#respond" data-commentid="53799" data-postid="5946" data-belowelement="comment-53799" data-respondelement="respond" aria-label="回复保罗·科埃略"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">回复</font></font></a>				</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content">
+				<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">每个线性空间都归纳出一类仿射空间。</font><font style="vertical-align: inherit;">特别是考虑通过原点的平面与稍微偏离原点的平面的交点。</font></font></p>
+<p id="comment-like-53799" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?like_comment=53799&amp;_wpnonce=e5bfc02506" class="comment-like-link needs-login" rel="nofollow" data-blog="23934684"><span>Like</span></a><span id="comment-like-count-53799" class="comment-like-feedback"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">喜欢</font></font></span></p>
+							</div>
+
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment odd alt thread-even depth-1 highlander-comment" id="li-comment-53779">
+		<article id="comment-53779" class="comment">
+			<footer class="clear">
+				<div class="comment-author vcard">
+					<span><img alt="" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/179d4d6313883c46df3c15de4f38370b" class="avatar avatar-44 grav-hashed grav-hijack" height="44" width="44" id="grav-179d4d6313883c46df3c15de4f38370b-0" originals="44" src-orig="https://1.gravatar.com/avatar/179d4d6313883c46df3c15de4f38370b?s=44&amp;d=identicon&amp;r=G" scale="1.5"></span>
+					<cite class="fn"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">黑天使</font></font></cite>				</div><!-- .comment-author .vcard -->
+
+				<div class="comment-meta commentmetadata">
+					<a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#comment-53779"><time pubdate="" datetime="2016-04-18T20:45:14-07:00"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+					2016年4月18日晚上8:45					</font></font></time></a>
+										<a rel="nofollow" class="comment-reply-link" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?replytocom=53779#respond" data-commentid="53779" data-postid="5946" data-belowelement="comment-53779" data-respondelement="respond" aria-label="回复BlackAngels"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">回复</font></font></a>				</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content">
+				<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">有关“满级”的问题-A矩阵为8×3，因此不是其最大＃lin ind。</font><font style="vertical-align: inherit;">行或列3？</font><font style="vertical-align: inherit;">完整排名是不是意味着这个最大值或更多？例如，如果有1000部电影，但仍然有3个人，则有一个R ^ 3的人空间，但是R ^ 1000个具有线性组合的R ^ 3子空间的电影空间？</font><font style="vertical-align: inherit;">感谢您的博客文章！</font></font></p>
+<p id="comment-like-53779" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?like_comment=53779&amp;_wpnonce=c420f87d05" class="comment-like-link needs-login" rel="nofollow" data-blog="23934684"><span>Like</span></a><span id="comment-like-count-53779" class="comment-like-feedback"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">喜欢</font></font></span></p>
+							</div>
+
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+	<li class="comment even thread-odd thread-alt depth-1 highlander-comment" id="li-comment-53782">
+		<article id="comment-53782" class="comment">
+			<footer class="clear">
+				<div class="comment-author vcard">
+					<span><img alt="" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/7432f32a40ea7fe6aef0f450d1e62020" class="avatar avatar-44 grav-hashed grav-hijack" height="44" width="44" id="grav-7432f32a40ea7fe6aef0f450d1e62020-0" originals="44" src-orig="https://1.gravatar.com/avatar/7432f32a40ea7fe6aef0f450d1e62020?s=44&amp;d=identicon&amp;r=G" scale="1.5"></span>
+					<cite class="fn"><a href="http://www.stich.xyz/" rel="external nofollow ugc" class="url"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">克里斯多夫·斯蒂奇</font></font></a></cite>				</div><!-- .comment-author .vcard -->
+
+				<div class="comment-meta commentmetadata">
+					<a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#comment-53782"><time pubdate="" datetime="2016-04-19T05:10:33-07:00"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+					2016年4月19日上午5:10					</font></font></time></a>
+										<a rel="nofollow" class="comment-reply-link" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?replytocom=53782#respond" data-commentid="53782" data-postid="5946" data-belowelement="comment-53782" data-respondelement="respond" aria-label="回复克里斯托夫·斯蒂奇"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">回复</font></font></a>				</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content">
+				<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我也可以从AMS强烈推荐此功能列：</font></font><a href="http://www.ams.org/samplings/feature-column/fcarc-svd" rel="nofollow ugc"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">http</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> : </font><a href="http://www.ams.org/samplings/feature-column/fcarc-svd" rel="nofollow ugc"><font style="vertical-align: inherit;">//www.ams.org/samplings/feature-column/fcarc-svd</font></a><font style="vertical-align: inherit;">。</font><font style="vertical-align: inherit;">当我第一次尝试理解SVD时，我发现它真的很有帮助</font></font></p>
+<p id="comment-like-53782" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?like_comment=53782&amp;_wpnonce=59d1e470a8" class="comment-like-link needs-login" rel="nofollow" data-blog="23934684"><span>Like</span></a><span id="comment-like-count-53782" class="comment-like-feedback"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">被</font><a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#" class="view-likers" data-like-count="2"><font style="vertical-align: inherit;">2人</font></a><font style="vertical-align: inherit;">顶了</font></font><a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#" class="view-likers" data-like-count="2"><font style="vertical-align: inherit;"></font></a></span></p>
+							</div>
+
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-even depth-1 highlander-comment" id="li-comment-53784">
+		<article id="comment-53784" class="comment">
+			<footer class="clear">
+				<div class="comment-author vcard">
+					<span><img alt="" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/a7e744113723dd9b1d6d4e5294358bad" class="avatar avatar-44 grav-hashed grav-hijack" height="44" width="44" id="grav-a7e744113723dd9b1d6d4e5294358bad-0" originals="44" src-orig="https://1.gravatar.com/avatar/a7e744113723dd9b1d6d4e5294358bad?s=44&amp;d=identicon&amp;r=G" scale="1.5"></span>
+					<cite class="fn"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">担</font></font></cite>				</div><!-- .comment-author .vcard -->
+
+				<div class="comment-meta commentmetadata">
+					<a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#comment-53784"><time pubdate="" datetime="2016-04-20T12:18:39-07:00"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+					2016年4月20日下午12:18					</font></font></time></a>
+										<a rel="nofollow" class="comment-reply-link" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?replytocom=53784#respond" data-commentid="53784" data-postid="5946" data-belowelement="comment-53784" data-respondelement="respond" aria-label="回复丹"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">回复</font></font></a>				</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content">
+				<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">例如，如果您只有三列并且要使用SVD，则Universe必须是3维的。</font><font style="vertical-align: inherit;">例如，厨师可以使用一些食材作为圆柱，但是您需要很多食材才能制作出美味的菜肴。</font><font style="vertical-align: inherit;">我要强调的是，您的行和列必须足够大以描述论述的范围，一般性观点，或者能够近似于您正在建模的现实。</font><font style="vertical-align: inherit;">SVD给您的是一个特殊的基础，一群厨师能够设计您想要的风味。</font><font style="vertical-align: inherit;">我认为动机应该沿着这条路线，第一个问题是关于您的基础的表达能力。</font></font></p>
+<p id="comment-like-53784" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?like_comment=53784&amp;_wpnonce=e53aa7897b" class="comment-like-link needs-login" rel="nofollow" data-blog="23934684"><span>Like</span></a><span id="comment-like-count-53784" class="comment-like-feedback"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">喜欢</font></font></span></p>
+							</div>
+
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+	<li class="comment even thread-odd thread-alt depth-1 highlander-comment" id="li-comment-53800">
+		<article id="comment-53800" class="comment">
+			<footer class="clear">
+				<div class="comment-author vcard">
+					<span><img alt="" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/Groucho_Mini_clean_icon2_normal.jpg" class="avatar avatar-44" height="44" width="44" srcset="https://i1.wp.com/pbs.twimg.com/profile_images/1718389880/Groucho_Mini_clean_icon2_normal.jpg?resize=44%2C44&amp;zoom=2 1.5x" scale="1.5"></span>
+					<cite class="fn"><a href="http://twitter.com/LanceNorskog" rel="external nofollow ugc" class="url"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">兰斯·诺斯科格（@LanceNorskog）</font></font></a></cite>				</div><!-- .comment-author .vcard -->
+
+				<div class="comment-meta commentmetadata">
+					<a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#comment-53800"><time pubdate="" datetime="2016-04-23T18:01:11-07:00"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+					2016年4月23日下午6:01					</font></font></time></a>
+										<a rel="nofollow" class="comment-reply-link" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?replytocom=53800#respond" data-commentid="53800" data-postid="5946" data-belowelement="comment-53800" data-respondelement="respond" aria-label="回复Lance Norskog（@LanceNorskog）"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">回复</font></font></a>				</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content">
+				<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">SVD可以用一种非常酷的方式来说明“等级”的概念：作为熵。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1）创建一个20×100的随机数矩阵</font></font><br><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+2）运行SVD。</font><font style="vertical-align: inherit;">奇异值应为20个几乎完全相等的数字。</font></font><br><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+3）将矩阵本身相乘以创建100×100矩阵</font></font><br><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+4）在此上运行SVD</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">您应该得到一个奇异矢量，其中包含20个几乎完全相同的值和80个非常小的值。</font><font style="vertical-align: inherit;">您的20×100矩阵几乎具有最高等级。</font><font style="vertical-align: inherit;">您的100×100矩阵只有20×100的等级，像气球一样膨胀。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">熵排名。</font></font></p>
+<p id="comment-like-53800" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?like_comment=53800&amp;_wpnonce=1e6c55be3e" class="comment-like-link needs-login" rel="nofollow" data-blog="23934684"><span>Like</span></a><span id="comment-like-count-53800" class="comment-like-feedback"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">喜欢</font></font></span></p>
+							</div>
+
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-even depth-1 highlander-comment" id="li-comment-54436">
+		<article id="comment-54436" class="comment">
+			<footer class="clear">
+				<div class="comment-author vcard">
+					<span><img alt="" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/27d136dde71a40435efa4cc4e4547c7e" class="avatar avatar-44 grav-hashed grav-hijack" height="44" width="44" id="grav-27d136dde71a40435efa4cc4e4547c7e-0" originals="44" src-orig="https://2.gravatar.com/avatar/27d136dde71a40435efa4cc4e4547c7e?s=44&amp;d=identicon&amp;r=G" scale="1.5"></span>
+					<cite class="fn"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">詹姆士</font></font></cite>				</div><!-- .comment-author .vcard -->
+
+				<div class="comment-meta commentmetadata">
+					<a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#comment-54436"><time pubdate="" datetime="2016-07-26T12:18:26-07:00"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+					2016年7月26日下午12:18					</font></font></time></a>
+										<a rel="nofollow" class="comment-reply-link" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?replytocom=54436#respond" data-commentid="54436" data-postid="5946" data-belowelement="comment-54436" data-respondelement="respond" aria-label="回复詹姆斯"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">回复</font></font></a>				</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content">
+				<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">我一直在寻找这样的文章已有很长时间了，这对您有很大帮助，非常感谢！</font></font><br><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+但是，我很难理解如何将某些数据集解释为线性映射。</font><font style="vertical-align: inherit;">例如：</font></font><br><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+1）您如何将矩阵表示的数字图像解释为线性图？</font></font><br><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+2）您如何解释其行号和列号表示位置索引（x_i，y_k）的数据矩阵，并将矩阵元素表示为其取值？</font><font style="vertical-align: inherit;">M_ik = f（x_i，y_k）</font></font></p>
+<p id="comment-like-54436" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?like_comment=54436&amp;_wpnonce=aaa566212a" class="comment-like-link needs-login" rel="nofollow" data-blog="23934684"><span>Like</span></a><span id="comment-like-count-54436" class="comment-like-feedback"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">喜欢</font></font></span></p>
+							</div>
+
+		</article><!-- #comment-## -->
+
+	<ul class="children">
+	<li class="comment byuser comment-author-jeremykun bypostauthor even depth-2 highlander-comment" id="li-comment-54437">
+		<article id="comment-54437" class="comment">
+			<footer class="clear">
+				<div class="comment-author vcard">
+					<span><img alt="" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/90b179348780a6e7fe8e502968dc534a.jpeg" class="avatar avatar-44 grav-hashed grav-hijack" height="44" width="44" id="grav-90b179348780a6e7fe8e502968dc534a-0" originals="44" src-orig="https://0.gravatar.com/avatar/90b179348780a6e7fe8e502968dc534a?s=44&amp;d=identicon&amp;r=G" scale="1.5"></span>
+					<cite class="fn"><a href="https://jeremykun.wordpress.com/" rel="external nofollow ugc" class="url"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">j2kun</font></font></a></cite>				</div><!-- .comment-author .vcard -->
+
+				<div class="comment-meta commentmetadata">
+					<a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#comment-54437"><time pubdate="" datetime="2016-07-26T12:45:29-07:00"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+					2016年7月26日下午12:45					</font></font></time></a>
+										<a rel="nofollow" class="comment-reply-link" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?replytocom=54437#respond" data-commentid="54437" data-postid="5946" data-belowelement="comment-54437" data-respondelement="respond" aria-label="回复j2kun"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">回复</font></font></a>				</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content">
+				<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在某种程度上，您的问题的两个答案都只是“将任何矩阵解释</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(30).php" alt="中号" title="中号" class="latex" width="17" height="11" srcset="https://s0.wp.com/latex.php?latex=M&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">为线性图的</font><font style="vertical-align: inherit;">方式相同</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(31).php" alt="F" title="F" class="latex" width="10" height="14" srcset="https://s0.wp.com/latex.php?latex=f&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">”，即通过为每个行/列使用一个基向量，并用基向量索引的每一列来</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(32).php" alt="v" title="v" class="latex" width="8" height="7" srcset="https://s0.wp.com/latex.php?latex=v&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">表示扩展</font></font><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/latex(33).php" alt="f（v）" title="f（v）" class="latex" width="30" height="18" srcset="https://s0.wp.com/latex.php?latex=f%28v%29&amp;bg=ffffff&amp;fg=36312d&amp;s=0&amp;zoom=2 1.5x" scale="1.5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">为行基向量的线性组合。</font></font></p>
+<p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">对于您的两个示例，这不是一个“不错”的答案，因为结构域和共域的基本向量的选择是人为设计的。</font><font style="vertical-align: inherit;">但是，对于图像来说，这就是世界运作的方式。</font><font style="vertical-align: inherit;">对于线性代数来说，标准表示不是一个非常有用的表示。</font><font style="vertical-align: inherit;">因此，人们开始研究如何选择更好的基础，最终他们得到诸如</font></font><a href="https://jeremykun.com/2013/12/30/the-two-dimensional-fourier-transform-and-digital-watermarking/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">傅立叶变换之</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">类</font><a href="https://jeremykun.com/2013/12/30/the-two-dimensional-fourier-transform-and-digital-watermarking/"><font style="vertical-align: inherit;">的</font></a><font style="vertical-align: inherit;">东西以及所有这些可爱的东西。</font><font style="vertical-align: inherit;">我认为线性代数的适用性很大一部分取决于选择的优先程度，这些选择首先使您获得了数据。</font></font></p>
+<p id="comment-like-54437" data-liked="comment-not-liked" class="comment-likes comment-not-liked"><a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/?like_comment=54437&amp;_wpnonce=6136b221aa" class="comment-like-link needs-login" rel="nofollow" data-blog="23934684"><span>Like</span></a><span id="comment-like-count-54437" class="comment-like-feedback"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">喜欢</font></font></span></p>
+							</div>
+
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		</ol><!-- .commentlist -->
+
+		
+	
+	
+		<div id="respond" class="comment-respond js">
+		<h3 id="reply-title" class="comment-reply-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">发表评论 </font></font><small><a rel="nofollow" id="cancel-comment-reply-link" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://jeremykun.com/wp-comments-post.php" method="post" id="commentform" class="comment-form"><input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="62d59a8cb3"><input type="hidden" name="_wp_http_referer" value="/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/">
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea aria-hidden="true" tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px; padding: 0px; box-sizing: content-box; overflow-wrap: break-word; overflow: hidden; transition: none 0s ease 0s; height: 0px !important; min-height: 0px !important; font-family: Arial, Helvetica, Tahoma, Verdana, sans-serif; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; text-decoration: none solid rgba(0, 0, 0, 0.7); word-spacing: 0px; text-indent: 0px; line-height: 22.4px; width: 564.9px;" class="autosizejs "></textarea><textarea id="comment" name="comment" title="在这里输入您的评论..." placeholder="Enter your comment here..." style="height: 42px; overflow: hidden; overflow-wrap: break-word; resize: none;"></textarea></div>
+</div>
+
+<div id="comment-form-identity" style="display: none;">
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#comment-form-guest" id="postas-guest" class="nascar-signin-link" title="Login via Guest">
+									</a>
+			</li>
+			<li>
+				<a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#comment-form-load-service:WordPress.com" id="postas-wordpress" class="nascar-signin-link" title="Login via WordPress.com">
+					<svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"></rect><g><path fill="#0087be" d="M12.158 12.786l-2.698 7.84c.806.236 1.657.365 2.54.365 1.047 0 2.05-.18 2.986-.51-.024-.037-.046-.078-.065-.123l-2.762-7.57zM3.008 12c0 3.56 2.07 6.634 5.068 8.092L3.788 8.342c-.5 1.117-.78 2.354-.78 3.658zm15.06-.454c0-1.112-.398-1.88-.74-2.48-.456-.74-.883-1.368-.883-2.11 0-.825.627-1.595 1.51-1.595.04 0 .078.006.116.008-1.598-1.464-3.73-2.36-6.07-2.36-3.14 0-5.904 1.613-7.512 4.053.21.008.41.012.58.012.94 0 2.395-.114 2.395-.114.484-.028.54.684.057.74 0 0-.487.058-1.03.086l3.275 9.74 1.968-5.902-1.4-3.838c-.485-.028-.944-.085-.944-.085-.486-.03-.43-.77.056-.742 0 0 1.484.114 2.368.114.94 0 2.397-.114 2.397-.114.486-.028.543.684.058.74 0 0-.488.058-1.03.086l3.25 9.665.897-2.997c.456-1.17.684-2.137.684-2.907zm1.82-3.86c.04.286.06.593.06.924 0 .912-.17 1.938-.683 3.22l-2.746 7.94c2.672-1.558 4.47-4.454 4.47-7.77 0-1.564-.4-3.033-1.1-4.314zM12 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"></path></g></svg>				</a>
+			</li>
+			<li>
+			</li><li>
+				<a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#comment-form-load-service:Twitter" id="postas-twitter" class="nascar-signin-link" title="Login via Twitter">
+					<svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"></rect><g><path fill="#1DA1F2" d="M22.23 5.924c-.736.326-1.527.547-2.357.646.847-.508 1.498-1.312 1.804-2.27-.793.47-1.67.812-2.606.996C18.325 4.498 17.258 4 16.078 4c-2.266 0-4.103 1.837-4.103 4.103 0 .322.036.635.106.935-3.41-.17-6.433-1.804-8.457-4.287-.353.607-.556 1.312-.556 2.064 0 1.424.724 2.68 1.825 3.415-.673-.022-1.305-.207-1.86-.514v.052c0 1.988 1.415 3.647 3.293 4.023-.344.095-.707.145-1.08.145-.265 0-.522-.026-.773-.074.522 1.63 2.038 2.817 3.833 2.85-1.404 1.1-3.174 1.757-5.096 1.757-.332 0-.66-.02-.98-.057 1.816 1.164 3.973 1.843 6.29 1.843 7.547 0 11.675-6.252 11.675-11.675 0-.178-.004-.355-.012-.53.802-.578 1.497-1.3 2.047-2.124z"></path></g></svg>				</a>
+			</li>
+			<li>
+				<a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#comment-form-load-service:Facebook" id="postas-facebook" class="nascar-signin-link" title="Login via Facebook">
+					<svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"></rect><g><path fill="#3B5998" d="M20.007 3H3.993C3.445 3 3 3.445 3 3.993v16.013c0 .55.445.994.993.994h8.62v-6.97H10.27V11.31h2.346V9.31c0-2.325 1.42-3.59 3.494-3.59.993 0 1.847.073 2.096.106v2.43h-1.438c-1.128 0-1.346.537-1.346 1.324v1.734h2.69l-.35 2.717h-2.34V21h4.587c.548 0 .993-.445.993-.993V3.993c0-.548-.445-.993-.993-.993z"></path></g></svg>				</a>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/ad516503a11cd5ca435acc9bb6523536" alt="Gravatar" width="25" class="no-grav" originals="25" scale="1.5">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value=""></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="url" value=""></div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/ad516503a11cd5ca435acc9bb6523536" alt="WordPress.com Logo" width="25" class="no-grav" originals="25" scale="1.5">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="">
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="">
+						<p class="comment-form-posting-as pa-wordpress">
+			<strong></strong>
+			You are commenting using your WordPress.com account.			<span class="comment-form-log-out">
+				(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( &#39;wordpress&#39; );">Log&nbsp;Out</a>&nbsp;/&nbsp;
+				<a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)
+			</span>
+			<span class="pa-icon"><svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"></rect><g><path fill="#0087be" d="M12.158 12.786l-2.698 7.84c.806.236 1.657.365 2.54.365 1.047 0 2.05-.18 2.986-.51-.024-.037-.046-.078-.065-.123l-2.762-7.57zM3.008 12c0 3.56 2.07 6.634 5.068 8.092L3.788 8.342c-.5 1.117-.78 2.354-.78 3.658zm15.06-.454c0-1.112-.398-1.88-.74-2.48-.456-.74-.883-1.368-.883-2.11 0-.825.627-1.595 1.51-1.595.04 0 .078.006.116.008-1.598-1.464-3.73-2.36-6.07-2.36-3.14 0-5.904 1.613-7.512 4.053.21.008.41.012.58.012.94 0 2.395-.114 2.395-.114.484-.028.54.684.057.74 0 0-.487.058-1.03.086l3.275 9.74 1.968-5.902-1.4-3.838c-.485-.028-.944-.085-.944-.085-.486-.03-.43-.77.056-.742 0 0 1.484.114 2.368.114.94 0 2.397-.114 2.397-.114.486-.028.543.684.058.74 0 0-.488.058-1.03.086l3.25 9.665.897-2.997c.456-1.17.684-2.137.684-2.907zm1.82-3.86c.04.286.06.593.06.924 0 .912-.17 1.938-.683 3.22l-2.746 7.94c2.672-1.558 4.47-4.454 4.47-7.77 0-1.564-.4-3.033-1.1-4.314zM12 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"></path></g></svg></span>
+		</p>
+					</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/ad516503a11cd5ca435acc9bb6523536" alt="Google photo" width="25" class="no-grav" originals="25" scale="1.5">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="">
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="">
+						<p class="comment-form-posting-as pa-googleplus">
+			<strong></strong>
+			You are commenting using your Google account.			<span class="comment-form-log-out">
+				(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( &#39;googleplus&#39; );">Log&nbsp;Out</a>&nbsp;/&nbsp;
+				<a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)
+			</span>
+			<span class="pa-icon"><svg xmlns="http://www.w3.org/2000/svg" role="presentation" x="0px" y="0px" viewBox="0 0 60 60"><path fill="#519bf7" d="M56.3,30c0,-1.6 -0.2,-3.4 -0.6,-5h-3.1H42.2H30v10.6h14.8C44,39.3 42,42 39.1,43.9l8.8,6.8C53,46 56.3,39 56.3,30z"></path><path fill="#3db366" d="M30,57.5c6.7,0 13.1,-2.4 17.9,-6.8l-8.8,-6.8c-2.5,1.6 -5.6,2.4 -9.1,2.4c-7.2,0 -13.3,-4.7 -15.4,-11.2l-9.3,7.1C9.8,51.3 19.1,57.5 30,57.5z"></path><path fill="#fdc600" d="M5.3,42.2l9.3,-7.1c-0.5,-1.6 -0.8,-3.3 -0.8,-5.1s0.3,-3.5 0.8,-5.1l-9.3,-7.1C3.5,21.5 2.5,25.6 2.5,30S3.5,38.5 5.3,42.2z"></path><path fill="#f15b44" d="M40.1,17.4l8,-8C43.3,5.1 37,2.5 30,2.5C19.1,2.5 9.8,8.7 5.3,17.8l9.3,7.1c2.1,-6.5 8.2,-11.1 15.4,-11.1C33.9,13.7 37.4,15.1 40.1,17.4z"></path></svg></span>
+		</p>
+					</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/ad516503a11cd5ca435acc9bb6523536" alt="Twitter picture" width="25" class="no-grav" originals="25" scale="1.5">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="">
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="">
+						<p class="comment-form-posting-as pa-twitter">
+			<strong></strong>
+			You are commenting using your Twitter account.			<span class="comment-form-log-out">
+				(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( &#39;twitter&#39; );">Log&nbsp;Out</a>&nbsp;/&nbsp;
+				<a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)
+			</span>
+			<span class="pa-icon"><svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"></rect><g><path fill="#1DA1F2" d="M22.23 5.924c-.736.326-1.527.547-2.357.646.847-.508 1.498-1.312 1.804-2.27-.793.47-1.67.812-2.606.996C18.325 4.498 17.258 4 16.078 4c-2.266 0-4.103 1.837-4.103 4.103 0 .322.036.635.106.935-3.41-.17-6.433-1.804-8.457-4.287-.353.607-.556 1.312-.556 2.064 0 1.424.724 2.68 1.825 3.415-.673-.022-1.305-.207-1.86-.514v.052c0 1.988 1.415 3.647 3.293 4.023-.344.095-.707.145-1.08.145-.265 0-.522-.026-.773-.074.522 1.63 2.038 2.817 3.833 2.85-1.404 1.1-3.174 1.757-5.096 1.757-.332 0-.66-.02-.98-.057 1.816 1.164 3.973 1.843 6.29 1.843 7.547 0 11.675-6.252 11.675-11.675 0-.178-.004-.355-.012-.53.802-.578 1.497-1.3 2.047-2.124z"></path></g></svg></span>
+		</p>
+					</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/ad516503a11cd5ca435acc9bb6523536" alt="Facebook photo" width="25" class="no-grav" originals="25" scale="1.5">
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="">
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="">
+						<p class="comment-form-posting-as pa-facebook">
+			<strong></strong>
+			You are commenting using your Facebook account.			<span class="comment-form-log-out">
+				(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( &#39;facebook&#39; );">Log&nbsp;Out</a>&nbsp;/&nbsp;
+				<a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)
+			</span>
+			<span class="pa-icon"><svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"></rect><g><path fill="#3B5998" d="M20.007 3H3.993C3.445 3 3 3.445 3 3.993v16.013c0 .55.445.994.993.994h8.62v-6.97H10.27V11.31h2.346V9.31c0-2.325 1.42-3.59 3.494-3.59.993 0 1.847.073 2.096.106v2.43h-1.438c-1.128 0-1.346.537-1.346 1.324v1.734h2.69l-.35 2.717h-2.34V21h4.587c.548 0 .993-.445.993-.993V3.993c0-.548-.445-.993-.993-.993z"></path></g></svg></span>
+		</p>
+					</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe" style="display: none;">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p><p class="post-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto;"> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog" style="display: inline;">Notify me of new posts via email.</label></p></div>
+
+
+
+
+<p class="form-submit" style="display: none;"><input name="submit" type="submit" id="comment-submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="5946" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="6f698ed98f"></p>
+<input type="hidden" name="genseq" value="1572929887">
+<p style="display: none;"></p><input type="hidden" id="ak_js" name="ak_js" value="1572929889666"></form>	</div><!-- #respond -->
+	<div style="clear: both"></div>
+</div><!-- #comments .comments-area -->
+
+			
+			</div><!-- #content .site-content -->
+		</div><!-- #primary .content-area -->
+
+<script type="text/javascript">
+								var _gaq = _gaq || [];
+								_gaq.push(['_setAccount', 'UA-21256318-4']);
+_gaq.push(['_trackPageview']);
+
+								(function() {
+									var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+									ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+									var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+								})();
+							</script>
+
+		</div><!-- #main .site-main -->
+
+		
+		<div id="secondary" class="widget-area" role="complementary">
+						<aside id="search-3" class="widget widget_search">	<form method="get" id="searchform" action="https://jeremykun.com/" role="search">
+		<label for="s" class="assistive-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">搜索</font></font></label>
+		<input type="text" class="field" name="s" value="" id="s" placeholder="Search …">
+		<input type="submit" class="submit" name="submit" id="searchsubmit" value="Search">
+	</form>
+</aside><aside id="media_image-15" class="widget widget_media_image"><style>.widget.widget_media_image { overflow: hidden; }.widget.widget_media_image img { height: auto; max-width: 100%; }</style><div style="width: 936px" class="wp-caption alignnone"><a href="http://pimbook.org/"><img width="926" height="474" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/screen-shot-2018-12-01-at-8-47-20-am.png" class="image wp-image-82462  attachment-926x474 size-926x474" alt="程序员数学概论" style="max-width: 100%; height: auto;" srcset="https://jeremykun.files.wordpress.com/2018/12/screen-shot-2018-12-01-at-8-47-20-am.png 926w, https://jeremykun.files.wordpress.com/2018/12/screen-shot-2018-12-01-at-8-47-20-am.png?w=150 150w, https://jeremykun.files.wordpress.com/2018/12/screen-shot-2018-12-01-at-8-47-20-am.png?w=300 300w, https://jeremykun.files.wordpress.com/2018/12/screen-shot-2018-12-01-at-8-47-20-am.png?w=768 768w" sizes="(max-width: 926px) 100vw, 926px" data-attachment-id="82462" data-permalink="https://jeremykun.com/screen-shot-2018-12-01-at-8-47-20-am/" data-orig-file="https://jeremykun.files.wordpress.com/2018/12/screen-shot-2018-12-01-at-8-47-20-am.png" data-orig-size="926,474" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Screen Shot 2018-12-01 at 8.47.20 AM" data-image-description="" data-medium-file="https://jeremykun.files.wordpress.com/2018/12/screen-shot-2018-12-01-at-8-47-20-am.png?w=300" data-large-file="https://jeremykun.files.wordpress.com/2018/12/screen-shot-2018-12-01-at-8-47-20-am.png?w=926"></a><p class="wp-caption-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">买我的书，教程序员如何进行数学学习。</font><font style="vertical-align: inherit;">每章都包含一个应用程序，从密码学到​​经济学，物理学，神经网络等等！</font></font></p></div></aside><aside id="media_image-9" class="widget widget_media_image"><style>.widget.widget_media_image { overflow: hidden; }.widget.widget_media_image img { height: auto; max-width: 100%; }</style><a href="https://github.com/j2kun/"><img width="180" height="180" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/github-icon.png" class="image wp-image-5618 alignnone attachment-180x180 size-180x180" alt="Github仓库" style="max-width: 100%; height: auto;" srcset="https://jeremykun.files.wordpress.com/2015/02/github-icon.png?w=180 180w, https://jeremykun.files.wordpress.com/2015/02/github-icon.png?w=150 150w, https://jeremykun.files.wordpress.com/2015/02/github-icon.png 244w" sizes="(max-width: 180px) 100vw, 180px" data-attachment-id="5618" data-permalink="https://jeremykun.com/github-icon/" data-orig-file="https://jeremykun.files.wordpress.com/2015/02/github-icon.png" data-orig-size="244,244" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="github-icon" data-image-description="" data-medium-file="https://jeremykun.files.wordpress.com/2015/02/github-icon.png?w=244" data-large-file="https://jeremykun.files.wordpress.com/2015/02/github-icon.png?w=244"></a></aside><aside id="media_image-8" class="widget widget_media_image"><style>.widget.widget_media_image { overflow: hidden; }.widget.widget_media_image img { height: auto; max-width: 100%; }</style><a href="https://medium.com/@jeremyjkun"><img width="180" height="180" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/medium-icon1.png" class="image wp-image-5617  attachment-180x180 size-180x180" alt="中@jeremyjkun" style="max-width: 100%; height: auto;" srcset="https://jeremykun.files.wordpress.com/2015/02/medium-icon1.png?w=180 180w, https://jeremykun.files.wordpress.com/2015/02/medium-icon1.png?w=150 150w, https://jeremykun.files.wordpress.com/2015/02/medium-icon1.png 244w" sizes="(max-width: 180px) 100vw, 180px" data-attachment-id="5617" data-permalink="https://jeremykun.com/medium-icon-2/" data-orig-file="https://jeremykun.files.wordpress.com/2015/02/medium-icon1.png" data-orig-size="244,244" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="medium-icon" data-image-description="" data-medium-file="https://jeremykun.files.wordpress.com/2015/02/medium-icon1.png?w=244" data-large-file="https://jeremykun.files.wordpress.com/2015/02/medium-icon1.png?w=244"></a></aside><aside id="media_image-6" class="widget widget_media_image"><style>.widget.widget_media_image { overflow: hidden; }.widget.widget_media_image img { height: auto; max-width: 100%; }</style><a href="https://twitter.com/MathProgramming"><img width="180" height="180" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/twitter1-e1500589540515.png" class="image wp-image-3436 alignnone attachment-180x180 size-180x180" alt="" style="max-width: 100%; height: auto;" srcset="https://jeremykun.files.wordpress.com/2013/05/twitter1-e1500589540515.png?w=180 180w, https://jeremykun.files.wordpress.com/2013/05/twitter1-e1500589540515.png?w=150 150w, https://jeremykun.files.wordpress.com/2013/05/twitter1-e1500589540515.png 200w" sizes="(max-width: 180px) 100vw, 180px" data-attachment-id="3436" data-permalink="https://jeremykun.com/twitter-2/" data-orig-file="https://jeremykun.files.wordpress.com/2013/05/twitter1-e1500589540515.png" data-orig-size="200,200" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;}" data-image-title="twitter" data-image-description="" data-medium-file="https://jeremykun.files.wordpress.com/2013/05/twitter1-e1500589540515.png?w=200" data-large-file="https://jeremykun.files.wordpress.com/2013/05/twitter1-e1500589540515.png?w=200"></a></aside><aside id="rss_links-2" class="widget widget_rss_links"><h1 class="widget-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">的RSS</font></font></h1><ul><li><a href="https://jeremykun.com/feed/" title="订阅帖子"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">RSS-帖子</font></font></a></li></ul>
+</aside>		</div><!-- #secondary .widget-area -->
+
+		<footer id="colophon" class="site-footer" role="contentinfo">
+			<div class="site-info">
+								<a></a>
+				
+							</div><!-- .site-info -->
+		</footer><!-- #colophon .site-footer -->
+	</div><!-- #page .hfeed .site -->
+</div><!-- #wrapper -->
+<!--  -->
+<script src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/gprofiles.js.下载"></script>
+<script>
+var WPGroHo = {"my_hash":""};
+</script>
+<script type="text/javascript" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/wpgroho.js.下载"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-b79edaaf57a58afab2247b7b9880e948">
+	</div>
+	<div class="grofile-hash-map-352603e575430df8997dad0ab4e35e17">
+	</div>
+	<div class="grofile-hash-map-2e820fb5b687a44bc48b3ded407d9df1">
+	</div>
+	<div class="grofile-hash-map-179d4d6313883c46df3c15de4f38370b">
+	</div>
+	<div class="grofile-hash-map-7432f32a40ea7fe6aef0f450d1e62020">
+	</div>
+	<div class="grofile-hash-map-a7e744113723dd9b1d6d4e5294358bad">
+	</div>
+	<div class="grofile-hash-map-8e5be0ea5375a4df1f8cffaaba649ddf">
+	</div>
+	<div class="grofile-hash-map-27d136dde71a40435efa4cc4e4547c7e">
+	</div>
+	<div class="grofile-hash-map-90b179348780a6e7fe8e502968dc534a">
+	</div>
+	</div>
+<script>
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/jeremykun.wordpress.com\/public.api\/connect\/?action=request&domain=jeremykun.com","logoutURL":"https:\/\/jeremykun.wordpress.com\/wp-login.php?action=logout&_wpnonce=49a53ba7f5","homeURL":"https:\/\/jeremykun.com\/","postID":"5946","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"0","userIsLoggedIn":"","isJetpack":"","text_direction":"ltr"};
+</script>
+<script type="text/javascript" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/saved_resource(7)"></script>
+
+	<div id="carousel-reblog-box">
+		<form action="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#" name="carousel-reblog">
+			<textarea id="carousel-reblog-content" name="carousel-reblog-content" placeholder="Add your thoughts here... (optional)"></textarea>
+			<label for="carousel-reblog-to-blog-id" id="carousel-reblog-lblogid">Post to</label>
+			<select name="carousel-reblog-to-blog-id" id="carousel-reblog-to-blog-id">
+						</select>
+
+			<div class="submit">
+				<span class="canceltext"><a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#" class="cancel">Cancel</a></span>
+				<input type="submit" name="carousel-reblog-submit" class="button" id="carousel-reblog-submit" value="Reblog Post">
+				<input type="hidden" id="carousel-reblog-blog-id" value="23934684">
+				<input type="hidden" id="carousel-reblog-blog-url" value="https://jeremykun.com">
+				<input type="hidden" id="carousel-reblog-blog-title" value="Math ∩ Programming">
+				<input type="hidden" id="carousel-reblog-post-url" value="">
+				<input type="hidden" id="carousel-reblog-post-title" value="">
+			</div>
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="5ddf78add7"><input type="hidden" name="_wp_http_referer" value="/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/">		</form>
+
+		<div class="arrow"></div>
+	</div>
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/jeremykun.com\/2016\/04\/18\/singular-value-decomposition-part-1-perspectives-on-linear-algebra\/":5946};
+	</script>
+					
+		<link rel="stylesheet" id="all-css-0-3" href="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/jetpack-carousel.css" type="text/css" media="all">
+<script>
+var comment_like_text = {"loading":"Loading..."};
+</script>
+<script>
+var actionbardata = {"siteID":"23934684","siteName":"Math \u2229 Programming","siteURL":"https:\/\/jeremykun.com","icon":"<img alt='' src='https:\/\/secure.gravatar.com\/blavatar\/ffc08531463d8605aef9e0b51a9ac71f?s=50&d=https%3A%2F%2Fs2.wp.com%2Fi%2Flogo%2Fwpcom-gray-white.png' class='avatar avatar-50' height='50' width='50' \/>","canManageOptions":"","canCustomizeSite":"","isFollowing":"","themeSlug":"pub\/confit","signupURL":"https:\/\/wordpress.com\/start\/","loginURL":"https:\/\/wordpress.com\/log-in?redirect_to=https%3A%2F%2Fjeremykun.com%2F2016%2F04%2F18%2Fsingular-value-decomposition-part-1-perspectives-on-linear-algebra%2F&signup_flow=account&domain=jeremykun.com","themeURL":"https:\/\/wordpress.com\/theme\/confit\/","xhrURL":"https:\/\/jeremykun.com\/wp-admin\/admin-ajax.php","nonce":"b9e1c8964c","isSingular":"1","isFolded":"","isLoggedIn":"","isMobile":"","subscribeNonce":"<input type=\"hidden\" id=\"_wpnonce\" name=\"_wpnonce\" value=\"8a5d6c09dc\" \/>","referer":"https:\/\/jeremykun.com\/2016\/04\/18\/singular-value-decomposition-part-1-perspectives-on-linear-algebra\/","canFollow":"1","feedID":"6655781","statusMessage":"","customizeLink":"https:\/\/jeremykun.wordpress.com\/wp-admin\/customize.php?url=https%3A%2F%2Fjeremykun.wordpress.com%2F2016%2F04%2F18%2Fsingular-value-decomposition-part-1-perspectives-on-linear-algebra%2F","postID":"5946","shortlink":"https:\/\/wp.me\/p1Cqvi-1xU","canEditPost":"","editLink":"https:\/\/wordpress.com\/post\/jeremykun.com\/5946","statsLink":"https:\/\/wordpress.com\/stats\/post\/5946\/jeremykun.com","i18n":{"view":"View site","follow":"Follow","following":"Following","edit":"Edit","login":"Log in","signup":"Sign up","customize":"Customize","report":"Report this content","themeInfo":"Get theme: Confit","shortlink":"Copy shortlink","copied":"Copied","followedText":"New posts from this site will now appear in your <a href=\"https:\/\/wordpress.com\/\">Reader<\/a>","foldBar":"Collapse this bar","unfoldBar":"Expand this bar","editSubs":"Manage subscriptions","viewReader":"View site in Reader","viewReadPost":"View post in Reader","subscribe":"Sign me up","enterEmail":"Enter your email address","followers":"Join 19,665 other followers","alreadyUser":"Already have a WordPress.com account? <a href=\"https:\/\/wordpress.com\/log-in?redirect_to=https%3A%2F%2Fjeremykun.com%2F2016%2F04%2F18%2Fsingular-value-decomposition-part-1-perspectives-on-linear-algebra%2F&signup_flow=account&domain=jeremykun.com\">Log in now.<\/a>","stats":"Stats"}};
+</script>
+<script>
+var jetpackCarouselStrings = {"widths":[370,700,1000,1200,1400,2000],"is_logged_in":"","lang":"en","ajaxurl":"https:\/\/jeremykun.com\/wp-admin\/admin-ajax.php","nonce":"302421024d","display_exif":"1","display_geo":"1","single_image_gallery":"1","single_image_gallery_media_file":"","background_color":"black","comment":"Comment","post_comment":"Post Comment","write_comment":"Write a Comment...","loading_comments":"Loading Comments...","download_original":"View full size <span class=\"photo-size\">{0}<span class=\"photo-size-times\">\u00d7<\/span>{1}<\/span>","no_comment_text":"Please be sure to submit some text with your comment.","no_comment_email":"Please provide an email address to comment.","no_comment_author":"Please provide your name to comment.","comment_post_error":"Sorry, but there was an error posting your comment. Please try again later.","comment_approved":"Your comment was approved.","comment_unapproved":"Your comment is in moderation.","camera":"Camera","aperture":"Aperture","shutter_speed":"Shutter Speed","focal_length":"Focal Length","copyright":"Copyright","comment_registration":"0","require_name_email":"1","login_url":"https:\/\/jeremykun.wordpress.com\/wp-login.php?redirect_to=https%3A%2F%2Fjeremykun.com%2F2016%2F04%2F18%2Fsingular-value-decomposition-part-1-perspectives-on-linear-algebra%2F","blog_id":"23934684","meta_data":["camera","aperture","shutter_speed","focal_length","copyright"],"local_comments_commenting_as":"<fieldset><label for=\"email\">Email (Required)<\/label> <input type=\"text\" name=\"email\" class=\"jp-carousel-comment-form-field jp-carousel-comment-form-text-field\" id=\"jp-carousel-comment-form-email-field\" \/><\/fieldset><fieldset><label for=\"author\">Name (Required)<\/label> <input type=\"text\" name=\"author\" class=\"jp-carousel-comment-form-field jp-carousel-comment-form-text-field\" id=\"jp-carousel-comment-form-author-field\" \/><\/fieldset><fieldset><label for=\"url\">Website<\/label> <input type=\"text\" name=\"url\" class=\"jp-carousel-comment-form-field jp-carousel-comment-form-text-field\" id=\"jp-carousel-comment-form-url-field\" \/><\/fieldset>","reblog":"Reblog","reblogged":"Reblogged","reblog_add_thoughts":"Add your thoughts here... (optional)","reblogging":"Reblogging...","post_reblog":"Post Reblog","stats_query_args":"blog=23934684&v=wpcom&tz=-8&user_id=0&subd=jeremykun","is_public":"1","reblog_enabled":""};
+</script>
+<script>
+var sharing_js_options = {"lang":"en","counts":"1","is_stats_active":"1"};
+</script>
+<script type="text/javascript" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/saved_resource(8)"></script><div id="actionbar" class="actnbr-pub-confit actnbr-has-follow"><ul><li class="actnbr-btn actnbr-hidden"> 			    	<a class="actnbr-action actnbr-actn-follow" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/"><svg class="gridicon gridicon__follow" height="24px" width="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M23 16v2h-3v3h-2v-3h-3v-2h3v-3h2v3h3zM20 2v9h-4v3h-3v4H4c-1.1 0-2-.9-2-2V2h18zM8 13v-1H4v1h4zm3-3H4v1h7v-1zm0-2H4v1h7V8zm7-4H4v2h14V4z"></path></g></svg><span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">跟随</font></font></span></a> 			    	<div class="actnbr-popover tip tip-top-left actnbr-notice"> 			    		<div class="tip-arrow"></div> 			    		<div class="tip-inner actnbr-follow-bubble"></div> 			    	</div> 			    </li><li class="actnbr-ellipsis actnbr-hidden"> 			  <svg class="gridicon gridicon__ellipsis" height="24" width="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><circle cx="5" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle><circle cx="12" cy="12" r="2"></circle></g></svg> 			  <div class="actnbr-popover tip tip-top-left actnbr-more"> 			  	<div class="tip-arrow"></div> 			  	<div class="tip-inner"> 				  <ul> 				    <li class="actnbr-sitename actnbr-hidden"><a href="https://jeremykun.com/"><img alt="" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/ffc08531463d8605aef9e0b51a9ac71f.png" class="avatar avatar-50" height="50" width="50" originals="50" scale="1.5"> Math ∩ Programming</a></li> 				   	<li class="actnbr-folded-customize actnbr-hidden"><a href="https://jeremykun.wordpress.com/wp-admin/customize.php?url=https%3A%2F%2Fjeremykun.wordpress.com%2F2016%2F04%2F18%2Fsingular-value-decomposition-part-1-perspectives-on-linear-algebra%2F"><svg class="gridicon gridicon__customize" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M2 6c0-1.505.78-3.08 2-4 0 .845.69 2 2 2 1.657 0 3 1.343 3 3 0 .386-.08.752-.212 1.09.74.594 1.476 1.19 2.19 1.81L8.9 11.98c-.62-.716-1.214-1.454-1.807-2.192C6.753 9.92 6.387 10 6 10c-2.21 0-4-1.79-4-4zm12.152 6.848l1.34-1.34c.607.304 1.283.492 2.008.492 2.485 0 4.5-2.015 4.5-4.5 0-.725-.188-1.4-.493-2.007L18 9l-2-2 3.507-3.507C18.9 3.188 18.225 3 17.5 3 15.015 3 13 5.015 13 7.5c0 .725.188 1.4.493 2.007L3 20l2 2 6.848-6.848c1.885 1.928 3.874 3.753 5.977 5.45l1.425 1.148 1.5-1.5-1.15-1.425c-1.695-2.103-3.52-4.092-5.448-5.977z" data-reactid=".2.1.1:0.1b.0"></path></g></svg><span>Customize<span></span></span></a></li> 				    <li class="actnbr-folded-follow actnbr-hidden"><a class="actnbr-action actnbr-actn-follow" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/"><svg class="gridicon gridicon__follow" height="24px" width="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path d="M23 16v2h-3v3h-2v-3h-3v-2h3v-3h2v3h3zM20 2v9h-4v3h-3v4H4c-1.1 0-2-.9-2-2V2h18zM8 13v-1H4v1h4zm3-3H4v1h7v-1zm0-2H4v1h7V8zm7-4H4v2h14V4z"></path></g></svg><span>Follow</span></a></li> 					<li class="actnbr-signup actnbr-hidden"><a href="https://wordpress.com/start/">Sign up</a></li> 				    <li class="actnbr-login actnbr-hidden"><a href="https://wordpress.com/log-in?redirect_to=https%3A%2F%2Fjeremykun.com%2F2016%2F04%2F18%2Fsingular-value-decomposition-part-1-perspectives-on-linear-algebra%2F&amp;signup_flow=account&amp;domain=jeremykun.com">Log in</a></li> 				     				    <li class="actnbr-shortlink actnbr-hidden"><a href="https://wp.me/p1Cqvi-1xU">Copy shortlink</a></li> 				    <li class="flb-report actnbr-hidden"><a href="http://en.wordpress.com/abuse/">Report this content</a></li> 				     				     				    <li class="actnbr-subs actnbr-hidden"><a href="https://subscribe.wordpress.com/">Manage subscriptions</a></li> 				    <li class="actnbr-fold actnbr-hidden"><a href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/">Collapse this bar</a></li> 			      </ul> 			    </div> 		      </div> 		    </li> 	      </ul></div>
+<script type="text/javascript">
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-facebook', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-twitter', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-linkedin', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-tumblr', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomtumblr', 'menubar=1,resizable=1,width=450,height=450' );
+				return false;
+			});
+</script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script>		<iframe src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+<script src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/w.js.下载" type="text/javascript" async="" defer=""></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'23934684','blog_tz':'-8','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+_stq.push(['view', {'blog':'23934684','v':'wpcom','tz':'-8','user_id':'0','post':'5946','subd':'jeremykun'}]);
+_stq.push(['extra', {'crypt':'UE40eW5QN0p8M2Y/RE1TaVhzUzFMbjdWNHpwZGhTayxPSUFCMGNrd29+Smw0TDhnZmRTK0hlRi9QSGh6bi9GXVhBJWIlZlR5U1JMLU8/MkNtblkvY1d6eVJXLU13dlVUTUYlVD09YS1fM2lfKy1xRUs/UDdyRGtEZEloJm9nNjNyMUJ0ek81NzZbWi8rK356WWVyPUNSNGRkPVNaRnpBZW5pQWV5MmZ4bnQuVW04X05iS05xcG4zNG9NclVFYnprTz95bVR4cmFkeixnfi50c0RZbE5yNV16YTB6WDc5akYwWmJiamJtcFo5R1ouTTRDTm5KLUFORDRMVE5URERFRSViJnlJRVY1bzQmeEFdVnN2VDIsa0s0WS9ENi8rfCtzRTh3MTQzTSZGJk16SS4xcGRkaVVyT3xdYlJnVVQ5Xw=='}]);
+_stq.push([ 'clickTrackerInit', '23934684', '5946' ]);
+	</script>
+<noscript><img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+
+<div class="comment-likes-overlay" style="display: none;"><div class="inner"></div></div><div id="sharing_email" style="display: none;">
+		<form action="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input type="email" name="target_email" id="target_email" value="">
+
+			
+				<label for="source_name">Your Name</label>
+				<input type="text" name="source_name" id="source_name" value="">
+
+				<label for="source_email">Your Email Address</label>
+				<input type="email" name="source_email" id="source_email" value="">
+
+						<input type="text" id="jetpack-source_f_name" name="source_f_name" class="input" value="" size="25" autocomplete="off" title="This field is for validation and should not be changed">
+			
+			<div class="g-recaptcha" data-sitekey="6LcmyE0UAAAAALID28yVNg7pFCodGaArJzHitez_" data-theme="light" data-type="image" data-tabindex="0"></div>
+			<script type="text/javascript" src="https://www.google.com/recaptcha/api.js?hl=en" async=""></script>
+			
+			<img style="float: right; display: none" class="loading" src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/loading.gif" alt="loading" width="16" height="16" scale="0">
+			<input type="submit" value="Send Email" class="sharing_send">
+			<a rel="nofollow" href="https://jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/#cancel" class="sharing_cancel" role="button">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div><div id="goog-gt-tt" class="skiptranslate" dir="ltr"><div style="padding: 8px;"><div><div class="logo"><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/translate_24dp.png" width="20" height="20" alt="Google 翻译" scale="0"></div></div></div><div class="top" style="padding: 8px; float: left; width: 100%;"><h1 class="title gray">原文</h1></div><div class="middle" style="padding: 8px;"><div class="original-text"></div></div><div class="bottom" style="padding: 8px;"><div class="activity-links"><span class="activity-link">提供更好的翻译建议</span><span class="activity-link"></span></div><div class="started-activity-container"><hr style="color: #CCC; background-color: #CCC; height: 1px; border: none;"><div class="activity-root"></div></div></div><div class="status-message" style="display: none;"></div></div><img src="./奇异值分解第1部分：线性代数的视角–数学∩编程_files/g.gif" alt=":)" id="wpstats" scale="0"><div class="goog-te-spinner-pos"><div class="goog-te-spinner-animation"><svg xmlns="http://www.w3.org/2000/svg" class="goog-te-spinner" width="96px" height="96px" viewBox="0 0 66 66"><circle class="goog-te-spinner-path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div></div></body></html>
