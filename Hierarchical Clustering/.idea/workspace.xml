@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d89bfcd7-a812-4deb-9bc4-25661c69af19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../CRF/src/CRF_IIS.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CRF/src/CRF_Instruction.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CRF/src/CRF_SGD.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CRF/src/CRF_keras.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ClusterNode.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Hierarchical.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SVD/src/SVD_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SVD/src/SVD_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image/Figure_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/image/Figure_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image/Figure_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/image/Figure_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Hierarchical.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Hierarchical.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SVD/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SVD/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,7 +14,20 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Hierarchical.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="147" column="29" lean-forward="true" selection-start-line="147" selection-start-column="29" selection-end-line="147" selection-end-column="29" />
+              <folding>
+                <element signature="e#1025#1060#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -51,7 +60,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="186" />
+    <option name="x" value="185" />
     <option name="y" value="390" />
     <option name="width" value="1810" />
     <option name="height" value="780" />
@@ -62,7 +71,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -79,10 +87,12 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../降维算法" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -191,8 +201,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Hierarchical.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="147" column="36" lean-forward="true" selection-start-line="147" selection-start-column="36" selection-end-line="147" selection-end-column="36" />
+        <state relative-caret-position="45">
+          <caret line="147" column="29" lean-forward="true" selection-start-line="147" selection-start-column="29" selection-end-line="147" selection-end-column="29" />
           <folding>
             <element signature="e#1025#1060#0" expanded="true" />
           </folding>

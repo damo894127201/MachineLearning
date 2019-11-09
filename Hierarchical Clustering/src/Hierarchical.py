@@ -81,6 +81,7 @@ class Hierarchical(object):
         length = len(dataset) # 样本的个数
         Backup = copy.deepcopy(dataset) # 备份数据
         # 开始聚类
+        label_count = 1
         while True:
             mindist,x,y = self.minDist(dataset) # 获取当前轮次距离最小的两个类别(类中心)的距离，以及其索引
             dataset[x].check = True # 标识已访问过
@@ -89,7 +90,7 @@ class Hierarchical(object):
             newID.extend(dataset[y].ids)
             newCenter = (dataset[x].value+dataset[y].value)/2 # 新类的聚类中心
             newCount = dataset[x].count + dataset[y].count # 新类包含的叶节点个数，即样本个数
-            id = 'node:'+str(len(dataset)+1) # 新节点的id值
+            id = 'Label:'+str(label_count) # 新类别的id
             # 将新类别添加到dataset中，参与下轮的聚类
             newClassNode = ClusterNode(value=newCenter,id=id,ids=newID,left=dataset[x],right=dataset[y],distance=mindist,
                                        count=newCount)
@@ -98,6 +99,7 @@ class Hierarchical(object):
             # 当新类包含的样本个数等于数据集的样本个数时，表示聚类停止，即所有样本聚为一个类
             if newCount == length:
                 break
+            label_count += 1
 
         # 循环输出每个聚类结点的信息
         for node in dataset:

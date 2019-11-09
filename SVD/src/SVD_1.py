@@ -125,7 +125,7 @@ def SVD(matrix,rank=2):
     # 对角阵∑
     sigma = np.diag(singular_value)
     # 获取原始矩阵的秩
-    matrix_rank = np.sum([1 for value in singular_value if value > 0])
+    matrix_rank = np.linalg.matrix_rank(matrix)
     print('原始矩阵的秩为：',matrix_rank)
 
     # 求m阶正交矩阵U

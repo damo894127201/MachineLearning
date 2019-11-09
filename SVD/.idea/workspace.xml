@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7ff66b2-df3a-4376-94d9-5a9f282f070a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../CRF/src/CRF_IIS.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CRF/src/CRF_Instruction.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CRF/src/CRF_SGD.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../CRF/src/CRF_keras.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Hierarchical Clustering/src/ClusterNode.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Hierarchical Clustering/src/Hierarchical.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SVD_1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SVD_2.py" afterDir="false" />
-    </list>
+    <list default="true" id="f7ff66b2-df3a-4376-94d9-5a9f282f070a" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +84,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Hierarchical Clustering" />
   </component>
   <component name="RunDashboard">
@@ -216,7 +208,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.24966975" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
