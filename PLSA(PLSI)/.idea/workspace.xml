@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bd45d8b6-8fc8-45b5-bc1f-39f4c66fbbad" name="Default Changelist" comment="" />
+    <list default="true" id="3b606eaf-e19c-4856-b30a-55ea7f7712c0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/PLSA_fast.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PLSA_slow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LSA(LSI)/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../LSA(LSI)/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -10,25 +14,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/LSA.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4706">
-              <caret line="220" column="12" lean-forward="true" selection-start-line="220" selection-start-column="12" selection-end-line="220" selection-end-column="12" />
-              <folding>
-                <element signature="e#4985#5003#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/examples_plot.py">
+        <entry file="file://$PROJECT_DIR$/src/PLSA_fast.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1680">
-              <caret line="56" column="10" selection-start-line="56" selection-start-column="10" selection-end-line="56" selection-end-column="10" />
+            <state relative-caret-position="-3150">
+              <caret line="6" column="74" lean-forward="true" selection-start-line="6" selection-start-column="74" selection-end-line="6" selection-end-column="74" />
               <folding>
-                <element signature="e#584#603#0" expanded="true" />
+                <element signature="e#3221#3239#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -49,24 +41,27 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/LSA.py" />
-        <option value="$PROJECT_DIR$/src/examples_plot.py" />
+        <option value="$PROJECT_DIR$/src/PLSA.py" />
+        <option value="$PROJECT_DIR$/src/PLSA - 副本.py" />
+        <option value="$PROJECT_DIR$/src/PLSA_slow.py" />
+        <option value="$PROJECT_DIR$/src/PLSA_fast.py" />
       </list>
     </option>
   </component>
   <component name="ProjectConfigurationFiles">
     <option name="files">
       <list>
-        <option value="$PROJECT_DIR$/.idea/LSA(LSI).iml" />
-        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
+        <option value="$PROJECT_DIR$/.idea/PLSA(PLSI).iml" />
         <option value="$PROJECT_DIR$/.idea/misc.xml" />
+        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
         <option value="$PROJECT_DIR$/.idea/modules.xml" />
+        <option value="$PROJECT_DIR$/../TextRank/.idea/TextRank.iml" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="117" />
-    <option name="y" value="387" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="833" />
+    <option name="y" value="151" />
     <option name="width" value="1810" />
     <option name="height" value="780" />
   </component>
@@ -80,13 +75,8 @@
         <subPane>
           <expand>
             <path>
-              <item name="LSA(LSI)" type="b2602c69:ProjectViewProjectNode" />
-              <item name="LSA(LSI)" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="LSA(LSI)" type="b2602c69:ProjectViewProjectNode" />
-              <item name="LSA(LSI)" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="PLSA(PLSI)" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PLSA(PLSI)" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -96,8 +86,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../降维算法/线性判别分析LDA" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TextRank" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -112,9 +101,9 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.examples_plot">
-    <configuration name="LSA" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="LSA(LSI)" />
+  <component name="RunManager" selected="Python.PLSA_fast">
+    <configuration name="PLSA" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="PLSA(PLSI)" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -125,7 +114,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/LSA.py" />
+      <option name="SCRIPT_NAME" value="H:\MyGitHub\MachineLearning\PLSA(PLSI)\src\PLSA_slow.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -134,8 +123,8 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="examples_plot" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="LSA(LSI)" />
+    <configuration name="PLSA_fast" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="PLSA(PLSI)" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -146,7 +135,28 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/examples_plot.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/PLSA_fast.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="PLSA_slow" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="PLSA(PLSI)" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/PLSA_slow.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -157,8 +167,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.examples_plot" />
-        <item itemvalue="Python.LSA" />
+        <item itemvalue="Python.PLSA_fast" />
+        <item itemvalue="Python.PLSA_slow" />
+        <item itemvalue="Python.PLSA" />
       </list>
     </recent_temporary>
   </component>
@@ -167,28 +178,29 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="bd45d8b6-8fc8-45b5-bc1f-39f4c66fbbad" name="Default Changelist" comment="" />
-      <created>1573209280021</created>
+      <changelist id="3b606eaf-e19c-4856-b30a-55ea7f7712c0" name="Default Changelist" comment="" />
+      <created>1573352026994</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1573209280021</updated>
+      <updated>1573352026994</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24966975" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.24966975" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Python Console" />
       <window_info anchor="bottom" id="Terminal" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3753541" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3286119" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.8073654" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -198,22 +210,19 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/LSA.py">
+    <entry file="file://$PROJECT_DIR$/src/PLSA_slow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4706">
-          <caret line="220" column="12" lean-forward="true" selection-start-line="220" selection-start-column="12" selection-end-line="220" selection-end-column="12" />
-          <folding>
-            <element signature="e#4985#5003#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-933">
+          <caret line="170" column="81" selection-start-line="170" selection-start-column="81" selection-end-line="170" selection-end-column="81" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/examples_plot.py">
+    <entry file="file://$PROJECT_DIR$/src/PLSA_fast.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1680">
-          <caret line="56" column="10" selection-start-line="56" selection-start-column="10" selection-end-line="56" selection-end-column="10" />
+        <state relative-caret-position="-3150">
+          <caret line="6" column="74" lean-forward="true" selection-start-line="6" selection-start-column="74" selection-end-line="6" selection-end-column="74" />
           <folding>
-            <element signature="e#584#603#0" expanded="true" />
+            <element signature="e#3221#3239#0" expanded="true" />
           </folding>
         </state>
       </provider>
