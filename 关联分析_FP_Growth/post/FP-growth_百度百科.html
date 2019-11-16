@@ -1,0 +1,1892 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)https://baike.baidu.com/item/FP-growth/9800372?fr=aladdin -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="./FP-growth_百度百科_files/element.min.js"></script><script async="" src="./FP-growth_百度百科_files/monkey.min.js"></script><script async="" src="./FP-growth_百度百科_files/dp.min.js"></script><script type="text/javascript" async="" src="./FP-growth_百度百科_files/auto_dup"></script>
+
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="referrer" content="always">
+<meta name="description" content="FP-Growth算法是韩嘉炜等人在2000年提出的关联分析算法，它采取如下分治策略：将提供频繁项集的数据库压缩到一棵频繁模式树（FP-tree），但仍保留项集关联信息。在算法中使用了一种称为频繁模式树（Frequent Pattern Tree）的数据结构。FP-tree是一种特殊的前缀树，由频繁项头表和项前缀树构成。FP-Growth算法基于以上的结构加快整个挖掘过程。...">
+<title>FP-growth_百度百科</title>
+<link rel="shortcut icon" href="https://baike.baidu.com/favicon.ico" type="image/x-icon">
+<link rel="icon" sizes="any" mask="" href="https://www.baidu.com/img/baidu.svg">
+
+<meta name="keywords" content="FP-growth FP-growth算法背景 FP-growth算法思想 FP-growth算法描述 FP-growth演示图">
+<meta name="image" content="https://bkssl.bdimg.com/cms/static/baike.png">
+<script src="./FP-growth_百度百科_files/hm.js"></script><script async="" src="./FP-growth_百度百科_files/alog.min.js"></script><script type="text/javascript">
+  // 配置 PD 监控。
+  window.alogObjectConfig = {
+    product: '103',
+    page: '103_1',
+    speed: {
+      sample: '0.008'
+    },
+    monkey: {
+      sample: '1',
+      hid: '1533'
+    },
+    exception: { 
+      sample: '0.004'
+    },
+    feature: {
+      sample: '0.004'
+    },
+    csp: {
+      sample: '0.008',
+      'default-src': [
+        {match: '*.baidu.com,*.bdimg.com,localhost', target: 'Accept'},
+        {match: '*', target: 'Accept,Warn'}
+      ]
+    }
+  };
+
+  void function(a,b,c,d,e,f,g){a.alogObjectName=e,a[e]=a[e]||function(){(a[e].q=a[e].q||[]).push(arguments)},a[e].l=a[e].l||+new Date,d="https:"===a.location.protocol?"https://fex.bdstatic.com"+d:"http://fex.bdstatic.com"+d;var h=!0;if(a.alogObjectConfig&&a.alogObjectConfig.sample){var i=Math.random();a.alogObjectConfig.rand=i,i>a.alogObjectConfig.sample&&(h=!1)}h&&(f=b.createElement(c),f.async=!0,f.src=d+"?v="+~(new Date/864e5)+~(new Date/864e5),g=b.getElementsByTagName(c)[0],g.parentNode.insertBefore(f,g))}(window,document,"script","/hunter/alog/alog.min.js","alog"),void function(){function a(){}window.PDC={mark:function(a,b){alog("speed.set",a,b||+new Date),alog.fire&&alog.fire("mark")},init:function(a){alog("speed.set","options",a)},view_start:a,tti:a,page_ready:a}}();
+  void function(n){var o=!1;n.onerror=function(n,e,t,c){var i=!0;return!e&&/^script error/i.test(n)&&(o?i=!1:o=!0),i&&alog("exception.send","exception",{msg:n,js:e,ln:t,col:c}),!1},alog("exception.on","catch",function(n){alog("exception.send","exception",{msg:n.msg,js:n.path,ln:n.ln,method:n.method,flag:"catch"})})}(window);
+</script>
+<meta name="csrf-token" content="">
+<meta itemprop="dateUpdate" content="2019-09-19 02:32:24">
+
+<!--[if lte IE 9]>
+<script>
+    (function() {
+      var e = "abbr,article,aside,audio,canvas,datalist,details,dialog,eventsource,figure,footer,header,hgroup,mark,menu,meter,nav,output,progress,section,time,video".split(","),
+        i = e.length;
+      while (i--) {
+        document.createElement(e[i]);
+      }
+
+      window.console = window.console || {};
+      var f = ['log', 'info', 'warning', 'error', 'clear'];
+      var l = f.length;
+      while(l--) {
+        window.console[f[l]] = function () {};
+      }
+    })();
+  </script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="./FP-growth_百度百科_files/wiki-lemma_46b3d0e.css"><link rel="stylesheet" type="text/css" href="./FP-growth_百度百科_files/wiki-common-base_9a9fb54.css"><link rel="stylesheet" type="text/css" href="./FP-growth_百度百科_files/userbar-n_2890903.css"><link rel="stylesheet" type="text/css" href="./FP-growth_百度百科_files/larkplayer_981c735.css"><link rel="stylesheet" type="text/css" href="./FP-growth_百度百科_files/webuploader_08d9db4.css"><link rel="stylesheet" type="text/css" href="./FP-growth_百度百科_files/wiki-lemma-module_9d93046.css"><link rel="stylesheet" type="text/css" href="./FP-growth_百度百科_files/announcement_cba33f4.css"><link rel="stylesheet" type="text/css" href="./FP-growth_百度百科_files/label_1b0bc0e.css"><link rel="stylesheet" type="text/css" href="./FP-growth_百度百科_files/sideShare_9c411cd.css"><link rel="stylesheet" type="text/css" href="./FP-growth_百度百科_files/pageMask_ff9a193.css"><link rel="stylesheet" type="text/css" href="./FP-growth_百度百科_files/mainContent_98e3702.css"><link rel="stylesheet" type="text/css" href="./FP-growth_百度百科_files/lemmaRelation_496a30a.css"><link rel="stylesheet" type="text/css" href="./FP-growth_百度百科_files/zhixin_3b0d7a5.css"><link rel="stylesheet" type="text/css" href="./FP-growth_百度百科_files/toolButtons-n_8b4919b.css"><link rel="stylesheet" type="text/css" href="./FP-growth_百度百科_files/userInfo-n_7e90184.css"><link rel="stylesheet" type="text/css" href="./FP-growth_百度百科_files/searchHeader-n_f9a6e5b.css">    
+<script type="text/javascript">
+    alog('speed.set', 'ht', +new Date);
+</script><script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?55b574651fcae74b0a9f1cf9c8d7c93a";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script><script type="text/javascript" src="./FP-growth_百度百科_files/lemmaReferenceTip_e7172a1.js"></script><link rel="stylesheet" href="./FP-growth_百度百科_files/share_style0_16.css"><script src="./FP-growth_百度百科_files/qc.php" type="text/javascript" charset="utf-8"></script></head>
+
+
+
+
+<body class="wiki-lemma normal"><div id="BAIDU_DUP_fp_wrapper" style="position: absolute; left: -1px; bottom: -1px; z-index: 0; width: 0px; height: 0px; overflow: hidden; visibility: hidden; display: none;"><iframe id="BAIDU_DUP_fp_iframe" src="./FP-growth_百度百科_files/o.html" style="width: 0px; height: 0px; visibility: hidden; display: none;"></iframe></div>
+
+
+<div class="header-wrapper pc-header-new">
+<div class="topbar cmn-clearfix">
+<ul class="wgt-userbar wgt-userbar-n" id="j-wgt-userbar"><li>
+<a href="http://www.baidu.com/" nslog="normal" nslog-type="10080112">百度首页</a>
+</li>
+<li class="userbar_user" data-action="showUserMenu">
+<a href="javascript:;" nslog="normal" nslog-type="10080113"><span>鹿轻颺</span><i class="icon-triangle-down"></i></a>
+</li>
+<li class="userbar_message" data-action="showUserMsg">
+<a href="javascript:;" nslog="normal" nslog-type="10080115">消息<span class="userbar_message_new_num"></span><i class="icon-triangle-down"></i></a>
+</li>
+<li class="userbar_mall">
+<a href="https://baike.baidu.com/mall/" target="_blank" nslog="normal" nslog-type="10080114">商城</a>
+</li>
+<li class="userbar_setting" data-action="showSetMenu">
+<a href="https://baike.baidu.com/usercenter/settings" nslog="normal" nslog-type="10080116" target="_blank"><em class="cmn-icon cmn-icons cmn-icons_cog"></em>设置<i class="icon-triangle-down"></i></a>
+</li></ul>
+<div class="separator"></div>
+<div class="wiki-common-headTabBar">
+<a href="https://www.baidu.com/" nslog="normal" nslog-type="10600112" data-href="https://www.baidu.com/s?ie=utf-8&amp;fr=bks0000&amp;wd=">网页</a>
+<a href="http://news.baidu.com/" nslog="normal" nslog-type="10600112" data-href="http://news.baidu.com/ns?tn=news&amp;cl=2&amp;rn=20&amp;ct=1&amp;fr=bks0000&amp;ie=utf-8&amp;word=">新闻</a>
+<a href="https://tieba.baidu.com/" nslog="normal" nslog-type="10600112" data-href="https://tieba.baidu.com/f?ie=utf-8&amp;fr=bks0000&amp;kw=">贴吧</a>
+<a href="https://zhidao.baidu.com/" nslog="normal" nslog-type="10600112" data-href="https://zhidao.baidu.com/search?pn=0&amp;&amp;rn=10&amp;lm=0&amp;fr=bks0000&amp;word=">知道</a>
+<a href="http://music.baidu.com/" nslog="normal" nslog-type="10600112" data-href="http://music.baidu.com/search?f=ms&amp;ct=134217728&amp;ie=utf-8&amp;rn=&amp;lm=-1&amp;pn=30&amp;fr=bks0000&amp;key=">音乐</a>
+<a href="http://image.baidu.com/" nslog="normal" nslog-type="10600112" data-href="http://image.baidu.com/search/index?tn=baiduimage&amp;ct=201326592&amp;lm=-1&amp;cl=2&amp;nc=1&amp;ie=utf-8&amp;word=">图片</a>
+<a href="http://v.baidu.com/" nslog="normal" nslog-type="10600112" data-href="https://www.baidu.com/sf/vsearch?pd=video&amp;tn=vsearch&amp;ie=utf-8&amp;rsv_spt=17&amp;wd=">视频</a>
+<a href="http://map.baidu.com/" nslog="normal" nslog-type="10600112" data-href="http://map.baidu.com/m?ie=utf-8&amp;fr=bks0000&amp;word=">地图</a>
+<a href="https://wenku.baidu.com/" nslog="normal" nslog-type="10600112" data-href="https://wenku.baidu.com/search?lm=0&amp;od=0&amp;ie=utf-8&amp;fr=bks0000&amp;word=">文库</a>
+<b class="baike">百科</b>
+</div>
+</div>
+<div class="header">
+<div class="layout">
+<div class="wgt-searchbar wgt-searchbar-new wgt-searchbar-main cmn-clearfix wgt-searchbar-large">
+<div class="logo-container">
+<a class="logo cmn-inline-block" title="到百科首页" href="https://baike.baidu.com/">
+<span class="cmn-baike-logo">
+<em class="cmn-icon cmn-icons cmn-icons_logo-bai"></em>
+<em class="cmn-icon cmn-icons cmn-icons_logo-du"></em>
+<em class="cmn-icon cmn-icons cmn-icons_logo-baike"></em>
+</span>
+</a>
+</div>
+<div class="search">
+<div class="form">
+<form id="searchForm" action="https://baike.baidu.com/search/word" method="GET" target="_self">
+<input id="query" nslog="normal" nslog-type="10080011" name="word" type="text" autocomplete="off" autocorrect="off" value="FP-growth"><button id="search" nslog="normal" nslog-type="10080008" type="button">进入词条</button><button id="searchLemma" nslog="normal" nslog-type="10080009" type="button">全站搜索</button><a class="help" href="https://baike.baidu.com/help" nslog="normal" nslog-type="10080010" target="_blank">帮助</a>
+</form>
+<form id="searchLemmaForm" action="https://baike.baidu.com/search" method="GET" target="_self">
+<input id="searchLemmaQuery" name="word" type="hidden">
+<input name="pn" type="hidden" value="0">
+<input name="rn" type="hidden" value="0">
+<input name="enc" type="hidden" value="utf8">
+</form>
+<ul id="suggestion" class="suggestion">
+<div class="sug"></div>
+<li class="extra">
+<span id="clear" style="margin-right:8px;">清除历史记录</span><span id="close" nslog="normal" nslog-type="10080012">关闭</span>
+</li>
+</ul>
+</div></div>
+</div>
+<div class="declare-wrap" id="J-declare-wrap" style="display: block;">
+<div class="declare" id="J-declare">声明：百科词条人人可编辑，词条创建和修改均免费，绝不存在官方及代理商付费代编，请勿上当受骗。<a class="declare-details" target="_blank" href="https://baike.baidu.com/common/declaration">详情&gt;&gt;</a>
+<div class="close-btn" id="J-declare-close">
+<em class="cmn-icon cmn-icons cmn-icons_close"></em>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="navbar-wrapper">
+<div class="wgt-navbar ">
+<div class="navbar-bg">
+<div class="navbar-bg-top">
+<div class="navbar-content layout">
+<div class="navbar-content-box">
+<dl class="index ">
+<dt><a href="https://baike.baidu.com/">首页</a></dt>
+<dd>
+<div><a href="https://baike.baidu.com/calendar/" target="_blank">历史上的今天</a></div>
+<div><a href="https://baike.baidu.com/vbaike/" target="_blank">百科冷知识</a></div>
+<div><a href="https://baike.baidu.com/vbaike#gallary" target="_blank">图解百科</a></div>
+</dd>
+</dl>
+<dl class="cat ">
+<dt><a>分类</a></dt>
+<dd>
+<div><a href="https://baike.baidu.com/art" target="_blank">艺术</a></div>
+<div><a href="https://baike.baidu.com/science" target="_blank">科学</a></div>
+<div><a href="https://baike.baidu.com/ziran" target="_blank">自然</a></div>
+<div><a href="https://baike.baidu.com/wenhua" target="_blank">文化</a></div>
+<div><a href="https://baike.baidu.com/dili" target="_blank">地理</a></div>
+<div><a href="https://baike.baidu.com/shenghuo" target="_blank">生活</a></div>
+<div><a href="https://baike.baidu.com/shehui" target="_blank">社会</a></div>
+<div><a href="https://baike.baidu.com/renwu" target="_blank">人物</a></div>
+<div><a href="https://baike.baidu.com/jingji" target="_blank">经济</a></div>
+<div><a href="https://baike.baidu.com/tiyu" target="_blank">体育</a></div>
+<div><a href="https://baike.baidu.com/lishi" target="_blank">历史</a></div>
+</dd>
+</dl>
+<dl class="second-know ">
+<dt><a>秒懂百科</a></dt>
+<dd><div><a href="https://child.baidu.com/" target="_blank">懂啦</a></div>
+<div><a href="https://baike.baidu.com/item/%E7%A7%92%E6%87%82%E6%98%9F%E8%AF%BE%E5%A0%82" target="_blank">秒懂星课堂</a></div>
+<div><a href="https://baike.baidu.com/item/%E7%A7%92%E6%87%82%E5%A4%A7%E5%B8%88%E8%AF%B4" target="_blank">秒懂大师说</a></div>
+<div><a href="https://baike.baidu.com/item/%E7%A7%92%E6%87%82%E7%9C%8B%E7%93%A6%E7%89%B9" target="_blank">秒懂看瓦特</a></div>
+<div><a href="https://baike.baidu.com/item/%E7%A7%92%E6%87%82%E4%BA%94%E5%8D%83%E5%B9%B4" target="_blank">秒懂五千年</a></div>
+<div><a href="https://baike.baidu.com/item/%E7%A7%92%E6%87%82%E5%85%A8%E8%A7%86%E7%95%8C" target="_blank">秒懂全视界</a></div>
+</dd>
+</dl>
+<dl class="special ">
+<dt><a>特色百科</a></dt>
+<dd><div><a href="https://baike.baidu.com/museum/" target="_blank">数字博物馆</a></div>
+<div><a href="https://baike.baidu.com/feiyi?fr=dhlfeiyi" target="_blank">非遗百科</a></div>
+<div><a href="https://shushuo.baidu.com/" target="_blank">百度数说</a></div>
+<div><a href="https://baike.baidu.com/city/" target="_blank">城市百科</a></div>
+<div><a href="https://baike.baidu.com/wikicategory/view?categoryName=%E6%81%90%E9%BE%99%E5%A4%A7%E5%85%A8" target="_blank">恐龙百科</a></div>
+<div><a href="https://baike.baidu.com/wikicategory/view?categoryName=%E5%A4%9A%E8%82%89%E6%A4%8D%E7%89%A9" target="_blank">多肉百科</a></div>
+</dd>
+</dl>
+<dl class="user ">
+<dt><a>用户</a></dt>
+<dd>
+<div><a href="https://baike.baidu.com/kedou/" target="_blank">蝌蚪团</a></div>
+<div><a href="https://baike.baidu.com/event/ranmeng/" target="_blank">燃梦计划</a></div>
+<div><a href="https://baike.baidu.com/task/" target="_blank">百科任务</a></div>
+<div><a href="https://baike.baidu.com/mall/" target="_blank">百科商城</a></div>
+</dd>
+</dl>
+<dl class="cooperation ">
+<dt><a>权威合作</a></dt>
+<dd>
+<div><a href="https://baike.baidu.com/operation/cooperation#joint" target="_blank">合作模式</a></div>
+<div><a href="https://baike.baidu.com/operation/cooperation#issue" target="_blank">常见问题</a></div>
+<div><a href="https://baike.baidu.com/operation/cooperation#connection" target="_blank">联系方式</a></div>
+</dd>
+</dl>
+<div class="usercenter">
+<div><a href="https://baike.baidu.com/usercenter" target="_blank"><em class="cmn-icon cmn-icons cmn-icons_navbar-usercenter"></em>个人中心</a></div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="body-wrapper">
+<div class="before-content">
+</div>
+<div class="content-wrapper">
+<div class="content">
+<div class="personal-content">
+</div>
+<div class="main-content">
+<div class="top-tool ">
+<a class="add-sub-icon top-tool-icon" href="javascript:;" title="添加义项" nslog-type="50000101" style="display: inline-block;">
+<em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_add-subLemma-solid"></em>
+</a>
+<a href="https://baike.baidu.com/divideload/FP-growth" title="拆分词条" target="_blank" class="split-icon top-tool-icon" style="display:none;" nslog-type="50000104">
+<em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_lemma-split"></em>
+</a>
+<div class="top-collect top-tool-icon" nslog="area" nslog-type="50000102">
+<em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_star-solid"></em>
+<span class="collect-text">收藏</span>
+<div class="collect-tip">查看<a href="https://baike.baidu.com/uc/favolemma" target="_blank">我的收藏</a></div>
+</div>
+<a href="javascript:void(0);" id="j-top-vote" class="top-vote top-tool-icon" nslog-type="10060801">
+<em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_zan-solid"></em>
+<span class="vote-count">32</span>
+<span class="vote-tip">有用+1</span>
+<span class="voted-tip">已投票</span>
+</a><div class="bksharebuttonbox top-share">
+<a class="top-share-icon top-tool-icon" nslog-type="9067">
+<em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_share"></em>
+<span class="share-count" id="j-topShareCount">5</span>
+</a>
+<div class="new-top-share" id="top-share">
+<ul class="top-share-list">
+<li class="top-share-item">
+<a class="share-link bds_qzone" href="javascript:void(0);" nslog-type="10060501">
+<em class="cmn-icon cmn-icons cmn-icons_logo-qzone"></em>
+</a>
+</li>
+<li class="top-share-item">
+<a class="share-link bds_tsina" href="javascript:void(0);" nslog-type="10060701">
+<em class="cmn-icon cmn-icons cmn-icons_logo-sina-weibo"></em>
+</a>
+</li>
+<li class="top-share-item">
+<a class="bds_wechat" href="javascript:void(0);" nslog-type="10060401">
+<em class="cmn-icon cmn-icons cmn-icons_logo-wechat"></em>
+</a>
+</li>
+<li class="top-share-item">
+<a class="share-link bds_tqq" href="javascript:void(0);" nslog-type="10060601">
+<em class="cmn-icon cmn-icons cmn-icons_logo-qq"></em>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div style="width:0;height:0;clear:both"></div><dl class="lemmaWgt-lemmaTitle lemmaWgt-lemmaTitle-">
+<dd class="lemmaWgt-lemmaTitle-title">
+<h1>FP-growth</h1>
+<a href="javascript:;" class="edit-lemma cmn-btn-hover-blue cmn-btn-28 j-edit-link" style="display: inline-block;"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_edit-lemma"></em>编辑</a>
+<a class="lock-lemma" nslog-type="10003105" target="_blank" href="javascript:;" title="锁定"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_lock-lemma"></em>锁定</a>
+<a href="https://baike.baidu.com/planet/talk?lemmaId=9800372" target="_blank" class="lemma-discussion cmn-btn-hover-blue cmn-btn-28 j-discussion-link" nslog-type="90000102"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_discussion-solid"></em>讨论<span class="num"></span></a>
+</dd>
+</dl><div class="promotion-declaration">
+</div><div class="lemma-summary" label-module="lemmaSummary">
+<div class="para" label-module="para">FP-Growth算法是韩嘉炜等人在2000年提出的关联分析算法，它采取如下分治策略：将提供频繁项集的数据库压缩到一棵频繁模式树（FP-tree），但仍保留项集关联信息。</div><div class="para" label-module="para">在算法中使用了一种称为频繁模式树（Frequent Pattern Tree）的数据结构。<a target="_blank" href="https://baike.baidu.com/item/FP-tree/9801330" data-lemmaid="9801330">FP-tree</a>是一种特殊的<a target="_blank" href="https://baike.baidu.com/item/%E5%89%8D%E7%BC%80%E6%A0%91/2501595" data-lemmaid="2501595">前缀树</a>，由频繁项头表和项前缀树构成。FP-Growth算法基于以上的结构加快整个挖掘过程。</div>
+</div>
+<div class="configModuleBanner">
+</div><div class="basic-info cmn-clearfix">
+<dl class="basicInfo-block basicInfo-left">
+<dt class="basicInfo-item name">中文名</dt>
+<dd class="basicInfo-item value">
+FP-Growth
+</dd>
+<dt class="basicInfo-item name">外文名</dt>
+<dd class="basicInfo-item value">
+FP-Growth
+</dd>
+<dt class="basicInfo-item name">全&nbsp;&nbsp;&nbsp;&nbsp;称</dt>
+<dd class="basicInfo-item value">
+Frequent Pattern
+</dd>
+</dl><dl class="basicInfo-block basicInfo-right">
+<dt class="basicInfo-item name">属&nbsp;&nbsp;&nbsp;&nbsp;性</dt>
+<dd class="basicInfo-item value">
+数据结构
+</dd>
+<dt class="basicInfo-item name">基本思路</dt>
+<dd class="basicInfo-item value">
+不断地迭代FP-tree的构造和投影
+</dd>
+<dt class="basicInfo-item name">好&nbsp;&nbsp;&nbsp;&nbsp;处</dt>
+<dd class="basicInfo-item value">
+比Apriori算法简单
+</dd>
+</dl></div>
+<div class="lemmaWgt-lemmaCatalog">
+<div class="lemma-catalog">
+<h2 class="block-title">目录</h2>
+<div class="catalog-list column-1">
+<ol>
+<li class="level1">
+<span class="index">1</span>
+<span class="text"><a href="https://baike.baidu.com/item/FP-growth/9800372?fr=aladdin#1">算法背景</a></span>
+</li>
+<li class="level2">
+<span class="index">▪</span>
+<span class="text"><a href="https://baike.baidu.com/item/FP-growth/9800372?fr=aladdin#1_1">提出背景</a></span>
+</li>
+<li class="level2">
+<span class="index">▪</span>
+<span class="text"><a href="https://baike.baidu.com/item/FP-growth/9800372?fr=aladdin#1_2">预备知识</a></span>
+</li>
+<li class="level1">
+<span class="index">2</span>
+<span class="text"><a href="https://baike.baidu.com/item/FP-growth/9800372?fr=aladdin#2">算法思想</a></span>
+</li>
+<li class="level1">
+<span class="index">3</span>
+<span class="text"><a href="https://baike.baidu.com/item/FP-growth/9800372?fr=aladdin#3">算法描述</a></span>
+</li>
+<li class="level1">
+<span class="index">4</span>
+<span class="text"><a href="https://baike.baidu.com/item/FP-growth/9800372?fr=aladdin#4">演示图</a></span>
+</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="anchor-list">
+<a name="1" class="lemma-anchor para-title"></a>
+<a name="sub3342544_1" class="lemma-anchor "></a>
+<a name="算法背景" class="lemma-anchor "></a>
+</div><div class="para-title level-2" label-module="para-title">
+<h2 class="title-text"><span class="title-prefix">FP-growth</span>算法背景</h2>
+<a class="edit-icon j-edit-link" data-edit-dl="1" href="javascript:;" style="display: block;"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_edit-lemma"></em>编辑</a>
+</div>
+<div class="anchor-list">
+<a name="1_1" class="lemma-anchor para-title"></a>
+<a name="sub3342544_1_1" class="lemma-anchor "></a>
+<a name="提出背景" class="lemma-anchor "></a>
+<a name="1-1" class="lemma-anchor "></a>
+</div><div class="para-title level-3" label-module="para-title">
+<h3 class="title-text"><span class="title-prefix">FP-growth</span>提出背景</h3>
+</div>
+<div class="para" label-module="para">众所周知，<a target="_blank" href="https://baike.baidu.com/item/Apriori/2000746" data-lemmaid="2000746">Apriori</a>算法在产生频繁模式完全集前需要对数据库进行多次扫描，同时产生大量的候选频繁集，这就使Apriori算法时间和<a target="_blank" href="https://baike.baidu.com/item/%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/9664257" data-lemmaid="9664257">空间复杂度</a>较大。但是Apriori算法中有一个很重要的性质：频繁项集的所有<a target="_blank" href="https://baike.baidu.com/item/%E9%9D%9E%E7%A9%BA%E5%AD%90%E9%9B%86/10180460" data-lemmaid="10180460">非空子集</a>都必须也是频繁的。但是Apriori算法在挖掘额长频繁模式的时候性能往往低下，Jiawei Han提出了FP-Growth算法。</div><div class="anchor-list">
+<a name="1_2" class="lemma-anchor para-title"></a>
+<a name="sub3342544_1_2" class="lemma-anchor "></a>
+<a name="预备知识" class="lemma-anchor "></a>
+<a name="1-2" class="lemma-anchor "></a>
+</div><div class="para-title level-3" label-module="para-title">
+<h3 class="title-text"><span class="title-prefix">FP-growth</span>预备知识</h3>
+</div>
+<div class="para" label-module="para"><b><a target="_blank" href="https://baike.baidu.com/item/FP-Tree/9801330" data-lemmaid="9801330">FP-Tree</a></b>：将事务数据表中的各个事务<a target="_blank" href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E9%A1%B9/3227309" data-lemmaid="3227309">数据项</a>按照支持度排序后，把每个事务中的数据项按降序依次插入到一棵以 NULL为<a target="_blank" href="https://baike.baidu.com/item/%E6%A0%B9%E7%BB%93%E7%82%B9/9795570" data-lemmaid="9795570">根结点</a>的树中，同时在每个结点处记录该结点出现的<a target="_blank" href="https://baike.baidu.com/item/%E6%94%AF%E6%8C%81%E5%BA%A6/2208001" data-lemmaid="2208001">支持度</a>。</div>
+<div class="para" label-module="para"><div class="lemma-picture text-pic layout-right" style="width:220px; float: right;">
+<a class="image-link" nslog-type="9317" href="https://baike.baidu.com/pic/FP-growth/9800372/0/b8389b504fc2d5629778911be71190ef77c66cd7?fr=lemma&amp;ct=single" target="_blank" title="FP-Tree结构图" style="width:220px;height:190px;">
+<img class="" src="./FP-growth_百度百科_files/b8389b504fc2d5629778911be71190ef77c66cd7.jpg" alt="FP-Tree结构图" style="width:220px;height:190px;">
+</a>
+<span class="description">
+FP-Tree结构图
+<sup>[1]</sup>
+<a name="ref_[1]_"></a>
+</span>
+</div></div>
+<div class="para" label-module="para"><b>条件模式基</b>：包含<a target="_blank" href="https://baike.baidu.com/item/FP-Tree/9801330" data-lemmaid="9801330">FP-Tree</a>中与后缀模式一起出现的前缀路径的集合</div>
+<div class="para" label-module="para"><b>条件树</b>：将条件模式基按照FP-Tree的构造原则形成的一个新的FP-Tree</div><div class="anchor-list">
+<a name="2" class="lemma-anchor para-title"></a>
+<a name="sub3342544_2" class="lemma-anchor "></a>
+<a name="算法思想" class="lemma-anchor "></a>
+</div><div class="para-title level-2" label-module="para-title">
+<h2 class="title-text"><span class="title-prefix">FP-growth</span>算法思想</h2>
+<a class="edit-icon j-edit-link" data-edit-dl="2" href="javascript:;" style="display: block;"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_edit-lemma"></em>编辑</a>
+</div>
+<div class="para" label-module="para"><b>基本思路</b>：不断地<a target="_blank" href="https://baike.baidu.com/item/%E8%BF%AD%E4%BB%A3/8415523" data-lemmaid="8415523">迭代</a>FP-tree的构造和投影过程</div>
+<div class="para" label-module="para"><b>算法描述如下：</b></div>
+<div class="para" label-module="para">1、对于每个频繁项，构造它的<a target="_blank" href="https://baike.baidu.com/item/%E6%9D%A1%E4%BB%B6%E6%8A%95%E5%BD%B1/3393313" data-lemmaid="3393313">条件投影</a>数据库和投影<a target="_blank" href="https://baike.baidu.com/item/FP-tree/9801330" data-lemmaid="9801330">FP-tree</a>。</div>
+<div class="para" label-module="para">2、对每个新构建的FP-tree重复这个过程，直到构造的新FP-tree为空，或者只包含一条路径。</div>
+<div class="para" label-module="para">3、当构造的FP-tree为空时，其前缀即为频繁模式；当只包含一条路径时，通过枚举所有可能组合并与此树的前缀连接即可得到频繁模式。</div><div class="anchor-list">
+<a name="3" class="lemma-anchor para-title"></a>
+<a name="sub3342544_3" class="lemma-anchor "></a>
+<a name="算法描述" class="lemma-anchor "></a>
+</div><div class="para-title level-2" label-module="para-title">
+<h2 class="title-text"><span class="title-prefix">FP-growth</span>算法描述</h2>
+<a class="edit-icon j-edit-link" data-edit-dl="3" href="javascript:;" style="display: block;"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_edit-lemma"></em>编辑</a>
+</div>
+<div class="para" label-module="para">构造FP-Tree</div>
+<div class="para" label-module="para">挖掘频繁模式前首先要构造<a target="_blank" href="https://baike.baidu.com/item/FP-Tree/9801330" data-lemmaid="9801330">FP-Tree</a>，算法伪码如下：</div>
+<div class="para" label-module="para">输入:一个交易数据库DB和一个最小支持度threshold.</div>
+<div class="para" label-module="para">输出:它的<a target="_blank" href="https://baike.baidu.com/item/FP-tree/9801330" data-lemmaid="9801330">FP-tree</a>.</div>
+<div class="para" label-module="para">步骤:</div>
+<div class="para" label-module="para">1.扫描数据库DB一遍.得到频繁项的集合F和每个频繁项的支持度.把F按支持度递降排序,结果记为L.</div>
+<div class="para" label-module="para">2.创建FP-tree的根节点,记为T,并且标记为’null’.然后对DB中的每个事务Trans做如下的步骤.</div>
+<div class="para" label-module="para">根据L中的顺序,选出并排序Trans中的事务项.把Trans中排好序的事务项列表记为[p|P],其中p是第一个元素,P是列表的剩余部分.调用insert_tree([p|P],T).</div>
+<div class="para" label-module="para">函数insert_tree([p|P],T)的运行如下.</div>
+<div class="para" label-module="para">如果T有一个子结点N,其中N.item-name=p.item-name,则将N的count域值增加1;否则,创建一个新节点N,使它的count为1,使它的父节点为T,并且使它的node_link和那些具有相同item_name域串起来.如果P非空,则<a target="_blank" href="https://baike.baidu.com/item/%E9%80%92%E5%BD%92%E8%B0%83%E7%94%A8/9325381" data-lemmaid="9325381">递归调用</a>insert_tree(P,N).<div class="lemma-picture text-pic layout-right" style="width:194px; float: right;">
+<a class="image-link" nslog-type="9317" href="https://baike.baidu.com/pic/FP-growth/9800372/0/fc1f4134970a304e1c28e809d1c8a786c9175c3e?fr=lemma&amp;ct=single" target="_blank" title="FP-Tree创建的算法流程图" style="width:194px;height:220px;">
+<img class="" src="./FP-growth_百度百科_files/fc1f4134970a304e1c28e809d1c8a786c9175c3e.jpg" alt="FP-Tree创建的算法流程图" style="width:194px;height:220px;">
+</a>
+<span class="description">
+FP-Tree创建的算法流程图
+</span>
+</div></div>
+<div class="para" label-module="para">注：构造<a target="_blank" href="https://baike.baidu.com/item/FP-Tree/9801330" data-lemmaid="9801330">FP-Tree</a>的算法理解上相对简单，所以不过多描述</div>
+<div class="para" label-module="para">挖掘频繁模式</div>
+<div class="para" label-module="para">对<a target="_blank" href="https://baike.baidu.com/item/FP-Tree/9801330" data-lemmaid="9801330">FP-Tree</a>进行挖掘，算法如下：</div>
+<div class="para" label-module="para">输入:一棵用算法一建立的树Tree</div>
+<div class="para" label-module="para">输出:所有的频繁集</div>
+<div class="para" label-module="para">步骤:</div>
+<div class="para" label-module="para">调用FP-growth(Tree,null).</div>
+<div class="para" label-module="para">procedure FP-Growth ( Tree, x)</div>
+<div class="para" label-module="para"><b>{</b></div>
+<div class="para" label-module="para">(1)<b>if</b> (Tree只包含单路径P) <b>then</b></div>
+<div class="para" label-module="para">(2) 对路径P中节点的每个组合（记为B）</div>
+<div class="para" label-module="para">(3) 生成模式B并x，支持数=B中所有节点的最小支持度</div>
+<div class="para" label-module="para">(4) else 对Tree头上的每个ai，<b>do</b></div>
+<div class="para" label-module="para"><b>{</b></div>
+<div class="para" label-module="para">(5) 生成模式B= ai 并 x，支持度=ai.support；</div>
+<div class="para" label-module="para">(6) 构造B的条件模式库和B的条件FP树TreeB；</div>
+<div class="para" label-module="para">(7)<b>if</b> TreeB != <a target="_blank" href="https://baike.baidu.com/item/%E7%A9%BA%E9%9B%86/5016874" data-lemmaid="5016874">空集</a></div>
+<div class="para" label-module="para">(8)<b>then </b>call FP-Growth ( TreeB , B )</div>
+<div class="para" label-module="para"><b>}</b></div>
+<div class="para" label-module="para"><b>}</b></div><div class="anchor-list">
+<a name="4" class="lemma-anchor para-title"></a>
+<a name="sub3342544_4" class="lemma-anchor "></a>
+<a name="演示图" class="lemma-anchor "></a>
+</div><div class="para-title level-2" label-module="para-title">
+<h2 class="title-text"><span class="title-prefix">FP-growth</span>演示图</h2>
+<a class="edit-icon j-edit-link" data-edit-dl="4" href="javascript:;" style="display: block;"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_edit-lemma"></em>编辑</a>
+</div>
+<div class="para" label-module="para">下图给出了整个算法的演示过程：</div>
+<div class="para" label-module="para"><a class="lemma-album layout-right nslog:10000206" title="FP-Growth算法实例演示图" href="https://baike.baidu.com/pic/FP-growth/9800372/1376693/4a36acaf2edda3cc7f26f8d301e93901203f9206?fr=lemma&amp;ct=cover" target="_blank" style="width:252px;" nslog-type="10000206">
+<div class="album-wrap" style="width:250px;height:104px;">
+<img class="picture" alt="FP-Growth算法实例演示图" src="./FP-growth_百度百科_files/4a36acaf2edda3cc7f26f8d301e93901203f9206.jpg" style="width:250px;height:104px;">
+</div>
+<div class="description">
+FP-Growth算法实例演示图<span class="number">(3张)</span>
+</div>
+<div class="albumBg">
+<div class="albumBgFir" style="width:244px;"></div>
+<div class="albumBgSec" style="width:238px;"></div>
+</div>
+</a>
+</div>
+<div class="anchor-list">
+<a name="a" class="lemma-anchor a"></a>
+</div><div class="album-list">
+<div class="header">
+<span class="title">词条图册</span>
+<a class="more-link" href="https://baike.baidu.com/pic/FP-growth/9800372?fr=lemma" target="_blank" nslog-type="10000204">更多图册<em></em></a>
+</div>
+<div class="scroller">
+<div class="list" style="width: 537.589px;">
+<a class="lemma-album" title="" href="https://baike.baidu.com/pic/FP-growth/9800372/0/ac4bd11373f08202ff8eeec94bfbfbedab641b23?fr=lemma" target="_blank" style="width:126.65957446808511px;" nslog-type="1204" data-index="0"><div class="album-wrap" style="width:124.65957446808511px;height:155px;"><img class="picture" alt="词条图片" src="./FP-growth_百度百科_files/ac4bd11373f08202ff8eeec94bfbfbedab641b23.jpg" style="width:124.65957446808511px;height:155px;"></div><div class="description">词条图片<span class="number">(3)</span></div><div class="albumBg"><div class="albumBgFir" style="width:118.65957446808511px;"></div><div class="albumBgSec" style="width:112.65957446808511px;"></div></div></a><a class="lemma-album last" title="" href="https://baike.baidu.com/pic/FP-growth/9800372/1376693/4a36acaf2edda3cc7f26f8d301e93901203f9206?fr=lemma" target="_blank" style="width:220px;" nslog-type="1204"><div class="album-wrap" style="width:218px;height:155px;"><img class="picture" alt="FP-Growth算法..." src="./FP-growth_百度百科_files/4a36acaf2edda3cc7f26f8d301e93901203f9206(1).jpg" style="width:367.92929292929296px;height:155px;"></div><div class="description">FP-Growth算法...<span class="number">(3)</span></div><div class="albumBg"><div class="albumBgFir" style="width:212px;"></div><div class="albumBgSec" style="width:206px;"></div></div></a></div>
+</div>
+<div class="footer">
+</div>
+</div>
+<dl class="lemma-reference collapse nslog-area log-set-param" data-nslog-type="2" log-set-param="ext_reference">
+<dt class="reference-title">参考资料</dt>
+<dd class="reference-list-wrap">
+<ul class="reference-list">
+<li class="reference-item reference-item--type1 " id="reference-[1]-3342544-wrap">
+<span class="index">1.</span>
+<a class="gotop anchor" name="refIndex_1_3342544" id="refIndex_1_3342544" title="向上跳转" href="https://baike.baidu.com/item/FP-growth/9800372?fr=aladdin#ref_[1]_3342544">&nbsp;&nbsp;</a>
+<a rel="nofollow" href="https://baike.baidu.com/reference/9800372/c111ZlH0XHN9qsBEUH6s2a_46wNnDmJSHHCRvOTC7XDUphNvvyQzf1EWOgGzR7KZkElfGXhmUk8La73KmpslEiFu9WVONfgHbPoVER92GtMyjrm_lLMR4wnp1YQLf3KNh5O5kbJe-p_iMfvTRxsPg8kJG5japJhbSGO7fuaEZaUDNXdsX4cpeB-DSiwew9sapQsl33L9OLRjujb9HUN4cekZOhXlI2NbnsSOBdsP2aYZLJNhkTKTQfMopjwHxT-S8KktdOE5o_cm9xbxY8KgVaN-8Cn52vpWJa9LtPW2-LYHj88N05riAW84ldH7406F3yrF_jDJgCB6DPaGrF-NGUiOsdnA2JD9fOYoFp4WCvsOw2usNcZb7NLWlleyPgCPlwqXUuvYtFTuIox6sT3Iw6DEyn2SyVuK5939r4bJpUDD-YyCK1E_KDCVz9nVSvOhKJd6R8_YZicyxIDMd44h2So5DI7EkJWOQ6CJPzdBsKymrwQP-2lQRddoVMPYE3fLmXSxizC9qhNiQZR9s-NZEkRTuuWbGeW3kr_4oWcaXMoxzzsCzCyjdycaOnDTV13QLQBuavAzF_UeOFQNBKnGPeSZ15ctbJQw9A" target="_blank" class="text">FP-Tree演示图<span class="linkout">&nbsp;</span></a>
+<span class="site">．百度图片</span><span>[引用日期2012-10-30]</span></li></ul>
+</dd>
+</dl>
+<div class="lemma-paper-box"><dl class="lemma-paper collapse">
+<dt class="paper-title">
+<span class="sciencePaper-title">学术论文</span>
+<div class="sciencePaper-from">
+内容来自<a class="sciencePaper-link" href="https://xueshu.baidu.com/?site=baike" nslog-type="80200001" target="_blank">
+<img src="./FP-growth_百度百科_files/science_logo_f1bd60c.png" class="sciencePaper-logo">
+</a>
+</div>
+</dt><dd class="sciencePaper-list-wrap">
+<ul class="sciencePaper-list">
+<li class="sciencePaper-item" nslog-type="80200002">
+<a href="https://xueshu.baidu.com/usercenter/paper/show?paperid=e3baf5b065fb6aa4bde15eae54a4bf4f&amp;tn=SE_baiduxueshu_c1gjeupa&amp;ie=utf-8&amp;site=baike" target="_blank" class="text-link">
+<span class="interrupt authors">郑斌[1，2]，李涓子[2].</span>
+<span class="interrupt punctuation">&nbsp;&nbsp;</span>
+<span class="interrupt title">一种基于FP—Growth的改进算法．</span>
+</a>
+<span class="interrupt punctuation">《</span>
+<span class="interrupt publishedAt">河南城建学院学报</span>
+<span class="interrupt punctuation">》</span>
+<span class="interrupt punctuation">，</span>
+<span class="interrupt time">2008</span>
+</li>
+<li class="sciencePaper-item" nslog-type="80200002">
+<a href="https://xueshu.baidu.com/usercenter/paper/show?paperid=6eb7a5dccf0cb75e51ca0e7c3c40f39c&amp;tn=SE_baiduxueshu_c1gjeupa&amp;ie=utf-8&amp;site=baike" target="_blank" class="text-link">
+<span class="interrupt authors">吴惠明，杨威，姜秡，高新闻等.</span>
+<span class="interrupt punctuation">&nbsp;&nbsp;</span>
+<span class="interrupt title">基于FP－Growth算法的盾构掘进参数与隧道管片渗漏关联性分析．</span>
+</a>
+<span class="interrupt punctuation">《</span>
+<span class="interrupt publishedAt">隧道建设</span>
+<span class="interrupt punctuation">》</span>
+<span class="interrupt punctuation">，</span>
+<span class="interrupt time">2016</span>
+</li>
+<li class="sciencePaper-item" nslog-type="80200002">
+<a href="https://xueshu.baidu.com/usercenter/paper/show?paperid=a267883753ba2c545512596f5c330d93&amp;tn=SE_baiduxueshu_c1gjeupa&amp;ie=utf-8&amp;site=baike" target="_blank" class="text-link">
+<span class="interrupt authors">刘敏娜，吴建卫等.</span>
+<span class="interrupt punctuation">&nbsp;&nbsp;</span>
+<span class="interrupt title">改进的FP-growth关联规则算法及其在图书推荐系统中的应用．</span>
+</a>
+<span class="interrupt punctuation">《</span>
+<span class="interrupt publishedAt">微型电脑应用</span>
+<span class="interrupt punctuation">》</span>
+<span class="interrupt punctuation">，</span>
+<span class="interrupt time">2014</span>
+</li>
+<li class="sciencePaper-item" nslog-type="80200002">
+<a href="https://xueshu.baidu.com/usercenter/paper/show?paperid=1639c9e54ecde25a8604fcc00db9dd4b&amp;tn=SE_baiduxueshu_c1gjeupa&amp;ie=utf-8&amp;site=baike" target="_blank" class="text-link">
+<span class="interrupt authors">章志刚，吉根林.</span>
+<span class="interrupt punctuation">&nbsp;&nbsp;</span>
+<span class="interrupt title">一种基于FP-Growth的频繁项目集并行挖掘算法．</span>
+</a>
+<span class="interrupt punctuation">《</span>
+<span class="interrupt publishedAt">计算机工程与应用</span>
+<span class="interrupt punctuation">》</span>
+<span class="interrupt punctuation">，</span>
+<span class="interrupt time">2014</span>
+</li>
+<li class="sciencePaper-item" nslog-type="80200002">
+<a href="https://xueshu.baidu.com/usercenter/paper/show?paperid=75ccc40b24a8d3c7e65565f0cd3930ab&amp;tn=SE_baiduxueshu_c1gjeupa&amp;ie=utf-8&amp;site=baike" target="_blank" class="text-link">
+<span class="interrupt authors">G. Noma等.</span>
+<span class="interrupt punctuation">&nbsp;&nbsp;</span>
+<span class="interrupt title">Identifying Relationship between Hearing loss Symptoms and Pure-tone Audiometry Thresholds with FP-Growth Algorithm．</span>
+</a>
+<span class="interrupt time">2013</span>
+</li>
+</ul>
+</dd>
+<dd class="toggle">
+<a href="https://xueshu.baidu.com/s?wd=intitle%3A%28FP-growth%29&amp;tn=SE_baiduxueshu_c1gjeupa&amp;ie=utf-8&amp;sc_from=pingtai7&amp;site=baike" nslog-type="80200003" target="_blank" class="text">
+<span>查看全部</span>
+<img src="./FP-growth_百度百科_files/toggle_185d48f.svg" class="toggle-arrow" alt="">
+</a>
+</dd>
+</dl></div>
+</div>
+<div class="side-content">
+<div class="summary-pic">
+<a href="https://baike.baidu.com/pic/FP-growth/9800372/0/ac4bd11373f08202ff8eeec94bfbfbedab641b23?fr=lemma&amp;ct=single" target="_blank" nslog-type="10002401">
+<img src="./FP-growth_百度百科_files/ac4bd11373f08202ff8eeec94bfbfbedab641b23(1).jpg">
+<button class="picAlbumBtn"><em></em><span>图集</span></button>
+<div>FP-growth图册</div>
+</a>
+</div>
+<div class="lemmaWgt-promotion-vbaike" style="display: block;">
+<div class="promotion_title">V百科<a href="https://baike.baidu.com/vbaike#gallary" target="_blank">往期回顾</a></div>
+<div class="promotion_viewport">
+<dl style="position: absolute; width: 536px; height: 152px; left: 0px;"><dd class="wgt_carousel_aniUnit" style="float: left;">
+<a href="https://baike.baidu.com/vbaike/%E6%89%93%E5%8D%A1%E7%AC%AC%E5%85%AB%E6%89%B9%E6%96%87%E4%BF%9D%E5%8D%95%E4%BD%8D/42435" target="_blank" title="--" nslog-type="10002202" nslog-params="{&quot;adId&quot;:&quot;8742&quot;, &quot;adTitle&quot;:&quot;打卡第八批文保单位&quot;, &quot;adPos&quot;: 1}">
+<img src="./FP-growth_百度百科_files/faf2b2119313b07e14a51c7003d7912397dd8caa.jpg">
+</a>
+</dd></dl>
+<div class="promotion_viewport_pager wgt_horPager">
+<span class="pTagBox">
+<a href="javascript:;" class="pTag prev" p-index="4"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_arrow-left"></em></a>
+<a href="javascript:;" class="pTag next" p-index="5"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_arrow-right"></em></a>
+</span>
+</div>
+</div>
+</div><div class="lemmaWgt-promotion-rightPreciseAd" data-lemmaid="9800372" data-lemmatitle="FP-growth"></div>
+<div class="lemmaWgt-promotion-slide" style="display: block;">
+<div class="promotion_viewport">
+<dl><dd class="wgt_carousel_aniUnit">
+<a href="https://iwenjuan.baidu.com/?code=hy1vdd" target="_blank" title="--" nslog-type="10002202" nslog-params="{&quot;adId&quot;:&quot;8569&quot;, &quot;adTitle&quot;:&quot;医典调研-ljy-1016&quot;, &quot;adPos&quot;: 2}">
+<img src="./FP-growth_百度百科_files/3b87e950352ac65cbf99f17af4f2b21193138a1f.jpg">
+</a>
+</dd>
+</dl>
+
+</div>
+</div><div class="lemmaWgt-promotion-rightBigAd">
+</div><dl class="side-box lemma-statistics">
+<dt class="title">词条统计</dt>
+<dd class="description split-line">
+<ul>
+<li>浏览次数：<span id="j-lemmaStatistics-pv">65487</span>次</li>
+<li>编辑次数：22次<a href="https://baike.baidu.com/historylist/FP-growth/9800372" class="nslog:1021" target="_blank">历史版本</a></li>
+<li>
+<span class="latest-title">最近更新：</span>
+<span class="latest-content">
+<a class="show-userCard" data-uid="3059831329" title="查看此用户资料" target="_blank" href="https://baike.baidu.com/usercenter/userpage?uname=%E9%98%B3%E5%85%89%E5%8D%8A%E6%9A%96%E5%80%BE%E5%9F%8E1&amp;from=lemma" nslog-type="1022">阳光半暖倾城1</a><span class="j-modified-time" style="">（2019-09-19）</span>
+</span>
+</li>
+</ul>
+</dd>
+<dt class="title">突出贡献榜</dt>
+<dd class="description excellent-description">
+<ul>
+<li>
+<a title="查看此用户资料" class="usercard show-userCard" data-uid="163983004" username="诚实的小龙虾" target="_blank" href="https://baike.baidu.com/usercenter/userpage?uname=%E8%AF%9A%E5%AE%9E%E7%9A%84%E5%B0%8F%E9%BE%99%E8%99%BE&amp;from=lemma">诚实的小龙虾</a>
+<div class="right">
+<a target="_blank" href="https://baike.baidu.com/item/%E7%99%BE%E5%BA%A6%E7%99%BE%E7%A7%91%EF%BC%9A%E5%88%9B%E5%BB%BA%E7%89%88%E6%9C%AC"><img align="absmiddle" alt="创建版本" title="创建版本" src="./FP-growth_百度百科_files/create_c3f33b6.png"></a>
+</div>
+</li>
+</ul>
+</dd>
+</dl>
+<div class="side-catalog" style="visibility: hidden; bottom: 10px; top: auto;">
+<div class="side-bar">
+<em class="circle start"></em>
+<em class="circle end"></em>
+</div>
+<div class="catalog-scroller">
+<dl class="catalog-list">
+<dt class="catalog-title level1">
+<em class="pointer"></em>
+<a href="https://baike.baidu.com/item/FP-growth/9800372?fr=aladdin#1" class="title-link">
+<span class="text">
+<span class="title-index">1</span>
+<span class="title-link" nslog-type="10002802">算法背景</span>
+</span>
+</a>
+</dt>
+<dd class="catalog-title level2">
+<a href="https://baike.baidu.com/item/FP-growth/9800372?fr=aladdin#1_1" class="title-link">
+<span class="text">
+<span class="title-index">1.1</span>
+<span class="title-link" nslog-type="10002802">提出背景</span>
+</span>
+</a>
+</dd>
+<dd class="catalog-title level2">
+<a href="https://baike.baidu.com/item/FP-growth/9800372?fr=aladdin#1_2" class="title-link">
+<span class="text">
+<span class="title-index">1.2</span>
+<span class="title-link" nslog-type="10002802">预备知识</span>
+</span>
+</a>
+</dd>
+<dt class="catalog-title level1">
+<em class="pointer"></em>
+<a href="https://baike.baidu.com/item/FP-growth/9800372?fr=aladdin#2" class="title-link">
+<span class="text">
+<span class="title-index">2</span>
+<span class="title-link" nslog-type="10002802">算法思想</span>
+</span>
+</a>
+</dt>
+<dt class="catalog-title level1">
+<em class="pointer"></em>
+<a href="https://baike.baidu.com/item/FP-growth/9800372?fr=aladdin#3" class="title-link">
+<span class="text">
+<span class="title-index">3</span>
+<span class="title-link" nslog-type="10002802">算法描述</span>
+</span>
+</a>
+</dt>
+<dt class="catalog-title level1">
+<em class="pointer"></em>
+<a href="https://baike.baidu.com/item/FP-growth/9800372?fr=aladdin#4" class="title-link">
+<span class="text">
+<span class="title-index">4</span>
+<span class="title-link" nslog-type="10002802">演示图</span>
+</span>
+</a>
+</dt>
+<a class="arrow" href="javascript:void(0);" style="top: 5px;"></a>
+</dl>
+</div>
+<div class="right-wrap" style="display: none;">
+<a class="go-up disable" href="javascript:void(0);"></a>
+<a class="go-down disable" href="javascript:void(0);"></a>
+</div>
+</div>
+
+<div id="side_box_unionAd" class="unionAd side-box union" style="display: block; position: static; bottom: 326px;">
+<div class="union-content" id="cpro_u1997633"><iframe id="iframeu1997633_0" name="iframeu1997633_0" src="./FP-growth_百度百科_files/scfm.html" width="250" height="250" align="center,center" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" style="border:0;vertical-align:bottom;margin:0;width:250px;height:250px" allowtransparency="true"></iframe></div>
+</div>
+</div>
+</div>
+</div>
+<div class="after-content">
+<div class="fc-guess-like new" id="fc_guess_like_new" style="display: block;">
+<span class="logo-du">
+<em class="cmn-icon cmn-icons cmn-icons_logo-du"></em>
+</span>
+<h6>搜索发现</h6>
+<ul class="cmn-clearfix"><li><a href="https://www.baidu.com/s?wd=%CC%D4%B1%A6%B5%EA%C6%CC%C9%E8%BC%C6&amp;tn=SE_baikepcxf02_fcetbk02&amp;lqsource=-1&amp;dmaseid=dmaseid202&amp;qid=24a33cdd6d598aa2" target="_blank">淘宝店铺设计</a></li>
+<li><a href="https://www.baidu.com/s?wd=%C6%B4%B6%E0%B6%E0%CF%C2%D4%D8&amp;tn=SE_baikepcxf02_fcetbk02&amp;lqsource=-1&amp;dmaseid=dmaseid202&amp;qid=24a33cdd6d598aa2" target="_blank">拼多多下载</a></li>
+<li><a href="https://www.baidu.com/s?wd=%B0%B2%D7%BF%CF%B5%CD%B3%C6%BD%B0%E5&amp;tn=SE_baikepcxf02_fcetbk02&amp;lqsource=-1&amp;dmaseid=dmaseid202&amp;qid=24a33cdd6d598aa2" target="_blank">安卓系统平板</a></li>
+<li><a href="https://www.baidu.com/s?wd=%CD%F8%C2%E7%BF%C6%BC%BC%B9%AB%CB%BE&amp;tn=SE_baikepcxf02_fcetbk02&amp;lqsource=-1&amp;dmaseid=dmaseid202&amp;qid=24a33cdd6d598aa2" target="_blank">网络科技公司</a></li>
+<li><a href="https://www.baidu.com/s?wd=%CD%F8%C2%E7%BC%BC%CA%F5&amp;tn=SE_baikepcxf02_fcetbk02&amp;lqsource=-1&amp;dmaseid=dmaseid202&amp;qid=24a33cdd6d598aa2" target="_blank">网络技术</a></li>
+<li><a href="https://www.baidu.com/s?wd=%D7%EE%D0%C2%CA%D6%BB%FA%BB%AA%CE%AA&amp;tn=SE_baikepcxf02_fcetbk02&amp;lqsource=-1&amp;dmaseid=dmaseid202&amp;qid=24a33cdd6d598aa2" target="_blank">最新手机华为</a></li>
+<li><a href="https://www.baidu.com/s?wd=%C1%AA%CD%A8%B9%A4%D7%F7%B7%FE&amp;tn=SE_baikepcxf02_fcetbk02&amp;lqsource=-1&amp;dmaseid=dmaseid202&amp;qid=24a33cdd6d598aa2" target="_blank">联通工作服</a></li>
+<li><a href="https://www.baidu.com/s?wd=%C6%B4%CD%C5%CD%F8%D5%BE&amp;tn=SE_baikepcxf02_fcetbk02&amp;lqsource=-1&amp;dmaseid=dmaseid202&amp;qid=24a33cdd6d598aa2" target="_blank">拼团网站</a></li>
+<li><a href="https://www.baidu.com/s?wd=%B0%B2%D7%BF%CF%B5%CD%B3%D3%CE%CF%B7&amp;tn=SE_baikepcxf02_fcetbk02&amp;lqsource=-1&amp;dmaseid=dmaseid202&amp;qid=24a33cdd6d598aa2" target="_blank">安卓系统游戏</a></li>
+<li><a href="https://www.baidu.com/s?wd=%B1%B1%BE%A9%D4%BA%D0%A3&amp;tn=SE_baikepcxf02_fcetbk02&amp;lqsource=-1&amp;dmaseid=dmaseid202&amp;qid=24a33cdd6d598aa2" target="_blank">北京院校</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="wgt-footer-main">
+<div class="content">
+<dl class="fresh">
+<dt><em class="cmn-icon cmn-icons cmn-icons_footer-fresh"></em>新手上路</dt>
+<dd>
+<div><a target="_blank" href="https://baike.baidu.com/usercenter/tasks#guide">成长任务</a></div>
+<div><a target="_blank" href="https://baike.baidu.com/help#main01">编辑入门</a></div>
+<div><a target="_blank" href="https://baike.baidu.com/help#main06">编辑规则</a></div>
+<div><a target="_blank" href="https://baike.baidu.com/item/%E7%99%BE%E5%BA%A6%E7%99%BE%E7%A7%91%EF%BC%9A%E6%9C%AC%E4%BA%BA%E8%AF%8D%E6%9D%A1%E7%BC%96%E8%BE%91%E6%9C%8D%E5%8A%A1/22442459?bk_fr=pcFooter">本人编辑</a><img src="./FP-growth_百度百科_files/new-icon_a64774d.png" class="new-icon" alt="new"></div>
+</dd>
+</dl>
+<dl class="question">
+<dt><em class="cmn-icon cmn-icons cmn-icons_footer-question"></em>我有疑问</dt>
+<dd>
+<div><a id="J-bk-feedback-query" data-lemma="FP-growth" href="javascript:void(0);" nslog-type="10070001">内容质疑</a></div>
+<div><a target="_blank" href="http://zhiqiu.baidu.com/baike/passport/html/baikechat.html" nslog-type="10000003">在线客服</a></div>
+<div><a target="_blank" href="http://tieba.baidu.com/f?ie=utf-8&amp;fr=bks0000&amp;kw=%E7%99%BE%E5%BA%A6%E7%99%BE%E7%A7%91">官方贴吧</a></div>
+<div><a id="J-bk-feedback-main" href="javascript:void(0);">意见反馈</a></div>
+</dd>
+</dl>
+<dl class="suggestion">
+<dt><em class="cmn-icon cmn-icons cmn-icons_footer-suggestion"></em>投诉建议</dt>
+<dd>
+<div><a target="_blank" href="http://help.baidu.com/newadd?word=FP-growth&amp;&amp;submit_link=https%3A%2F%2Fbaike.baidu.com%2Fitem%2FFP-growth%2F9800372%3Ffr%3Daladdin&amp;prod_id=10&amp;category=1">举报不良信息</a></div>
+<div><a target="_blank" href="http://help.baidu.com/newadd?word=FP-growth&amp;&amp;submit_link=https%3A%2F%2Fbaike.baidu.com%2Fitem%2FFP-growth%2F9800372%3Ffr%3Daladdin&amp;prod_id=10&amp;category=2">未通过词条申诉</a></div>
+<div><a target="_blank" href="http://help.baidu.com/newadd?word=FP-growth&amp;&amp;submit_link=https%3A%2F%2Fbaike.baidu.com%2Fitem%2FFP-growth%2F9800372%3Ffr%3Daladdin&amp;prod_id=10&amp;category=6">投诉侵权信息</a></div>
+<div><a target="_blank" href="http://help.baidu.com/newadd?word=FP-growth&amp;&amp;submit_link=https%3A%2F%2Fbaike.baidu.com%2Fitem%2FFP-growth%2F9800372%3Ffr%3Daladdin&amp;prod_id=10&amp;category=5">封禁查询与解封</a></div>
+</dd>
+</dl>
+</div>
+<div class="copyright">©2019&nbsp;Baidu&nbsp;<a href="http://www.baidu.com/duty/" target="_blank">使用百度前必读</a>&nbsp;|&nbsp;<a href="http://help.baidu.com/question?prod_en=baike&amp;class=89&amp;id=1637" target="_blank">百科协议</a>&nbsp;|&nbsp;<a href="http://help.baidu.com/question?prod_id=10&amp;class=690&amp;id=1001779" target="_blank">隐私政策</a>&nbsp;|&nbsp;<a href="https://baike.baidu.com/operation/cooperation" target="_blank">百度百科合作平台</a>&nbsp;|&nbsp;<span>京ICP证030173号&nbsp;</span><img class="copyright-img" width="13" height="16" src="./FP-growth_百度百科_files/copy_rignt_24.png"></div>
+<p class="recordcode"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000001" target="_blank"><i class="icon-police"></i>京公网安备11000002000001号</a></p>
+</div>
+
+
+<div class="lemmaWgt-searchHeader" style="display: none; opacity: 0;">
+<div class="layout cmn-clearfix">
+<div class="wgt-searchbar wgt-searchbar-new wgt-searchbar-simple cmn-clearfix ">
+<div class="logo-container">
+<a class="logo cmn-inline-block" title="到百科首页" href="https://baike.baidu.com/">
+<span class="cmn-baike-logo">
+<em class="cmn-icon cmn-icons cmn-icons_logo-bai"></em>
+<em class="cmn-icon cmn-icons cmn-icons_logo-du"></em>
+<em class="cmn-icon cmn-icons cmn-icons_logo-baike"></em>
+</span>
+</a>
+</div>
+<div class="search">
+<div class="form">
+<form id="searchForm" action="https://baike.baidu.com/search/word" method="GET" target="_self">
+<input id="query" nslog="normal" nslog-type="10080015" name="word" type="text" autocomplete="off" autocorrect="off" value="FP-growth"><button id="search" nslog="normal" nslog-type="10080013" type="button">进入词条</button>
+</form>
+<form id="searchLemmaForm" action="https://baike.baidu.com/search" method="GET" target="_self">
+<input id="searchLemmaQuery" name="word" type="hidden">
+<input name="pn" type="hidden" value="0">
+<input name="rn" type="hidden" value="0">
+<input name="enc" type="hidden" value="utf8">
+</form>
+<ul id="suggestion" class="suggestion" style="display: none;">
+<div class="sug"></div>
+<li class="extra">
+<span id="clear" style="margin-right:8px;">清除历史记录</span><span id="close" nslog="normal" nslog-type="10080016">关闭</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="tool-buttons">
+<a class="toolButtons-edit button j-edit-link" href="javascript:;" nslog-type="10010001"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_edit-hollow"></em>编辑</a>
+<a class="toolButtons-discussion button j-discussion-link" href="https://baike.baidu.com/planet/talk?lemmaId=9800372" target="_blank" nslog-type="90000103"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_discussion-hollow"></em>讨论&nbsp;<span class="num"></span></a>
+<a class="toolButtons-collect button" href="javascript:;" nslog-type="10010002"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_star-hollow"></em><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_star-solid"></em>收藏</a>
+<a class="toolButtons-vote button top-vote" href="javascript:;" nslog-type="10010003"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_zan-hollow"></em><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_zan-solid"></em><span class="j-tool-btn-vote-num">赞</span></a>
+</div>
+<div class="user-info">
+<a class="user-link unlogin" href="https://baike.baidu.com/usercenter" nslog-type="10010008" target="_blank">鹿轻颺</a>
+</div>
+</div></div>
+<div class="new-bdsharebuttonbox new-side-share" id="side-share">
+<span class="title">分享</span>
+<div class="side-border">
+<div class="triangle"></div>
+<a class="share-link bds_qzone" href="javascript:void(0);" nslog-type="10060101">
+<em class="cmn-icon cmn-icons cmn-icons_logo-qzone"></em>
+</a>
+<a class="share-link bds_tsina" href="javascript:void(0);" nslog-type="10060301">
+<em class="cmn-icon cmn-icons cmn-icons_logo-sina-weibo"></em>
+</a>
+<a class="bds_wechat" href="javascript:void(0);" nslog-type="10060001">
+<em class="cmn-icon cmn-icons cmn-icons_logo-wechat"></em>
+</a>
+<a class="share-link bds_tqq" href="javascript:void(0);" nslog-type="10060201">
+<em class="cmn-icon cmn-icons cmn-icons_logo-qq"></em>
+</a>
+</div>
+</div>
+<div class="qrcode-wrapper" id="layer" style="display: none">
+<div class="bd_weixin_popup_header">
+<em class="cmn-icon cmn-icons cmn-icons_close"></em>
+<span>分享到微信朋友圈</span>
+</div>
+<div id="wechat-qrcode-img"></div>
+<div class="bd_weixin_popup_footer">打开微信“扫一扫”即可将网页分享至朋友圈</div>
+</div>
+<div></div><div></div>
+<script>
+      window['__abbaidu_2020_subidgetf'] = function () {
+          var subid = 01000000;
+          return subid;
+      };
+    </script>
+<script async="" src="./FP-growth_百度百科_files/abclite-2020-s.js"></script>
+
+<script type="text/javascript" src="./FP-growth_百度百科_files/mod_4302fe0.js"></script>
+<script type="text/javascript">require.resourceMap({"res":{"wiki-lemma:widget/lemma_content/mainContent/lemmaRelation/lemmaInsert.js":{"url":"https://bkssl.bdimg.com/static/wiki-lemma/widget/lemma_content/mainContent/lemmaRelation/lemmaInsert_18f1b51.js","pkg":"wiki-lemma:p5","deps":["wiki-common:widget/component/nslog/nslog.js"]},"wiki-lemma:widget/lemma_content/mainContent/lemmaRelation/tangram.js":{"url":"https://bkssl.bdimg.com/static/wiki-lemma/widget/lemma_content/mainContent/lemmaRelation/tangram_459492a.js","pkg":"wiki-lemma:p5"},"wiki-lemma:widget/lemma_content/mainContent/lemmaReference/lemmaReferenceTip/lemmaReferenceTip.js":{"url":"https://bkssl.bdimg.com/static/wiki-lemma/widget/lemma_content/mainContent/lemmaReference/lemmaReferenceTip/lemmaReferenceTip_e7172a1.js","deps":["wiki-common:widget/lib/jquery/jquery.js","wiki-common:widget/lib/jsmart/jsmart.js","wiki-common:widget/component/nslog/nslog.js"]}},"pkg":{"wiki-lemma:p5":{"url":"https://bkssl.bdimg.com/static/wiki-lemma/pkg/wiki-lemma-module-lemmaRelation_853c311.js"}}});</script><script type="text/javascript" src="./FP-growth_百度百科_files/wiki-common-base_d400227.js"></script>
+<script type="text/javascript" src="./FP-growth_百度百科_files/wiki-lemma_73e487b.js"></script>
+<script type="text/javascript" src="./FP-growth_百度百科_files/zhixin_ea4d2ff.js"></script>
+<script type="text/javascript">!function(){  var $ = require('wiki-common:widget/lib/jquery/jquery'),
+    userbar = require('wiki-common:widget/component/userbar-n/userbar-n');
+    
+  userbar.buildUserbar($('#j-wgt-userbar'), null);
+}();
+!function(){  require('wiki-common:widget/component/headTabBar/headTabBar');
+}();
+!function(){    var $ = require('wiki-common:widget/lib/jquery/jquery'),
+      initSearchbar = require('wiki-common:widget/component/searchbar-n/searchbar');  
+    initSearchbar($('.wgt-searchbar-main'));
+  }();
+!function(){    var $ = require('wiki-common:widget/lib/jquery/jquery');
+    var cookie = require('wiki-common:widget/util/cookie');
+    if (!cookie.get('baikedeclare')) {
+        $('#J-declare-wrap').css('display', 'block');
+    }
+    $('#J-declare-close').on('click', function () {
+        // 用户关闭后，不再显示，这里暂设过期时间为1年
+        cookie.set('baikedeclare', 'showed', {
+            expires: 365 * 60 * 60 * 24 * 1000,
+            path: '/'
+        });
+        $('#J-declare-wrap').css('display', 'none');
+    });
+}();
+!function(){var $ = require('wiki-common:widget/lib/jquery/jquery');
+
+var timer = '';
+
+$('.wgt-navbar').on('mouseenter', 'dl', function() {
+  clearTimeout(timer);
+  timer = setTimeout(function() {
+    $('.wgt-navbar').addClass('wgt-navbar-hover');
+  }, 300);
+}).on('mouseleave', function() {
+  clearTimeout(timer);
+  $('.wgt-navbar').removeClass('wgt-navbar-hover');
+}).on('click', 'a', function() {
+  clearTimeout(timer);
+  $('.wgt-navbar').removeClass('wgt-navbar-hover');
+});
+}();
+!function(){                var $ = require('wiki-common:widget/lib/jquery/jquery');
+                var rightCheck = require('wiki-lemma:widget/tools/rightCheck/rightCheck');
+
+                // 展现策略
+                rightCheck.editView('9800372', function(res) {
+                    if (!res.errno) {
+                        if (res.data.edit) {
+                            $('.lemmaWgt-lemmaTitle .add-subLemma').css('display', 'inline-block');
+                            $('.top-tool .add-sub-icon').css('display', 'inline-block');
+                        }
+                    } else {
+                        if ('1') {
+                            $('.lemmaWgt-lemmaTitle .add-subLemma').css('display', 'inline-block');
+                            $('.top-tool .add-sub-icon').css('display', 'inline-block');
+                        }
+                    }
+                });
+                require('wiki-lemma:widget/basicElement/addSub/addSub.js')({                    lemmaId: '9800372',                    lemmaTitle:"FP-growth",                    lemmaDesc:null,                    versionId: '140460810',                    subLemmaId: '3342544'                });
+            }();
+!function(){        var $ = require('wiki-common:widget/lib/jquery/jquery');
+        var rightCheck = require('wiki-lemma:widget/tools/rightCheck/rightCheck');
+
+        // 展现策略
+        rightCheck.editView('9800372', function(res) {
+            if (!res.errno) {
+                if (res.data.divide) {
+                    $('.top-tool .split-icon').css('display', 'block');
+                }
+            }
+        });
+    }();
+!function(){    var nslog = require('wiki-common:widget/component/nslog/nslog');
+	require.async(["wiki-lemma:widget/basicElement/collect/collect"],function(collect){
+		collect({
+            newLemmaId:"9800372",
+			lemmaId:"3342544",
+			subLemmaId:"3342544"
+		});
+	});
+}();
+!function(){    require.async(["wiki-lemma:widget/basicElement/topShare/topShare"],function(topShare){
+        topShare({
+            newLemmaId: '9800372'
+        });
+    });
+}();
+!function(){    var $ = require('wiki-common:widget/lib/jquery/jquery');
+    var rightCheck = require('wiki-lemma:widget/tools/rightCheck/rightCheck');
+    var nsLog = require('wiki-common:widget/component/nslog/nslog');
+    var Dialog = require("wiki-common:widget/ui/dialog/dialog");
+    
+    // 展现策略
+    rightCheck.editView('9800372', function(res) {
+        if (!res.errno) {
+            if (res.data.edit) {
+                $('.lemmaWgt-lemmaTitle .edit-lemma').css('display', 'inline-block');
+                // 编辑和申请本人实名验证保证同一行展示
+                if ($('.lemmaWgt-lemmaTitle .personal').length > 0) {
+                  if ($('.lemmaWgt-lemmaTitle .edit-lemma').offset().left > $('.lemmaWgt-lemmaTitle .personal').offset().left) {
+                    $('.lemmaWgt-lemmaTitle .edit-lemma').before('<br/><br/>');
+                  }
+                }
+            } else {
+                nsLog('10003104');              
+                $('.lemmaWgt-lemmaTitle .lock-lemma').show();
+                // 锁定和申请本人实名验证保证同一行展示
+                if ($('.lemmaWgt-lemmaTitle .personal').length > 0) {
+                  if ($('.lemmaWgt-lemmaTitle .lock-lemma').offset().left > $('.lemmaWgt-lemmaTitle .personal').offset().left) {
+                    $('.lemmaWgt-lemmaTitle .lock-lemma').before('<br/><br/>');
+                  }
+                }
+            }
+        } else {
+            if ('1') {
+                $('.lemmaWgt-lemmaTitle .edit-lemma').css('display', 'inline-block');
+                // 编辑和申请本人实名验证保证同一行展示
+                if ($('.lemmaWgt-lemmaTitle .personal').length > 0) {
+                  if ($('.lemmaWgt-lemmaTitle .edit-lemma').offset().left > $('.lemmaWgt-lemmaTitle .personal').offset().left) {
+                    $('.lemmaWgt-lemmaTitle .edit-lemma').before('<br/><br/>');
+                  }
+                }
+            } else {
+                nsLog('10003104');  
+                $('.lemmaWgt-lemmaTitle .lock-lemma').show();
+                // 锁定和申请本人实名验证保证同一行展示
+                if ($('.lemmaWgt-lemmaTitle .personal').length > 0) {
+                  if ($('.lemmaWgt-lemmaTitle .lock-lemma').offset().left > $('.lemmaWgt-lemmaTitle .personal').offset().left) {
+                    $('.lemmaWgt-lemmaTitle .lock-lemma').before('<br/><br/>');
+                  }
+                }
+            }
+        }
+    });
+
+    var canDiscussion = $('.j-discussion-link').length > 0 ? true : false;
+    if (canDiscussion) {
+        // 锁定跳转
+        $('body').on('click', '.lock-lemma', function () {
+            var me = $(this);
+            var content = '<div style="text-align: left;width: 528px">'
+                + '<h2 style="font-size: 20px;color: #333;line-height: 26px;margin-bottom: 20px;">' 
+                + '词条锁定，暂时无法编辑</h2>' 
+                + '<p style="font-size: 16px;color: #333;line-height: 26px;">'
+                + '亲爱的用户，词条存在争议或词条内容较完善都可能被锁定（'
+                + '<a href="/view/10812319.htm" target="_blank">查看详情</a>）。</p>'
+                + '<p style="font-size: 16px;color: #333;line-height: 26px;">'
+                + '如果你认为锁定词条内容存在问题需要修改，可进行以下操作：</p></div>';
+            new Dialog({
+                title: '编辑提示',
+                content: content,
+                btns: [
+                    {
+                        text: '<span style="font-size: 14px">参与词条讨论，反馈词条问题</span>',
+                        key: 'discussion'
+                    }
+                ],
+                onBtnClick: function(btnKey){
+                    if (btnKey === 'discussion') {
+                        window.location.href = '/planet/talk?lemmaId=9800372&category=1';
+                    }
+                }
+            }).show();
+        });
+        // 获取讨论数
+        $.get('/discussion/api/getdiscussioncount?lemmaId=9800372', function (res) {
+            if (res && res.errno === 0 && res.data.discussionCount > 0) {
+                var numText = res.data.discussionCount <= 99 ? res.data.discussionCount : '99+';
+                $('.j-discussion-link .num').text(numText).show();
+            }
+        });
+        $('.lemmaWgt-lemmaTitle .j-discussion-link').on('click', function () {
+            $(this).find('.num').remove();
+        });
+        // 讨论按钮展现量
+        nsLog(90000101, window.location.href, {
+            lemmaid: 9800372
+        });
+    }
+}();
+!function(){	require('wiki-lemma:widget/lemma_content/mainContent/basicInfo/basicInfo')();
+}();
+!function(){    var $ = require('wiki-common:widget/lib/jquery/jquery');
+    var nslog = require('wiki-common:widget/component/nslog/nslog');
+    nslog(10002701);
+    $('.lemmaWgt-lemmaCatalog a').on('click', function () {
+           nslog(10002702);
+    });
+}();
+!function(){    var $ = require('wiki-common:widget/lib/jquery/jquery');
+    var rightCheck = require('wiki-lemma:widget/tools/rightCheck/rightCheck');
+
+    // 展现策略
+    rightCheck.editView('9800372', function(res) {
+        if (!res.errno) {
+            if (res.data.edit) {
+                $('.para-title .edit-icon').css('display', 'block');
+            }
+        } else {
+            if ('1') {
+                $('.para-title .edit-icon').css('display', 'block');
+            }
+        }
+    });
+}();
+!function(){    var $ = require('wiki-common:widget/lib/jquery/jquery');
+    var rightCheck = require('wiki-lemma:widget/tools/rightCheck/rightCheck');
+
+    // 展现策略
+    rightCheck.editView('9800372', function(res) {
+        if (!res.errno) {
+            if (res.data.edit) {
+                $('.para-title .edit-icon').css('display', 'block');
+            }
+        } else {
+            if ('1') {
+                $('.para-title .edit-icon').css('display', 'block');
+            }
+        }
+    });
+}();
+!function(){    var $ = require('wiki-common:widget/lib/jquery/jquery');
+    var rightCheck = require('wiki-lemma:widget/tools/rightCheck/rightCheck');
+
+    // 展现策略
+    rightCheck.editView('9800372', function(res) {
+        if (!res.errno) {
+            if (res.data.edit) {
+                $('.para-title .edit-icon').css('display', 'block');
+            }
+        } else {
+            if ('1') {
+                $('.para-title .edit-icon').css('display', 'block');
+            }
+        }
+    });
+}();
+!function(){    var $ = require('wiki-common:widget/lib/jquery/jquery');
+    var rightCheck = require('wiki-lemma:widget/tools/rightCheck/rightCheck');
+
+    // 展现策略
+    rightCheck.editView('9800372', function(res) {
+        if (!res.errno) {
+            if (res.data.edit) {
+                $('.para-title .edit-icon').css('display', 'block');
+            }
+        } else {
+            if ('1') {
+                $('.para-title .edit-icon').css('display', 'block');
+            }
+        }
+    });
+}();
+!function(){    var $ = require('wiki-common:widget/lib/jquery/jquery');
+    var rightCheck = require('wiki-lemma:widget/tools/rightCheck/rightCheck');
+
+    // 展现策略
+    rightCheck.editView('9800372', function(res) {
+        if (!res.errno) {
+            if (res.data.edit) {
+                $('.para-title .edit-icon').css('display', 'block');
+            }
+        } else {
+            if ('1') {
+                $('.para-title .edit-icon').css('display', 'block');
+            }
+        }
+    });
+}();
+!function(){    var $ = require('wiki-common:widget/lib/jquery/jquery');
+    var rightCheck = require('wiki-lemma:widget/tools/rightCheck/rightCheck');
+
+    // 展现策略
+    rightCheck.editView('9800372', function(res) {
+        if (!res.errno) {
+            if (res.data.edit) {
+                $('.para-title .edit-icon').css('display', 'block');
+            }
+        } else {
+            if ('1') {
+                $('.para-title .edit-icon').css('display', 'block');
+            }
+        }
+    });
+}();
+!function(){	require.async(["wiki-common:widget/lib/jquery/jquery","wiki-lemma:widget/lemma_content/mainContent/albumList/albumList","wiki-common:widget/component/nslog/nslog"],function($,AlbumList,nslog){
+		var list=new AlbumList({
+			newLemmaId:"9800372",
+			lemmaTitle:"FP-growth",
+			lemmaId:"3342544",
+			subLemmaId:"3342544",
+			data:{"1376693":{"coverpic":"4a36acaf2edda3cc7f26f8d301e93901203f9206","desc":"FP-Growth\u7b97\u6cd5\u5b9e\u4f8b\u6f14\u793a\u56fe","albumTag":"","height":104,"width":250,"total":3,"coverurl":"https:\/\/gss3.bdstatic.com\/-Po3dSag_xI4khGkpoWK1HF6hhy\/baike\/s%3D235\/sign=e8076f8f510fd9f9a417526a102fd42b\/4a36acaf2edda3cc7f26f8d301e93901203f9206.jpg","toppics":[{"src":"4a36acaf2edda3cc7f26f8d301e93901203f9206","owner":"zulong198867","desc":"FP-Growth\u7b97\u6cd5\u5b9e\u4f8b\u6f14\u793a\u56fe","height":290,"width":691},{"src":"503d269759ee3d6debbbc43843166d224e4adec0","owner":"zulong198867","desc":"FP-Growth\u7b97\u6cd5\u5b9e\u4f8b\u6f14\u793a\u56fe","height":257,"width":693},{"src":"b90e7bec54e736d123d1ccfb9b504fc2d4626906","owner":"zulong198867","desc":"FP-Growth\u7b97\u6cd5\u5b9e\u4f8b\u6f14\u793a\u56fe","height":423,"width":675}]},"0":{"coverpic":"ac4bd11373f08202ff8eeec94bfbfbedab641b23","width":509,"height":633,"desc":"\u8bcd\u6761\u56fe\u7247","total":3,"coverurl":"https:\/\/gss1.bdstatic.com\/-vo3dSag_xI4khGkpoWK1HF6hhy\/baike\/s%3D235\/sign=5dfd9bc6baa1cd1101b675238c13c8b0\/ac4bd11373f08202ff8eeec94bfbfbedab641b23.jpg"}}
+		});
+		!!window.ScriptLazyLoad && window.ScriptLazyLoad.regist({
+			dom:$('.album-list'),
+			loadFunc:function(){
+				list.load();
+				nslog(1258);
+			},
+			distance:500
+		});
+	});
+}();
+!function(){		require.async(["wiki-lemma:widget/lemma_content/mainContent/lemmaReference/lemmaReference","wiki-lemma:widget/lemma_content/mainContent/lemmaReference/lemmaReferenceTip/lemmaReferenceTip"],function(Reference,ReferenceTip){
+			new Reference({
+				subLemmaId:"3342544"
+			});
+			new ReferenceTip({
+				subLemmaId:"9800372",
+				lemmaTitle:"FP-growth",
+				reference:[{"index":1,"type":"1","title":"FP-Tree\u6f14\u793a\u56fe","url":"\/reference\/9800372\/c111ZlH0XHN9qsBEUH6s2a_46wNnDmJSHHCRvOTC7XDUphNvvyQzf1EWOgGzR7KZkElfGXhmUk8La73KmpslEiFu9WVONfgHbPoVER92GtMyjrm_lLMR4wnp1YQLf3KNh5O5kbJe-p_iMfvTRxsPg8kJG5japJhbSGO7fuaEZaUDNXdsX4cpeB-DSiwew9sapQsl33L9OLRjujb9HUN4cekZOhXlI2NbnsSOBdsP2aYZLJNhkTKTQfMopjwHxT-S8KktdOE5o_cm9xbxY8KgVaN-8Cn52vpWJa9LtPW2-LYHj88N05riAW84ldH7406F3yrF_jDJgCB6DPaGrF-NGUiOsdnA2JD9fOYoFp4WCvsOw2usNcZb7NLWlleyPgCPlwqXUuvYtFTuIox6sT3Iw6DEyn2SyVuK5939r4bJpUDD-YyCK1E_KDCVz9nVSvOhKJd6R8_YZicyxIDMd44h2So5DI7EkJWOQ6CJPzdBsKymrwQP-2lQRddoVMPYE3fLmXSxizC9qhNiQZR9s-NZEkRTuuWbGeW3kr_4oWcaXMoxzzsCzCyjdycaOnDTV13QLQBuavAzF_UeOFQNBKnGPeSZ15ctbJQw9A","site":"\u767e\u5ea6\u56fe\u7247","publishDate":"","refDate":"2012-10-30"}]
+			});
+		});
+	}();
+!function(){require.async(['wiki-lemma:widget/lemma_content/mainContent/lemmaSciencePaper/lemmaSciencePaper'],function(init) {
+    init({
+        lemmaId: "9800372"
+    });
+});
+}();
+!function(){        require('wiki-lemma:widget/lemma_content/configModule/zhixin/zhixin')(
+            9800372,
+            'FP-growth'
+        );
+    }();
+!function(){    require.async(["wiki-lemma:widget/lemma_content/mainContent/lemmaStatistics/lemmaStatistics"],function(init){
+        init({
+            newLemmaIdEnc:"f1121e7f370cbefa90961ba8"
+        });
+    });
+}();
+!function(){	require.async(["wiki-lemma:widget/lemma_content/mainContent/sideCatalog/sideCatalog"],function(SideCatalog){
+		new SideCatalog();
+	});
+}();
+!function(){        require.async(["wiki-lemma:widget/promotion/fengchao/fengchao","wiki-lemma:widget/promotion/unionAd/unionAd"], function (init, unionAd) {
+            init({
+                newLemmaId: "9800372",
+                lemmaTitle: "FP-growth",
+                encodeLemmaTitle: "FP-growth",
+                adManager: null
+            }, {
+                errFn: unionAd,
+                dom: $('#side_box_unionAd')
+            });
+        });
+    }();
+!function(){        require.async(['wiki-lemma:widget/promotion/guessLike/guessLike'], function (app) {
+            app.init({
+                lemmaTitle: 'FP-growth',
+                adManager: null
+            });
+        });
+    }();
+!function(){    var $ = require('wiki-common:widget/lib/jquery/jquery');
+    var Dialog = require("wiki-common:widget/ui/dialog/dialog");
+    var userLogin = require('wiki-common:widget/component/userLogin/userLogin');
+    var unameFiller = require('wiki-common:widget/component/unameFiller/unameFiller');
+    var rightCheck = require('wiki-lemma:widget/tools/rightCheck/rightCheck');
+    var nsLog = require('wiki-common:widget/component/nslog/nslog');
+
+            var isEnterprise = false;
+        var enterpriseOwnerUserId = 0;
+    
+    var userId = 0;
+    var editUrl = '/edit/' + encodeURIComponent('FP-growth') + '/' + '9800372';
+    var pgcUrl = '/enterprise/editpgc?lemmaId=9800372';
+    var canDiscussion = $('.j-discussion-link').length > 0 ? true : false;
+
+    userLogin.regist({
+        onLogin: function(user) {
+            userId = user ? user.uid : 0;
+        }
+    });
+
+    function gotoEdit(url, isMidNight) {
+        if (isMidNight) {
+            Dialog.alert({
+                title: '编辑提示',
+                subMsg: '晚23:00至次日8:00，因审核系统例行维护，您提交的版本可能需要较长时间才能通过，望您谅解。',
+                onConfirm: function() {
+                    window.location.href = url;
+                }
+            });
+        } else {
+            window.location.href = url;
+        }    
+    }
+
+    function showChoseEditDialog(pgcCallback, ugcCallback) {
+        new Dialog({
+            title: '编辑提示',
+            subMsg: '<p>您已开通企业百科服务，推荐您直接编辑“官方资料”，官方资料仅限企业百科绑定的百科账号修改，其他用户账号不可修改。</p><p>如果您想修改其他网友编辑的普通词条内容，请注意遵守百科百科编辑规则。<p>',
+            btns: [{
+            key: 'pgc',
+            text: '编辑官方资料'
+            }, {
+            style: 'white',
+            text: '修改普通词条',
+            key: 'ugc'
+            }],
+            onBtnClick: function(btnKey){
+                if (btnKey === 'pgc') {
+                    pgcCallback && pgcCallback();
+                } else if (btnKey === 'ugc') {
+                    ugcCallback && ugcCallback();
+                }
+            }
+        }).show();
+    }
+
+    function checkUserLegal(res) {
+        var legal = false;
+        switch (res.errno) {
+            case 100001:
+                nsLog('10003106');
+                userLogin.showLoginPop();
+                break;
+            case 100006:
+                unameFiller.show();
+                break;
+            default:
+                legal = true;
+        }
+        return true;
+    }
+
+    function checkUgc(res, url) {
+        if (res.errno) {
+            switch (res.errno) {
+                case 100005:
+                    alert('对不起，您目前被封禁');
+                    break;
+                case 110001:
+                    alert('对不起，该词条被锁定');
+                    break;
+                case 110007:
+                    alert('对不起，消歧页无法编辑');
+                    break;
+                case 110005:
+                    nsLog('10003101');
+                    var content = '<div style="text-align: left;width: 490px">'
+                        + '<h2 style="font-size: 20px;color: #333;line-height: 26px;margin-top: 10px;margin-bottom: 20px;">' 
+                        + '对不起，你暂时没有权限编辑该词条</h2>' 
+                        + '<p style="font-size: 16px;color: #333;line-height: 26px;margin-bottom: 17px;">'
+                        + '亲爱的用户，该词条内容已较完善，需百科等级达到4级且通过率达85%才可编辑哦。</p>'
+                        + '<p style="font-size: 16px;color: #333">你当前百科等级为'
+                        + res.data.userInfo.level + '级、通过率'
+                        + res.data.userInfo.passRatio + '%，可进行以下操作：</p></div>';
+                    var btns = [
+                        {
+                            key: 'join',
+                            text: '<span style="font-size: 14px;text-align: center;vertical-align: middle;display: table-cell;">反馈词条问题，参与百科共建</span>'
+                        },
+                        {
+                            text: '<span style="font-size: 14px;text-align: center;vertical-align: middle;display: table-cell;">参加成长任务，提升编辑权限</span>',
+                            key: 'task'
+                        }
+                    ];
+                    if (canDiscussion) {
+                        btns = [
+                            {
+                                key: 'discussion',
+                                text: '<span style="font-size: 14px">参与词条讨论，反馈词条问题</span>'
+                            },
+                            {
+                                text: '<span style="font-size: 14px">参加成长任务，提升编辑权限</span>',
+                                key: 'task'
+                            }
+                        ];
+                    }
+                    new Dialog({
+                        title: '编辑提示',
+                        content: content,
+                        btns: btns,
+                        onBtnClick: function(btnKey){
+                            if (btnKey === 'discussion') {
+                                window.location.href = '/planet/talk?lemmaId=9800372&category=1';
+                            } else if (btnKey === 'task') {
+                                window.location.href = '/usercenter#guide';
+                            } else if (btnKey === 'join') {
+                                window.location.href = '/feedback';
+                            }
+                        }
+                    }).show();
+                    break;
+                case 110008:
+                    nsLog('10003102');
+                    var content = '<div style="text-align: left;width: 490px">'
+                        + '<h2 style="font-size: 20px;color: #333;line-height: 26px;margin-bottom: 20px;margin-top: 10px;">' 
+                        + '对不起，你暂时没有权限编辑该词条</h2>' 
+                        + '<p style="font-size: 16px;color: #333;line-height: 26px;margin-bottom: 17px;">'
+                        + '亲爱的用户，该词条内容已较完善，需百科等级达到6级且通过率达85%才可编辑哦。</p>'
+                        + '<p style="font-size: 16px;color: #333">你当前百科等级为'
+                        + res.data.userInfo.level + '级、通过率'
+                        + res.data.userInfo.passRatio + '%，可进行以下操作：</p></div>';
+                    var btns = [
+                        {
+                            key: 'join',
+                            text: '<span style="font-size: 14px;text-align: center;vertical-align: middle;display: table-cell;">反馈词条问题，参与百科共建</span>'
+                        },
+                        {
+                            text: '<span style="font-size: 14px;text-align: center;vertical-align: middle;display: table-cell;">参加成长任务，提升编辑权限</span>',
+                            key: 'task'
+                        }
+                    ];
+                    if (canDiscussion) {
+                        btns = [
+                            {
+                                key: 'discussion',
+                                text: '<span style="font-size: 14px">参与词条讨论，反馈词条问题</span>'
+                            },
+                            {
+                                text: '<span style="font-size: 14px">参加成长任务，提升编辑权限</span>',
+                                key: 'task'
+                            }
+                        ];
+                    }
+                    new Dialog({
+                        title: '编辑提示',
+                        content: content,
+                        btns: btns,
+                        onBtnClick: function(btnKey){
+                            if (btnKey === 'discussion') {
+                                window.location.href = '/planet/talk?lemmaId=9800372&category=1';
+                            } else if (btnKey === 'task') {
+                                window.location.href = '/usercenter#guide';
+                            } else if (btnKey === 'join') {
+                                window.location.href = '/feedback';
+                            }
+                        }
+                    }).show();
+                    break;
+                case 470001:
+                    alert('系统错误，请刷新重试');
+                    break;
+                case 110003:
+                    nsLog('10003103');
+                    Dialog.alert({
+                        title: '编辑提示',
+                        subMsg: '很抱歉，该词条有其他用户编辑的版本正在提交，您暂时无法编辑。<br/>百科建议您晚些时候再编辑该词条，或者尝试编辑其他的词条。'
+                    });
+                    break;
+            }
+        } else {
+            if (!res.data.right.noAudit) {
+                Dialog.alert({
+                    title: '编辑提示',
+                    subMsg: '很抱歉，该词条有其他用户编辑的版本正在提交，您暂时无法编辑。<br/>百科建议您晚些时候再编辑该词条，或者尝试编辑其他的词条。'
+                });
+                return;
+            }
+            gotoEdit(url, res.data.notice.isMidNight);
+        }
+    }
+
+    $(document.body).on('click', '.j-edit-link', function() {
+        nsLog('10003100');
+        var dl = $(this).attr('data-edit-dl');
+        if (dl) {
+            var url = editUrl + '?dl=' + dl;
+        } else {
+            var url = editUrl;
+        }
+
+        rightCheck.preeditCheck('9800372', 'FP-growth', 'FP-growth', '140460810', '', function(res) {
+            if (!checkUserLegal(res)) {
+                return;
+            }
+            if (isEnterprise && enterpriseOwnerUserId === userId) {
+                showChoseEditDialog(function() {
+                    location.href = pgcUrl;
+                }, function() {
+                    checkUgc(res, url);
+                });
+            } else {
+                checkUgc(res, url);
+            }
+        });
+    });
+}();
+!function(){  require.async(["wiki-common:widget/lib/jquery/jquery","wiki-common:widget/component/footer/footer_feedback"], function($, feedback){
+    feedback({el: '#J-bk-feedback-main',
+      proData: {
+        "extend_feedback_channel": null
+      }
+    });
+    feedback({el: '#J-bk-feedback-query', config: {
+        appid: 215645,
+        productLine: 20184,
+        needContactWay: true,
+        issuePlaceholder: '亲爱的百度百科用户，请在此填写您的质疑内容及原因哦～'
+      },
+      proData: {
+        "kw": $('#J-bk-feedback-query').data('lemma')
+      }
+    });
+  });
+}();
+!function(){    var $ = require('wiki-common:widget/lib/jquery/jquery'),
+      initSearchbar = require('wiki-common:widget/component/searchbar-n/searchbar');  
+    initSearchbar($('.wgt-searchbar-simple'));
+  }();
+!function(){    require.async(["wiki-lemma:widget/tools/searchHeader/toolButtons-n/toolButtons"],function(init){
+        init({
+            lemmaId:"3342544",
+            subLemmaId:"3342544",
+            newLemmaId:"9800372"
+        });
+    });
+}();
+!function(){    require('wiki-lemma:widget/tools/searchHeader/toolButtons-n/userInfo')();
+}();
+!function(){    var $ = require('wiki-common:widget/lib/jquery/jquery'),
+      animation = require('wiki-common:widget/util/animation'),
+      nslog = require('wiki-common:widget/component/nslog/nslog'),
+      initSearchbar = require('wiki-common:widget/component/searchbar/searchbar');
+
+    var isFadeIn = false,
+        isFadeOut = false;
+
+    var fadeInAni, fadeOutAni;
+
+    $(window).on('scroll', function(e) {
+        var scrollTop = $(this).scrollTop();
+
+        if (scrollTop > 200 && !isFadeIn && $('.lemmaWgt-searchHeader').css('display') == 'none') {
+            fadeOutAni && fadeOutAni.stop();
+            fadeInAni = animation({
+                duration: 200,
+                easing: 'linear',
+                onStart: function() {
+                    isFadeOut = false;
+                    isFadeIn = true;
+                    $('.lemmaWgt-searchHeader').css('display', 'block');
+                },
+                onStep: function(progress) {
+                    $('.lemmaWgt-searchHeader').css('opacity', progress)
+                },
+                onComplete: function(progress) {
+                    isFadeIn = false;
+                    nslog(10010007);
+                }
+            });
+        } else if (scrollTop <= 200 && !isFadeOut && $('.lemmaWgt-searchHeader').css('display') == 'block') {
+            fadeInAni && fadeInAni.stop();
+            fadeOutAni = animation({
+                duration: 300,
+                easing: 'linear',
+                onStart: function() {
+                    $('.lemmaWgt-searchHeader #suggestion').hide();
+                    isFadeIn = false;
+                    isFadeOut = true;
+                },
+                onStep: function(progress) {
+                    $('.lemmaWgt-searchHeader').css('opacity', 1 - progress);
+                },
+                onComplete: function(progress) {
+                    isFadeOut = false;
+                    $('.lemmaWgt-searchHeader').css('display', 'none');
+                }
+            });
+        }
+    });
+}();
+!function(){    require.async(['wiki-lemma:widget/tools/newSideShare/qzopensl']);
+    require.async(["wiki-lemma:widget/tools/newSideShare/taskSideShare"],function(taskShare){
+        taskShare.init({
+            title: 'FP-growth',
+            desc: "FP-Growth\u7b97\u6cd5\u662f\u97e9\u5609\u709c\u7b49\u4eba\u57282000\u5e74\u63d0\u51fa\u7684\u5173\u8054\u5206\u6790\u7b97\u6cd5\uff0c\u5b83\u91c7\u53d6\u5982\u4e0b\u5206\u6cbb\u7b56\u7565\uff1a\u5c06\u63d0\u4f9b\u9891\u7e41\u9879\u96c6\u7684\u6570\u636e\u5e93\u538b\u7f29\u5230\u4e00\u68f5\u9891\u7e41\u6a21\u5f0f\u6811\uff08FP-tree\uff09\uff0c\u4f46\u4ecd\u4fdd\u7559\u9879\u96c6\u5173\u8054\u4fe1\u606f\u3002\u5728\u7b97\u6cd5\u4e2d\u4f7f\u7528\u4e86\u4e00\u79cd\u79f0\u4e3a\u9891\u7e41\u6a21\u5f0f\u6811\uff08Frequent Pattern Tree\uff09\u7684\u6570\u636e\u7ed3\u6784\u3002FP-tree\u662f\u4e00\u79cd\u7279\u6b8a\u7684\u524d\u7f00\u6811\uff0c\u7531\u9891\u7e41\u9879\u5934\u8868\u548c\u9879\u524d\u7f00\u6811\u6784\u6210\u3002FP-Growth\u7b97\u6cd5\u57fa\u4e8e\u4ee5\u4e0a\u7684\u7ed3\u6784\u52a0\u5feb\u6574\u4e2a\u6316\u6398\u8fc7\u7a0b\u3002",
+            pic: 'https:\/\/gss1.bdstatic.com\/-vo3dSag_xI4khGkpoWK1HF6hhy\/baike\/w%3D268\/sign=6ddd8908c3fdfc03e578e4beec3e87a9\/ac4bd11373f08202ff8eeec94bfbfbedab641b23.jpg',
+            url: '',
+            qqPic: 'https:\/\/gss1.bdstatic.com\/-vo3dSag_xI4khGkpoWK1HF6hhy\/baike\/whfpf%3D509%2C509%2C0\/sign=72eb310d0a46f21fc9610d1390195e50\/ac4bd11373f08202ff8eeec94bfbfbedab641b23.jpg',
+            newLemmaId: '9800372',
+            lemmaTitle: 'FP-growth'
+        });
+    });
+}();
+!function(){    var $ = require('wiki-common:widget/lib/jquery/jquery');
+    var nslog = require("wiki-common:widget/component/nslog/nslog");
+    var testElem = require('wiki-common:widget/component/testElem/testElem');
+    var cmsModuleLoader = require('wiki-common:widget/component/cmsModuleLoader/cmsModuleLoader');
+
+    function requireAsync() {
+        require.async(['wiki-lemma:widget/tools/announcement/announcement']);
+    }
+
+    cmsModuleLoader('/api/wikiui/getlemmaconfig', [{
+        name: 'announcement',
+        script: 'wiki-lemma:widget/tools/announcement/announcement.js'
+    }]);
+
+    require.async(["wiki-lemma:widget/tools/lazyLoad/lazyLoad"], function(LazyLoad) {
+        new LazyLoad();
+    });
+
+    require.async(['wiki-common:widget/component/nslog/nslog','wiki-common:widget/lib/jquery/jquery'], function(nslog, $) {
+        nslog().setGlobal({
+            lemmaId: "3342544",
+            newLemmaId: "9800372",
+            subLemmaId: "3342544",
+            lemmaTitle: "FP-growth"
+        });
+
+        // 词条页 pv
+        nslog(9322);
+
+        // 新版头部pv（小流量）
+        if ($('.pc-header-new').length > 0) {
+            nslog(9069);
+        }
+
+        // 链接点击 pv
+        var lemmaPageRegExp = new RegExp(/\/subview\/\d+|\/view\/\d+|\/item\//i);
+        $('body').on('mousedown', 'a', function() {
+            var href = $(this).attr('href');
+            if (href && href.indexOf('/') >= 0 && href.indexOf('#') !== 0) {
+                // 链接点击 pv
+                nslog(10000001);
+                if (lemmaPageRegExp.test(href)) {
+                    // 词条页链接点击 pv
+                    nslog(10000002, window.location.href, {
+                        targetTitle: $(this).text()
+                    });
+                }
+            }
+        });
+
+        /****** 词条页站内流转需求统计 start ******/
+        (function () {
+            // 各种统计配置
+            var circulationLinkCfg = {
+                innerLink: [ // 内链
+                    '.para',
+                    '.lemmaWgt-baseInfo-simple-largeMovie',
+                    '.lemmaWgt-baseInfo-simple-largeStar',
+                    '.basic-info .basicInfo-block',
+                    '.lemma-summary',
+                    '.lemmaWgt-lemmaSummary',
+                    '.view-tip-panel',
+                    '.horizontal-module',
+                    '.lemmaWgt-roleIntroduction',
+                    '.dramaSeries .dramaSerialList',
+                    '.module-music',
+                    '.table-view',
+                    '[log-set-param="table_view"]',
+                    '.list-module',
+                    '.cell-module',
+                    '.baseBox .dl-baseinfo', // 配置后台字段
+                    '.pvBtn-box .leadPVBtnWrapper',
+                    '.drama-actor',
+                    '#staffList',
+                    '.starMovieAndTvplay',
+                    '.main_tab:not(.main_tab-defaultTab)' // 除去词条tab外的tab
+                ],
+                relationTable: '.rs-container-foot', // 关系表
+                peopleRelation: '.star-info-block.relations, .lemmaWgt-focusAndRelation', // 人物关系（明星+普通）
+                moduleActors: '.featureBaseInfo .actors, .lemmaWgt-majorActors', // 主要演员、嘉宾、主持人
+                moduleWorks: '.featureBaseInfo .works, .large-feature .works', // 代表作品
+                moduleQuarterly: '.featureBaseInfo .po_quarterly, .mian_quarterly', // 分季介绍
+                rankStar: '.rank-list.stars-rank', // 明星榜
+                rankDrama: '.drama-rank-list', // 电视剧榜
+                specialTopic: '.special-topic', // 专题模块
+                modDetailTable: '#modDetailTable', // 关系表出图
+                chuizhitu: '.chuizhitu', // 垂直化模块
+                polysemantList: '.polysemantList-wrapper' // 义项切换
+            };
+            /****** 连接统计 ******/
+            function clickNslogFn() {
+                for (var k in circulationLinkCfg) {
+                    if (k === 'innerLink') {
+                        // 词条内链到词条页
+                        var tempArr = circulationLinkCfg[k];
+                        for (var i = 0, l = tempArr.length; i < l; i++) {
+                            tempArr[i] += ' a';
+                        }
+                        var sSelector = tempArr.join(', ');
+
+                        $('body').on('mousedown', sSelector, {key: k},function(e) {
+                            var key = e.data.key;
+                            var href = $(this).attr('href');
+                            var tar = $(this).attr('target') || '';
+                            if (href && href.indexOf('/') >= 0 && href.indexOf('#') !== 0
+                            && tar === '_blank' && lemmaPageRegExp.test(href)) {
+                                // 词条页普通内链点击 pv
+                                nslog(10000004, null ,{division: key});
+                            }
+                        });
+                    } else {
+                        // 模块到词条页链接
+                        $(circulationLinkCfg[k]).on('mousedown', 'a', {key: k}, function (e) {
+                            var key = e.data.key;
+                            var href = $(this).attr('href');
+                            if (href && href.indexOf('#') !== 0 && lemmaPageRegExp.test(href)) {
+                                // 词条页配置模块链接点击 pv
+                                nslog(10000004, null, {division: key});
+                            }
+                        });
+                    }
+                }
+            }
+            // 发起统计请求
+            clickNslogFn();
+
+            /****** 各模块展现量pv ******/
+            function checkModuleIsShow() {
+                var result = [];
+                for (var k in circulationLinkCfg) {
+                    if (k !== 'innerLink' && k !== 'relationTable') {
+                        !!$(circulationLinkCfg[k]).html() && result.push(k);
+                    }
+                }
+                if (result.length > 0) {
+                    nslog(10000005, null, {showModules: result.join(',')});
+                }
+            }
+            checkModuleIsShow();
+
+        })();
+        /****** 词条页站内流转需求统计 end ******/
+
+    });
+
+    // 广告接入 wikiad 统一加载
+    // log 词条页广告被拦截情况（此处 log 请求行为）
+    nslog(70000101, window.location.href, {
+        api: 'lemma-ad',
+        action: 'request'
+    });
+    var tags = [];
+    var tagsArray = [];
+    for (var key in tags) {
+        tagsArray.push(tags[key].tagName);
+    }
+    $.ajax({
+        type: 'GET',
+        url: '/api/wikiad/getsquirrels',
+        data: {
+            lemmaId: 9800372,
+            tags: tagsArray.join()
+        },
+        cache: false,
+        dataType: 'JSON',
+        success: function (res) {
+            // log 词条页广告被拦截情况（此处 log 请求成功）
+            nslog(70000101, window.location.href, {
+                api: 'lemma-ad',
+                action: 'success'
+            });
+
+            if (!res.errno) {
+                if (res.data[5]) {
+                                        require.async(['wiki-lemma:widget/promotion/rightPreciseAd/rightPreciseAd'], function(rightPreciseAd) {
+                        rightPreciseAd(res.data[5]);
+                        nslog(10002201, location.href, {
+                            adId: res.data[5][0].adId,
+                            adTitle: res.data[5][0].name,
+                            adPos: 5
+                        });
+                    });
+                                    } else if (res.data[1]) {
+                    // 缅怀类词条屏蔽词条页v百科
+                                        require.async(['wiki-lemma:widget/promotion/vbaike/vbaike'], function(vbaike) {
+                        vbaike(res.data[1]);
+                        for(var i in res.data[1]) {
+                            nslog(10002201, location.href, {
+                                adId: res.data[1][i].adId,
+                                adTitle: res.data[1][i].name,
+                                adPos: 1
+                            });
+                        }
+                    });
+                                    }
+                // 缅怀类词条屏蔽广告
+                                if (res.data[9]) {
+                    require.async(['wiki-lemma:widget/promotion/rightBigAd/rightBigAd'], function(rightBigAd) {
+                        rightBigAd(res.data[9]);
+                            nslog(10002201, location.href, {
+                                adId: res.data[9][0].adId,
+                                adTitle: res.data[9][0].name,
+                                adPos: 9
+                            });
+                    });
+                } else if(res.data[2]) {
+                    // 词条页轮播
+                                        require.async(['wiki-lemma:widget/promotion/slide/slide'], function(slide) {
+                        slide(res.data[2]);
+                        for(var i in res.data[2]) {
+                            nslog(10002201, location.href, {
+                                adId: res.data[2][i].adId,
+                                adTitle: res.data[2][i].name,
+                                adPos: 2
+                            });
+                        }
+                    });
+                                    }
+                // 词条页右上
+                if (res.data[3]) {
+                                        require.async(['wiki-lemma:widget/promotion/topAd/topAd'], function(topAd) {
+                        topAd(res.data[3]);
+                        nslog(10002201, location.href, {
+                            adId: res.data[3][0].adId,
+                            adTitle: res.data[3][0].name,
+                            adPos: 3
+                        });
+                    });
+                                    }
+                // 词条页悬浮
+                if (res.data[4]) {
+                                        require.async(['wiki-lemma:widget/promotion/rightAd/rightAd'], function(rightAd) {
+                        rightAd(res.data[4]);
+                        nslog(10002201, location.href, {
+                            adId: res.data[4][0].adId,
+                            adTitle: res.data[4][0].name,
+                            adPos: 4
+                        });
+                    });
+                                    }
+                                if (res.data[15]) {
+                    require.async(['wiki-lemma:widget/promotion/banner/banner'], function(banner) {
+                        banner(res.data[15]);
+                        nslog(10002201, location.href, {
+                            adId: res.data[15][0].adId,
+                            adTitle: res.data[15][0].name,
+                            adPos: 15
+                        });
+                    });
+                }
+                if (res.data[16]) {
+                    require.async(['wiki-lemma:widget/promotion/declaration/declaration'], function(declaration) {
+                        declaration(res.data[16]);
+                        nslog(10002201, location.href, {
+                            adId: res.data[16][0].adId,
+                            adTitle: res.data[16][0].name,
+                            adPos: 16
+                        });
+                    })
+                }
+            } else {
+                return;
+            }
+
+            setTimeout(function () {
+                var elemArr = {};
+                res.data[1] && res.data[1].length > 0 && (elemArr['lemma-vbaike-ad'] = $('.lemmaWgt-promotion-vbaike .promotion_viewport a:eq(0) img').get(0));
+                res.data[2] && res.data[2].length > 0 && (elemArr['lemma-slide-ad'] = $('.lemmaWgt-promotion-slide .promotion_viewport a:eq(0) img').get(0));
+                res.data[3] && res.data[3].length > 0 && (elemArr['lemma-navbar-ad'] = {
+                    node: $('.header [nslog-type="10002202"]').get(0),
+                    validations: {
+                        'noBackgroundImage': function() {
+                            return $('.header [nslog-type="10002202"]').css('background-image').indexOf(res.data[3][0].picUrl) < 0
+                        }
+                    }
+                });
+                res.data[4] && res.data[4].length > 0 && (elemArr['lemma-side-ad'] = {
+                    node: $('.right-ad img').get(0),
+                    validations: {
+                        'noBackgroundImage': function() {
+                            return $('.right-ad img').attr('src').indexOf(res.data[4][0].picUrl) < 0
+                        }
+                    }
+                });
+                res.data[15] && res.data[15].length > 0 && (elemArr['lemma-configModule-banner'] = $('.configModuleBanner').get(0));
+                res.data[16] && res.data[16].length > 0 && (elemArr['lemma-configModule-declaration'] = $('.lemmaWgt-declaration').get(0));
+
+                testElem.log(elemArr, 70000102);
+            }, 1000);
+        },
+        error: function () {
+            // log 词条页广告被拦截情况（此处 log 请求失败）
+            nslog(70000101, window.location.href, {
+                api: 'lemma-ad',
+                action: 'error'
+            });
+        }
+    });
+
+    // 设置分享内容
+    window.BKShare.setCommon({
+        bdText: "\u3010FP-growth_\u767e\u5ea6\u767e\u79d1\u3011FP-Growth\u7b97\u6cd5\u662f\u97e9\u5609\u709c\u7b49\u4eba\u57282000\u5e74\u63d0\u51fa\u7684\u5173\u8054\u5206\u6790\u7b97\u6cd5\uff0c\u5b83\u91c7\u53d6\u5982\u4e0b\u5206\u6cbb\u7b56\u7565\uff1a\u5c06\u63d0\u4f9b\u9891\u7e41\u9879\u96c6\u7684\u6570\u636e\u5e93\u538b\u7f29\u5230\u4e00\u68f5\u9891\u7e41\u6a21\u5f0f\u6811\uff08FP-tree\uff09\uff0c\u4f46\u4ecd\u4fdd\u7559\u9879\u96c6\u5173\u8054\u4fe1\u606f\u3002\u5728\u7b97\u6cd5\u4e2d\u4f7f\u7528\u4e86\u4e00\u79cd\u79f0\u4e3a\u9891\u7e41\u6a21\u5f0f\u6811\uff08Frequent Pattern Tree\uff09\u7684\u6570\u636e\u7ed3\u6784\u3002FP-tree\u662f\u4e00\u79cd\u7279\u6b8a\u7684\u524d\u7f00\u6811\uff0c\u7531\u9891\u7e41\u9879\u5934\u8868\u548c\u9879\u524d\u7f00\u6811\u6784\u6210\u3002FP-Growth\u7b97\u6cd5\u57fa\u4e8e\u4ee5\u4e0a\u7684\u7ed3\u6784\u52a0\u5feb\u6574\u4e2a\u6316\u6398\u8fc7\u7a0b\u3002.....\uff08\u5206\u4eab\u81ea@\u767e\u5ea6\u767e\u79d1\uff09",
+        bdDesc: '',
+        bdUrl: 'http:\/\/baike.baidu.com\/item\/FP-growth\/9800372',
+        bdPic: '',
+        onBeforeClick: function (){
+            $('.bdshare_dialog_box').hide();
+        }
+    });
+
+    // 底部投诉带入当前页面 url
+    var map = [1, 2, 6, 5];
+    $('.wgt-footer-main .suggestion').find('a').each(function(i) {
+        $(this).attr('href', 'http://help.baidu.com/newadd?word=FP-growth' + '&&submit_link=' + encodeURIComponent(window.location.href) + '&prod_id=10&category=' + map[i]);
+    });
+
+    // 为超出预设内容的表格添加table-responsive控制
+    $('.main-content').find('table').each(function(index) {
+        var $that = $(this);
+        if ($that.width() > 790) {
+            $that.wrap('<div class="table-responsive"></div>');
+        }
+    });
+}();
+!function(){      require('wiki-common:widget/component/psLink/psLink');
+    }();</script><div class="wgt_overlay" style="opacity: 0; position: fixed;"></div><dl class="wgt_dialog modal add-sub-dialog" style="display: none;">
+<dt>添加义项描述<a href="https://baike.baidu.com/view/10811633.htm" target="_blank">义项命名规则</a></dt>
+<dd class="close dialog-btn" title="关闭" btn-key="close"><em class="cmn-icon cmn-icons cmn-icons_close"></em></dd>
+<dd class="con no-icon no-sub-msg">
+<div class="add-sub">                          <div class="content-inner">                              <div class="tip">您需要给原有的义项和新增加的义项都写一个“义项描述”，让读者能分清楚同名的两个事物。</div>                              <div class="example">                                  <div class="example-tit">示例</div>                                  <div class="example-show">                                      <ul>                                          <li class="show-li clearfix"><div class="tit">词条名</div><div class="content">环太平洋</div></li>                                          <li class="show-li clearfix"><div class="tit">原有义项描述</div><div class="content">地理区域</div></li>                                          <li class="show-li clearfix"><div class="tit">新增义项描述</div><div class="content">2013年美国科幻电影</div></li>                                      </ul>                                  </div>                              </div>                              <form action="https://baike.baidu.com/createsub/FP-growth" method="get">                                  <div class="form-item name-lemma clearfix"><label for="">词条名</label><input type="text" value="FP-growth" disabled="disabled"></div>                                  <div class="form-item clearfix"><label for="">原有义项描述(不大于20字)</label><input type="text" value="" name="ori_desc"></div>                                  <div class="form-item clearfix"><label for="">新增义项描述(不大于20字)</label><input type="text" value="" name="desc"></div>                                  <div class="form-item form-notice"><strong>[注意]</strong>如果原义项中已经罗列了多个义项的内容，那么建议您不要直接添加义项，而是<a href="http://tieba.baidu.com/p/4152042379" target="_blank">报告未拆分多义词。</a></div>                                  <div class="add-sub-main-footer"><input type="submit" class="add-sub-main-button add-sub-main-accept" value="确定"><span class="add-sub-main-button add-sub-main-cancel">取消</span></div>                              </form>                          </div>                      </div>
+</dd>
+</dl>
+<script type="text/javascript">
+  var Hunter = window.Hunter || {};
+  Hunter.userConfig = Hunter.userConfig || [];
+  </script>
+<script type="text/javascript" src="./FP-growth_百度百科_files/baike.js" defer=""></script><script type="text/javascript">
+  // DOM Ready时，统计用户可操作时间。
+  alog('speed.set', 'drt', +new Date);
+
+  void function(a,b,c,d,e,f){function g(b){a.attachEvent?a.attachEvent("onload",b,!1):a.addEventListener&&a.addEventListener("load",b)}function h(a,c,d){d=d||15;var e=new Date;e.setTime((new Date).getTime()+1e3*d),b.cookie=a+"="+escape(c)+";path=/;expires="+e.toGMTString()}function i(a){var c=b.cookie.match(new RegExp("(^| )"+a+"=([^;]*)(;|$)"));return null!=c?unescape(c[2]):null}function j(){var a=i("PMS_JT");if(a){h("PMS_JT","",-1);try{a=a.match(/{["']s["']:(\d+),["']r["']:["']([\s\S]+)["']}/),a=a&&a[1]&&a[2]?{s:parseInt(a[1]),r:a[2]}:{}}catch(c){a={}}a.r&&b.referrer.replace(/#.*/,"")!=a.r||alog("speed.set","wt",a.s)}}if(a.alogObjectConfig){var k=a.alogObjectConfig.sample,l=a.alogObjectConfig.rand;d="https:"===a.location.protocol?"https://fex.bdstatic.com"+d:"http://fex.bdstatic.com"+d,k&&l&&l>k||(g(function(){alog("speed.set","lt",+new Date),e=b.createElement(c),e.async=!0,e.src=d+"?v="+~(new Date/864e5)+~(new Date/864e5),f=b.getElementsByTagName(c)[0],f.parentNode.insertBefore(e,f)}),j())}}(window,document,"script","/hunter/alog/dp.min.js");
+</script>
+
+<div class="wgt_bubble wgt-bubble-userMenu" style="display: none;"><ul>
+<li><a href="https://baike.baidu.com/usercenter/tasks#mine" target="_blank">我的任务</a></li>
+<li><a href="https://baike.baidu.com/usercenter/lemmas" target="_blank">我的词条</a></li>
+<li><a href="https://baike.baidu.com/usercenter/discussion" target="_blank">我的讨论</a></li>
+<li><a href="https://baike.baidu.com/usercenter/userpage?uname=%E9%B9%BF%E8%BD%BB%E9%A2%BA&amp;from=userbar" target="_blank">我的主页</a></li>
+<li class="bottom logout"><a data-action="logout" href="javascript:;">退出</a></li>
+</ul><em class="tail"></em></div><div class="wgt_bubble wgt-bubble-setMenu" style="display: none;"><ul>
+<li class="top"><a href="https://passport.baidu.com/center" target="_blank">账号设置</a></li>
+<li><a href="https://baike.baidu.com/usercenter/settings#profile" target="_blank">资料设置</a></li>
+<li><a href="https://baike.baidu.com/usercenter/settings#message" target="_blank">消息设置</a></li>
+<li class="bottom logout"><a data-action="logout" href="javascript:;">退出</a></li>
+</ul><em class="tail"></em></div><div class="wgt_bubble wgt-bubble-userMsg" style="display: none;"><ul>
+<li class="top">
+<a href="https://baike.baidu.com/wikimessage/msghome#/notify" target="_blank">
+<span class="userMsgType">通知</span></a>
+</li>
+<li class="bottom">
+<a href="https://baike.baidu.com/wikimessage/msghome#/private" target="_blank">
+<span class="userMsgType">私信</span></a>
+</li>
+</ul><em class="tail"></em></div><div class="reference-tip J-referenceTip"><table><tbody><tr><td class="content"></td><td class="title" valign="middle">参考资料</td></tr></tbody></table><em class="triangle-bg"></em><em class="triangle-border"></em></div></body></html>

@@ -1,0 +1,15 @@
+#cnblogs_post_body h1 {
+  background: #169fe6;
+  color: #FFFFFF;
+}
+
+#copyright_information {
+  background: #169fe6;
+  color: #FFFFFF;
+}
+
+#copyright_information a {
+  text-decoration: none;
+  background: inherit;
+  color: inherit;
+}
