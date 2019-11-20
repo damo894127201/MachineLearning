@@ -112,6 +112,10 @@ def SVD(matrix,rank=2):
     m,n = matrix.shape
     # 求 A^T * A 的特征值和特征向量
     feature_value,feature_vector = np.linalg.eigh(matrix.T.dot(matrix)) # 特征值是按照升序排列的
+    '''
+    np.linalg.eigh 用于特征值分解时，适用于对称阵，因为A^T*A是对称阵，并且返回的特征值是严格按照升序排列的
+    np.linalg.eig  用于特征值分解时，适用于所有方阵，返回的特征值排序不太严格
+    '''
     # 将特征值和其对应的特征向量，按照特征值的大小降序排列
     feature_value,feature_vector = feature_value[::-1],feature_vector[::-1]
 

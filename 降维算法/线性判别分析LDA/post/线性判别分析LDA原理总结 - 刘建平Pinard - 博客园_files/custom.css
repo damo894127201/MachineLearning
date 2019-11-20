@@ -1,0 +1,22 @@
+#mainContent {
+    background: #cfe8cb;
+}
+#main {
+    background: #cfe8cb;
+}
+
+.git-link {
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    right: 0;
+    border: 0;
+    height: 149px;
+    width: 149px;
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    background-image: url(//images2015.cnblogs.com/blog/459873/201603/459873-20160317090540131-1089895320.png);
+}

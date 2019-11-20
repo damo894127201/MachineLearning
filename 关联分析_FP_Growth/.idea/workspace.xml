@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3ba38c89-9fa0-4cb6-8766-75e9c83674e0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/FPGrowth_FreqItems.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/FPGrowth_LCSTS.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/FPGrowth_Rule.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/FPTreeNode.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/process_lcsts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../关联分析_Apriori/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../关联分析_Apriori/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../关联分析_Apriori/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../关联分析_Apriori/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../关联分析_Apriori/image/apriori.jpg" beforeDir="false" />
-    </list>
+    <list default="true" id="3ba38c89-9fa0-4cb6-8766-75e9c83674e0" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,7 +9,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -44,7 +35,7 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="630" />
-    <option name="y" value="102" />
+    <option name="y" value="101" />
     <option name="width" value="1810" />
     <option name="height" value="780" />
   </component>
@@ -74,7 +65,8 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../关联分析_Apriori" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../降维算法/线性判别分析LDA" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
